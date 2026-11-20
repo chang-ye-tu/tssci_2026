@@ -1,0 +1,5 @@
+# recomputed by reproduce.sh
+/results_trend/
+/results_cause/
+/manuscript/
+__pycache__/

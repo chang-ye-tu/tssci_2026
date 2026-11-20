@@ -1,0 +1,1217 @@
+sex,model,origin,horizon,measure,error
+Female,"APC, 30 years",2005,5,e,0.4159065504652446
+Female,"APC, 30 years",2005,5,q25,0.852178696023131
+Female,"APC, 30 years",2005,5,q50,0.46530619068553847
+Female,"APC, 30 years",2005,5,q75,0.15370890366860124
+Female,"APC, 30 years",2005,5,log rate 30-49,-0.009827351672598785
+Female,"APC, 30 years",2005,5,log rate 50-64,-0.07962181730800001
+Female,"APC, 30 years",2005,5,log rate 65-79,-0.09023075146997299
+Female,"APC, 30 years",2005,5,log rate 80+,0.007366539277398452
+Female,"Lee-Carter, 17 years",2005,5,e,0.41636094918057864
+Female,"Lee-Carter, 17 years",2005,5,q25,0.6195398371823444
+Female,"Lee-Carter, 17 years",2005,5,q50,0.30415892794353283
+Female,"Lee-Carter, 17 years",2005,5,q75,0.31819103387074676
+Female,"Lee-Carter, 17 years",2005,5,log rate 30-49,-0.005556073294121557
+Female,"Lee-Carter, 17 years",2005,5,log rate 50-64,-0.0697831063623711
+Female,"Lee-Carter, 17 years",2005,5,log rate 65-79,-0.05970315573194666
+Female,"Lee-Carter, 17 years",2005,5,log rate 80+,-0.031990320494890374
+Female,"Lee-Carter, 30 years",2005,5,e,0.5817578280389313
+Female,"Lee-Carter, 30 years",2005,5,q25,0.760480006555639
+Female,"Lee-Carter, 30 years",2005,5,q50,0.557664503131079
+Female,"Lee-Carter, 30 years",2005,5,q75,0.5531787509627293
+Female,"Lee-Carter, 30 years",2005,5,log rate 30-49,-0.0014239504265622551
+Female,"Lee-Carter, 30 years",2005,5,log rate 50-64,-0.06206800980238357
+Female,"Lee-Carter, 30 years",2005,5,log rate 65-79,-0.0871230098552183
+Female,"Lee-Carter, 30 years",2005,5,log rate 80+,-0.056561696492294304
+Female,"Lee-Carter, 10 years",2005,5,e,0.24697036835969755
+Female,"Lee-Carter, 10 years",2005,5,q25,0.512094158928349
+Female,"Lee-Carter, 10 years",2005,5,q50,0.16151767498561753
+Female,"Lee-Carter, 10 years",2005,5,q75,0.07525246693039378
+Female,"Lee-Carter, 10 years",2005,5,log rate 30-49,0.007429385521121295
+Female,"Lee-Carter, 10 years",2005,5,log rate 50-64,-0.03470464666240029
+Female,"Lee-Carter, 10 years",2005,5,log rate 65-79,-0.05364817433476007
+Female,"Lee-Carter, 10 years",2005,5,log rate 80+,-0.008187540631009486
+Female,"APC, 30 years",2005,6,e,0.2376407017181208
+Female,"APC, 30 years",2005,6,q25,0.7161587786205672
+Female,"APC, 30 years",2005,6,q50,0.3154982417418637
+Female,"APC, 30 years",2005,6,q75,-0.06449391132001381
+Female,"APC, 30 years",2005,6,log rate 30-49,-0.018824183058229443
+Female,"APC, 30 years",2005,6,log rate 50-64,-0.0752354840201641
+Female,"APC, 30 years",2005,6,log rate 65-79,-0.06989949471617353
+Female,"APC, 30 years",2005,6,log rate 80+,0.037524352634045036
+Female,"Lee-Carter, 17 years",2005,6,e,0.2362938759519082
+Female,"Lee-Carter, 17 years",2005,6,q25,0.4253512648042346
+Female,"Lee-Carter, 17 years",2005,6,q50,0.1395277007032405
+Female,"Lee-Carter, 17 years",2005,6,q75,0.13280814221069193
+Female,"Lee-Carter, 17 years",2005,6,log rate 30-49,-0.014816149887837226
+Female,"Lee-Carter, 17 years",2005,6,log rate 50-64,-0.057644191822111245
+Female,"Lee-Carter, 17 years",2005,6,log rate 65-79,-0.03483250406584911
+Female,"Lee-Carter, 17 years",2005,6,log rate 80+,-0.008379229721835971
+Female,"Lee-Carter, 30 years",2005,6,e,0.4364190786897524
+Female,"Lee-Carter, 30 years",2005,6,q25,0.610152524758945
+Female,"Lee-Carter, 30 years",2005,6,q50,0.4277065332446597
+Female,"Lee-Carter, 30 years",2005,6,q75,0.39779959732089765
+Female,"Lee-Carter, 30 years",2005,6,log rate 30-49,-0.01073816581557228
+Female,"Lee-Carter, 30 years",2005,6,log rate 50-64,-0.04946279298634173
+Female,"Lee-Carter, 30 years",2005,6,log rate 65-79,-0.06769707953790158
+Female,"Lee-Carter, 30 years",2005,6,log rate 80+,-0.03755833315861605
+Female,"Lee-Carter, 10 years",2005,6,e,0.03486433023456925
+Female,"Lee-Carter, 10 years",2005,6,q25,0.305784416406226
+Female,"Lee-Carter, 10 years",2005,6,q50,-0.033296592026729854
+Female,"Lee-Carter, 10 years",2005,6,q75,-0.14759143665145302
+Female,"Lee-Carter, 10 years",2005,6,log rate 30-49,0.000608271254771489
+Female,"Lee-Carter, 10 years",2005,6,log rate 50-64,-0.01618972394780161
+Female,"Lee-Carter, 10 years",2005,6,log rate 65-79,-0.027199796740426187
+Female,"Lee-Carter, 10 years",2005,6,log rate 80+,0.019748443822188082
+Female,"APC, 30 years",2006,5,e,-0.3428585204344543
+Female,"APC, 30 years",2006,5,q25,0.09405507808664026
+Female,"APC, 30 years",2006,5,q50,-0.23461487139186943
+Female,"APC, 30 years",2006,5,q75,-0.676601161547822
+Female,"APC, 30 years",2006,5,log rate 30-49,0.014018845152497362
+Female,"APC, 30 years",2006,5,log rate 50-64,-0.021719444248854282
+Female,"APC, 30 years",2006,5,log rate 65-79,-0.003726276001068044
+Female,"APC, 30 years",2006,5,log rate 80+,0.1031275327333955
+Female,"Lee-Carter, 17 years",2006,5,e,-0.36645820587052214
+Female,"Lee-Carter, 17 years",2006,5,q25,-0.220504132800869
+Female,"Lee-Carter, 17 years",2006,5,q50,-0.4564364217973633
+Female,"Lee-Carter, 17 years",2006,5,q75,-0.5141705349079757
+Female,"Lee-Carter, 17 years",2006,5,log rate 30-49,0.012978395050378195
+Female,"Lee-Carter, 17 years",2006,5,log rate 50-64,-0.002361671711344329
+Female,"Lee-Carter, 17 years",2006,5,log rate 65-79,0.0341681853812611
+Female,"Lee-Carter, 17 years",2006,5,log rate 80+,0.06594454233110544
+Female,"Lee-Carter, 30 years",2006,5,e,-0.1303599195736922
+Female,"Lee-Carter, 30 years",2006,5,q25,-0.018289816323630248
+Female,"Lee-Carter, 30 years",2006,5,q50,-0.12922153334952213
+Female,"Lee-Carter, 30 years",2006,5,q75,-0.18646956562207606
+Female,"Lee-Carter, 30 years",2006,5,log rate 30-49,0.017468533477594445
+Female,"Lee-Carter, 30 years",2006,5,log rate 50-64,0.0033847465152419417
+Female,"Lee-Carter, 30 years",2006,5,log rate 65-79,0.001111353516767942
+Female,"Lee-Carter, 30 years",2006,5,log rate 80+,0.028158966648066348
+Female,"Lee-Carter, 10 years",2006,5,e,-0.5440545608318388
+Female,"Lee-Carter, 10 years",2006,5,q25,-0.2825058115503367
+Female,"Lee-Carter, 10 years",2006,5,q50,-0.589502148061797
+Female,"Lee-Carter, 10 years",2006,5,q75,-0.8498894891032336
+Female,"Lee-Carter, 10 years",2006,5,log rate 30-49,0.015041602296888928
+Female,"Lee-Carter, 10 years",2006,5,log rate 50-64,0.02343483060232206
+Female,"Lee-Carter, 10 years",2006,5,log rate 65-79,0.0367499752217317
+Female,"Lee-Carter, 10 years",2006,5,log rate 80+,0.10298978177832196
+Female,"APC, 30 years",2006,6,e,-0.4463641926777484
+Female,"APC, 30 years",2006,6,q25,0.022725630065139057
+Female,"APC, 30 years",2006,6,q50,-0.29400879402493274
+Female,"APC, 30 years",2006,6,q75,-0.7410637498578012
+Female,"APC, 30 years",2006,6,log rate 30-49,0.06895913889500285
+Female,"APC, 30 years",2006,6,log rate 50-64,-0.02134237876481688
+Female,"APC, 30 years",2006,6,log rate 65-79,0.009674922341844552
+Female,"APC, 30 years",2006,6,log rate 80+,0.10869475113767058
+Female,"Lee-Carter, 17 years",2006,6,e,-0.4725590601325109
+Female,"Lee-Carter, 17 years",2006,6,q25,-0.37144207475540725
+Female,"Lee-Carter, 17 years",2006,6,q50,-0.5624846707243734
+Female,"Lee-Carter, 17 years",2006,6,q75,-0.542735006776752
+Female,"Lee-Carter, 17 years",2006,6,log rate 30-49,0.06738747675217659
+Female,"Lee-Carter, 17 years",2006,6,log rate 50-64,0.0020650253718745054
+Female,"Lee-Carter, 17 years",2006,6,log rate 65-79,0.054064250729131985
+Female,"Lee-Carter, 17 years",2006,6,log rate 80+,0.06699162567558865
+Female,"Lee-Carter, 30 years",2006,6,e,-0.1914335791895141
+Female,"Lee-Carter, 30 years",2006,6,q25,-0.10556247930311713
+Female,"Lee-Carter, 30 years",2006,6,q50,-0.16748950477186497
+Female,"Lee-Carter, 30 years",2006,6,q75,-0.15536036050346524
+Female,"Lee-Carter, 30 years",2006,6,log rate 30-49,0.07136878567425282
+Female,"Lee-Carter, 30 years",2006,6,log rate 50-64,0.007313963815584773
+Female,"Lee-Carter, 30 years",2006,6,log rate 65-79,0.014919784153293822
+Female,"Lee-Carter, 30 years",2006,6,log rate 80+,0.022953604436818452
+Female,"Lee-Carter, 10 years",2006,6,e,-0.6816809448168826
+Female,"Lee-Carter, 10 years",2006,6,q25,-0.43364265019160086
+Female,"Lee-Carter, 10 years",2006,6,q50,-0.7284205086696147
+Female,"Lee-Carter, 10 years",2006,6,q75,-0.9284174733365518
+Female,"Lee-Carter, 10 years",2006,6,log rate 30-49,0.07005031513585055
+Female,"Lee-Carter, 10 years",2006,6,log rate 50-64,0.03207537657780819
+Female,"Lee-Carter, 10 years",2006,6,log rate 65-79,0.05773335916415403
+Female,"Lee-Carter, 10 years",2006,6,log rate 80+,0.10985037242340943
+Female,"APC, 30 years",2007,5,e,-0.09131451495616716
+Female,"APC, 30 years",2007,5,q25,0.3460790422488884
+Female,"APC, 30 years",2007,5,q50,0.018505642462642413
+Female,"APC, 30 years",2007,5,q75,-0.3775334439952047
+Female,"APC, 30 years",2007,5,log rate 30-49,0.03615407131478446
+Female,"APC, 30 years",2007,5,log rate 50-64,-0.0592276043504813
+Female,"APC, 30 years",2007,5,log rate 65-79,-0.02570663562049979
+Female,"APC, 30 years",2007,5,log rate 80+,0.068971395054186
+Female,"Lee-Carter, 17 years",2007,5,e,-0.1349472430342047
+Female,"Lee-Carter, 17 years",2007,5,q25,0.08026803546484018
+Female,"Lee-Carter, 17 years",2007,5,q50,-0.18603021450572044
+Female,"Lee-Carter, 17 years",2007,5,q75,-0.2458316883497389
+Female,"Lee-Carter, 17 years",2007,5,log rate 30-49,0.039838076879817816
+Female,"Lee-Carter, 17 years",2007,5,log rate 50-64,-0.03194050887663672
+Female,"Lee-Carter, 17 years",2007,5,log rate 65-79,0.0034302791997853264
+Female,"Lee-Carter, 17 years",2007,5,log rate 80+,0.040045296749764016
+Female,"Lee-Carter, 30 years",2007,5,e,0.04339502144195251
+Female,"Lee-Carter, 30 years",2007,5,q25,0.21360965774583462
+Female,"Lee-Carter, 30 years",2007,5,q50,0.04986391976727589
+Female,"Lee-Carter, 30 years",2007,5,q75,0.00462684354303633
+Female,"Lee-Carter, 30 years",2007,5,log rate 30-49,0.04171184697963592
+Female,"Lee-Carter, 30 years",2007,5,log rate 50-64,-0.03126368035792577
+Female,"Lee-Carter, 30 years",2007,5,log rate 65-79,-0.0180320794822944
+Female,"Lee-Carter, 30 years",2007,5,log rate 80+,0.010487214715896625
+Female,"Lee-Carter, 10 years",2007,5,e,-0.2659771051783508
+Female,"Lee-Carter, 10 years",2007,5,q25,-0.00622605790772468
+Female,"Lee-Carter, 10 years",2007,5,q50,-0.2509398920570334
+Female,"Lee-Carter, 10 years",2007,5,q75,-0.45070335542718
+Female,"Lee-Carter, 10 years",2007,5,log rate 30-49,0.03935781828853889
+Female,"Lee-Carter, 10 years",2007,5,log rate 50-64,-0.008641225905095392
+Female,"Lee-Carter, 10 years",2007,5,log rate 65-79,0.006517266417822474
+Female,"Lee-Carter, 10 years",2007,5,log rate 80+,0.0642619523273355
+Female,"APC, 30 years",2007,6,e,0.050293444429222234
+Female,"APC, 30 years",2007,6,q25,0.47833124824977347
+Female,"APC, 30 years",2007,6,q50,0.14397335637511333
+Female,"APC, 30 years",2007,6,q75,-0.279575392676918
+Female,"APC, 30 years",2007,6,log rate 30-49,-0.003088049903059614
+Female,"APC, 30 years",2007,6,log rate 50-64,-0.06383657094038335
+Female,"APC, 30 years",2007,6,log rate 65-79,-0.0486877872340605
+Female,"APC, 30 years",2007,6,log rate 80+,0.05570973473475667
+Female,"Lee-Carter, 17 years",2007,6,e,-0.006645902891904143
+Female,"Lee-Carter, 17 years",2007,6,q25,0.1497769493507093
+Female,"Lee-Carter, 17 years",2007,6,q50,-0.1039989779992112
+Female,"Lee-Carter, 17 years",2007,6,q75,-0.11861120922712587
+Female,"Lee-Carter, 17 years",2007,6,log rate 30-49,-0.0024435166397258666
+Female,"Lee-Carter, 17 years",2007,6,log rate 50-64,-0.02890804891798646
+Female,"Lee-Carter, 17 years",2007,6,log rate 65-79,-0.012689281484301283
+Female,"Lee-Carter, 17 years",2007,6,log rate 80+,0.022229724150579007
+Female,"Lee-Carter, 30 years",2007,6,e,0.20930915203591383
+Female,"Lee-Carter, 30 years",2007,6,q25,0.3260799569903696
+Female,"Lee-Carter, 30 years",2007,6,q50,0.18775914296386986
+Female,"Lee-Carter, 30 years",2007,6,q75,0.18305504082758262
+Female,"Lee-Carter, 30 years",2007,6,log rate 30-49,-0.000990533821223591
+Female,"Lee-Carter, 30 years",2007,6,log rate 50-64,-0.028958554848328436
+Female,"Lee-Carter, 30 years",2007,6,log rate 65-79,-0.03865876976128797
+Female,"Lee-Carter, 30 years",2007,6,log rate 80+,-0.0128730352065871
+Female,"Lee-Carter, 10 years",2007,6,e,-0.16530558350812896
+Female,"Lee-Carter, 10 years",2007,6,q25,0.056136839396955907
+Female,"Lee-Carter, 10 years",2007,6,q50,-0.19055930001368893
+Female,"Lee-Carter, 10 years",2007,6,q75,-0.3608695017181418
+Female,"Lee-Carter, 10 years",2007,6,log rate 30-49,-0.0026769132652471584
+Female,"Lee-Carter, 10 years",2007,6,log rate 50-64,-0.0011857937527921002
+Female,"Lee-Carter, 10 years",2007,6,log rate 65-79,-0.008463879621323753
+Female,"Lee-Carter, 10 years",2007,6,log rate 80+,0.05103153656743962
+Female,"APC, 30 years",2008,5,e,0.05954423411836984
+Female,"APC, 30 years",2008,5,q25,0.40734111835033104
+Female,"APC, 30 years",2008,5,q50,0.12112738818746038
+Female,"APC, 30 years",2008,5,q75,-0.2511765065633256
+Female,"APC, 30 years",2008,5,log rate 30-49,-0.02230975757108965
+Female,"APC, 30 years",2008,5,log rate 50-64,-0.05186288912382591
+Female,"APC, 30 years",2008,5,log rate 65-79,-0.04089761860248678
+Female,"APC, 30 years",2008,5,log rate 80+,0.04620839872541871
+Female,"Lee-Carter, 17 years",2008,5,e,-0.09477635281614738
+Female,"Lee-Carter, 17 years",2008,5,q25,0.020191558247248054
+Female,"Lee-Carter, 17 years",2008,5,q50,-0.1939387833483437
+Female,"Lee-Carter, 17 years",2008,5,q75,-0.22141910181991875
+Female,"Lee-Carter, 17 years",2008,5,log rate 30-49,-0.004018384388572552
+Female,"Lee-Carter, 17 years",2008,5,log rate 50-64,-0.005476246477497009
+Female,"Lee-Carter, 17 years",2008,5,log rate 65-79,-0.00017928481731999864
+Female,"Lee-Carter, 17 years",2008,5,log rate 80+,0.02624237135209576
+Female,"Lee-Carter, 30 years",2008,5,e,0.14456499345745755
+Female,"Lee-Carter, 30 years",2008,5,q25,0.24007697105406578
+Female,"Lee-Carter, 30 years",2008,5,q50,0.11208815534848782
+Female,"Lee-Carter, 30 years",2008,5,q75,0.0966300447338142
+Female,"Lee-Carter, 30 years",2008,5,log rate 30-49,-0.009467269807658345
+Female,"Lee-Carter, 30 years",2008,5,log rate 50-64,-0.018682641070069568
+Female,"Lee-Carter, 30 years",2008,5,log rate 65-79,-0.028153334425859176
+Female,"Lee-Carter, 30 years",2008,5,log rate 80+,-0.006968167487113521
+Female,"Lee-Carter, 10 years",2008,5,e,-0.22598428433626339
+Female,"Lee-Carter, 10 years",2008,5,q25,-0.10209203331167771
+Female,"Lee-Carter, 10 years",2008,5,q50,-0.26386614391661567
+Female,"Lee-Carter, 10 years",2008,5,q75,-0.3911706706755922
+Female,"Lee-Carter, 10 years",2008,5,log rate 30-49,-0.00685860874054446
+Female,"Lee-Carter, 10 years",2008,5,log rate 50-64,0.023363252744869275
+Female,"Lee-Carter, 10 years",2008,5,log rate 65-79,0.008959013321071014
+Female,"Lee-Carter, 10 years",2008,5,log rate 80+,0.043021523318020886
+Female,"APC, 30 years",2008,6,e,-0.28226970608686486
+Female,"APC, 30 years",2008,6,q25,0.12082976414031066
+Female,"APC, 30 years",2008,6,q50,-0.15859598897419858
+Female,"APC, 30 years",2008,6,q75,-0.6383723967412749
+Female,"APC, 30 years",2008,6,log rate 30-49,0.007006480183026487
+Female,"APC, 30 years",2008,6,log rate 50-64,-0.01513711442023624
+Female,"APC, 30 years",2008,6,log rate 65-79,-0.010558539733455321
+Female,"APC, 30 years",2008,6,log rate 80+,0.08992659133326726
+Female,"Lee-Carter, 17 years",2008,6,e,-0.4567531693335738
+Female,"Lee-Carter, 17 years",2008,6,q25,-0.3226782014807128
+Female,"Lee-Carter, 17 years",2008,6,q50,-0.5196635862493224
+Female,"Lee-Carter, 17 years",2008,6,q75,-0.5907259998860326
+Female,"Lee-Carter, 17 years",2008,6,log rate 30-49,0.02800239636739048
+Female,"Lee-Carter, 17 years",2008,6,log rate 50-64,0.037399324803609954
+Female,"Lee-Carter, 17 years",2008,6,log rate 65-79,0.04021116209348751
+Female,"Lee-Carter, 17 years",2008,6,log rate 80+,0.06571445196094607
+Female,"Lee-Carter, 30 years",2008,6,e,-0.16817414574055078
+Female,"Lee-Carter, 30 years",2008,6,q25,-0.06899254308822833
+Female,"Lee-Carter, 30 years",2008,6,q50,-0.15987125581729345
+Female,"Lee-Carter, 30 years",2008,6,q75,-0.226588768794187
+Female,"Lee-Carter, 30 years",2008,6,log rate 30-49,0.020832294077476474
+Female,"Lee-Carter, 30 years",2008,6,log rate 50-64,0.02095358646254938
+Female,"Lee-Carter, 30 years",2008,6,log rate 65-79,0.0063108565464066214
+Female,"Lee-Carter, 30 years",2008,6,log rate 80+,0.02606366994908216
+Female,"Lee-Carter, 10 years",2008,6,e,-0.6108775454656481
+Female,"Lee-Carter, 10 years",2008,6,q25,-0.44600224872976924
+Female,"Lee-Carter, 10 years",2008,6,q50,-0.6069996009216396
+Female,"Lee-Carter, 10 years",2008,6,q75,-0.7988969172569114
+Female,"Lee-Carter, 10 years",2008,6,log rate 30-49,0.024662764470352035
+Female,"Lee-Carter, 10 years",2008,6,log rate 50-64,0.07139216484313997
+Female,"Lee-Carter, 10 years",2008,6,log rate 65-79,0.051066389556523366
+Female,"Lee-Carter, 10 years",2008,6,log rate 80+,0.08547737185634269
+Female,"APC, 30 years",2009,5,e,-0.4848976881542697
+Female,"APC, 30 years",2009,5,q25,-0.1683213891483888
+Female,"APC, 30 years",2009,5,q50,-0.35527543280744567
+Female,"APC, 30 years",2009,5,q75,-0.744277091982795
+Female,"APC, 30 years",2009,5,log rate 30-49,0.030417603146668387
+Female,"APC, 30 years",2009,5,log rate 50-64,0.017799083788956442
+Female,"APC, 30 years",2009,5,log rate 65-79,0.018856177609004782
+Female,"APC, 30 years",2009,5,log rate 80+,0.09804766738438206
+Female,"Lee-Carter, 17 years",2009,5,e,-0.5283586648586294
+Female,"Lee-Carter, 17 years",2009,5,q25,-0.44497419220242307
+Female,"Lee-Carter, 17 years",2009,5,q50,-0.550204590512152
+Female,"Lee-Carter, 17 years",2009,5,q75,-0.6032494636440049
+Female,"Lee-Carter, 17 years",2009,5,log rate 30-49,0.03699607233783888
+Female,"Lee-Carter, 17 years",2009,5,log rate 50-64,0.05748927272522167
+Female,"Lee-Carter, 17 years",2009,5,log rate 65-79,0.05217018173487327
+Female,"Lee-Carter, 17 years",2009,5,log rate 80+,0.06412483355409823
+Female,"Lee-Carter, 30 years",2009,5,e,-0.35393135635756323
+Female,"Lee-Carter, 30 years",2009,5,q25,-0.3180746548766251
+Female,"Lee-Carter, 30 years",2009,5,q50,-0.3414253643322951
+Female,"Lee-Carter, 30 years",2009,5,q75,-0.37393534339734913
+Female,"Lee-Carter, 30 years",2009,5,log rate 30-49,0.03360566967323252
+Female,"Lee-Carter, 30 years",2009,5,log rate 50-64,0.04679514211532638
+Female,"Lee-Carter, 30 years",2009,5,log rate 65-79,0.035022974241549085
+Female,"Lee-Carter, 30 years",2009,5,log rate 80+,0.03737922853990322
+Female,"Lee-Carter, 10 years",2009,5,e,-0.5937766202390122
+Female,"Lee-Carter, 10 years",2009,5,q25,-0.49447081085914135
+Female,"Lee-Carter, 10 years",2009,5,q50,-0.5612320511108493
+Female,"Lee-Carter, 10 years",2009,5,q75,-0.7062772088774238
+Female,"Lee-Carter, 10 years",2009,5,log rate 30-49,0.01816440477705526
+Female,"Lee-Carter, 10 years",2009,5,log rate 50-64,0.06906390322923879
+Female,"Lee-Carter, 10 years",2009,5,log rate 65-79,0.06084019260409571
+Female,"Lee-Carter, 10 years",2009,5,log rate 80+,0.074780287796721
+Female,"APC, 30 years",2009,6,e,-0.3310393482393934
+Female,"APC, 30 years",2009,6,q25,0.07492866284027855
+Female,"APC, 30 years",2009,6,q50,-0.24771151320746299
+Female,"APC, 30 years",2009,6,q75,-0.6101744111822569
+Female,"APC, 30 years",2009,6,log rate 30-49,0.016424667159431704
+Female,"APC, 30 years",2009,6,log rate 50-64,-0.023363025400732207
+Female,"APC, 30 years",2009,6,log rate 65-79,-0.0031981417948440892
+Female,"APC, 30 years",2009,6,log rate 80+,0.09173617727296174
+Female,"Lee-Carter, 17 years",2009,6,e,-0.3833186993405704
+Female,"Lee-Carter, 17 years",2009,6,q25,-0.24906331521239622
+Female,"Lee-Carter, 17 years",2009,6,q50,-0.4842282748786033
+Female,"Lee-Carter, 17 years",2009,6,q75,-0.43294668988774276
+Female,"Lee-Carter, 17 years",2009,6,log rate 30-49,0.02568871878560546
+Female,"Lee-Carter, 17 years",2009,6,log rate 50-64,0.027133008539566857
+Female,"Lee-Carter, 17 years",2009,6,log rate 65-79,0.033338254527023416
+Female,"Lee-Carter, 17 years",2009,6,log rate 80+,0.05429943343200571
+Female,"Lee-Carter, 30 years",2009,6,e,-0.17446720814099592
+Female,"Lee-Carter, 30 years",2009,6,q25,-0.08798378592250344
+Female,"Lee-Carter, 30 years",2009,6,q50,-0.22741412688374396
+Female,"Lee-Carter, 30 years",2009,6,q75,-0.16424045894387973
+Female,"Lee-Carter, 30 years",2009,6,log rate 30-49,0.021078591111512734
+Female,"Lee-Carter, 30 years",2009,6,log rate 50-64,0.013894060504777693
+Female,"Lee-Carter, 30 years",2009,6,log rate 65-79,0.012538902770021036
+Female,"Lee-Carter, 30 years",2009,6,log rate 80+,0.022737177590362055
+Female,"Lee-Carter, 10 years",2009,6,e,-0.46192576860896395
+Female,"Lee-Carter, 10 years",2009,6,q25,-0.2936071044747166
+Female,"Lee-Carter, 10 years",2009,6,q50,-0.5016261619467883
+Female,"Lee-Carter, 10 years",2009,6,q75,-0.5588167458513027
+Female,"Lee-Carter, 10 years",2009,6,log rate 30-49,0.004007463699212572
+Female,"Lee-Carter, 10 years",2009,6,log rate 50-64,0.04076321556234178
+Female,"Lee-Carter, 10 years",2009,6,log rate 65-79,0.043731334358720335
+Female,"Lee-Carter, 10 years",2009,6,log rate 80+,0.0669619420052315
+Female,"APC, 30 years",2010,5,e,-0.3678111151397232
+Female,"APC, 30 years",2010,5,q25,-0.03943113363946793
+Female,"APC, 30 years",2010,5,q50,-0.28261002390182455
+Female,"APC, 30 years",2010,5,q75,-0.574715862143151
+Female,"APC, 30 years",2010,5,log rate 30-49,0.029292906826135015
+Female,"APC, 30 years",2010,5,log rate 50-64,-0.010358161509409415
+Female,"APC, 30 years",2010,5,log rate 65-79,0.011696916490908513
+Female,"APC, 30 years",2010,5,log rate 80+,0.08256127510560854
+Female,"Lee-Carter, 17 years",2010,5,e,-0.364105568388986
+Female,"Lee-Carter, 17 years",2010,5,q25,-0.2720748927448824
+Female,"Lee-Carter, 17 years",2010,5,q50,-0.42773283557419006
+Female,"Lee-Carter, 17 years",2010,5,q75,-0.39239171980932497
+Female,"Lee-Carter, 17 years",2010,5,log rate 30-49,0.015549240196812506
+Female,"Lee-Carter, 17 years",2010,5,log rate 50-64,0.03580311990046524
+Female,"Lee-Carter, 17 years",2010,5,log rate 65-79,0.03914454155748133
+Female,"Lee-Carter, 17 years",2010,5,log rate 80+,0.04555915897422601
+Female,"Lee-Carter, 30 years",2010,5,e,-0.25973522415510786
+Female,"Lee-Carter, 30 years",2010,5,q25,-0.21239764710807663
+Female,"Lee-Carter, 30 years",2010,5,q50,-0.304585837486286
+Female,"Lee-Carter, 30 years",2010,5,q75,-0.23338826048615147
+Female,"Lee-Carter, 30 years",2010,5,log rate 30-49,0.01754682033449325
+Female,"Lee-Carter, 30 years",2010,5,log rate 50-64,0.027538388052236136
+Female,"Lee-Carter, 30 years",2010,5,log rate 65-79,0.030300790487334743
+Female,"Lee-Carter, 30 years",2010,5,log rate 80+,0.02783021582025948
+Female,"Lee-Carter, 10 years",2010,5,e,-0.44408113347374467
+Female,"Lee-Carter, 10 years",2010,5,q25,-0.3751720209327658
+Female,"Lee-Carter, 10 years",2010,5,q50,-0.4615886511935514
+Female,"Lee-Carter, 10 years",2010,5,q75,-0.46247144520900463
+Female,"Lee-Carter, 10 years",2010,5,log rate 30-49,-0.00330145142722768
+Female,"Lee-Carter, 10 years",2010,5,log rate 50-64,0.05468298700788136
+Female,"Lee-Carter, 10 years",2010,5,log rate 65-79,0.0557789837212388
+Female,"Lee-Carter, 10 years",2010,5,log rate 80+,0.050952860113673906
+Female,"APC, 30 years",2010,6,e,-0.7586613690676458
+Female,"APC, 30 years",2010,6,q25,-0.22325695092683873
+Female,"APC, 30 years",2010,6,q50,-0.7122269324679706
+Female,"APC, 30 years",2010,6,q75,-1.0432225421505592
+Female,"APC, 30 years",2010,6,log rate 30-49,0.06254064792542657
+Female,"APC, 30 years",2010,6,log rate 50-64,0.016632251281170345
+Female,"APC, 30 years",2010,6,log rate 65-79,0.030585840419053333
+Female,"APC, 30 years",2010,6,log rate 80+,0.14934853648909943
+Female,"Lee-Carter, 17 years",2010,6,e,-0.7466004931254062
+Female,"Lee-Carter, 17 years",2010,6,q25,-0.49332143281267804
+Female,"Lee-Carter, 17 years",2010,6,q50,-0.8776126885098847
+Female,"Lee-Carter, 17 years",2010,6,q75,-0.8167991757318731
+Female,"Lee-Carter, 17 years",2010,6,log rate 30-49,0.04518084472274191
+Female,"Lee-Carter, 17 years",2010,6,log rate 50-64,0.07160005881900762
+Female,"Lee-Carter, 17 years",2010,6,log rate 65-79,0.06363049979069378
+Female,"Lee-Carter, 17 years",2010,6,log rate 80+,0.10582270384016247
+Female,"Lee-Carter, 30 years",2010,6,e,-0.621139031624736
+Female,"Lee-Carter, 30 years",2010,6,q25,-0.4181603212983873
+Female,"Lee-Carter, 30 years",2010,6,q50,-0.7251316486046164
+Female,"Lee-Carter, 30 years",2010,6,q75,-0.629133654165031
+Female,"Lee-Carter, 30 years",2010,6,log rate 30-49,0.04710545348553204
+Female,"Lee-Carter, 30 years",2010,6,log rate 50-64,0.06147421089490676
+Female,"Lee-Carter, 30 years",2010,6,log rate 65-79,0.05276101219544716
+Female,"Lee-Carter, 30 years",2010,6,log rate 80+,0.08485860075682827
+Female,"Lee-Carter, 10 years",2010,6,e,-0.8398853556255474
+Female,"Lee-Carter, 10 years",2010,6,q25,-0.5984171832662071
+Female,"Lee-Carter, 10 years",2010,6,q50,-0.9185208285394566
+Female,"Lee-Carter, 10 years",2010,6,q75,-0.9042129879880605
+Female,"Lee-Carter, 10 years",2010,6,log rate 30-49,0.02323846076751648
+Female,"Lee-Carter, 10 years",2010,6,log rate 50-64,0.09368927100940022
+Female,"Lee-Carter, 10 years",2010,6,log rate 65-79,0.08313367967206292
+Female,"Lee-Carter, 10 years",2010,6,log rate 80+,0.11228067511926823
+Female,"APC, 30 years",2011,5,e,-0.48796816757489836
+Female,"APC, 30 years",2011,5,q25,-0.046466648321043635
+Female,"APC, 30 years",2011,5,q50,-0.4789341491521242
+Female,"APC, 30 years",2011,5,q75,-0.7120854726548345
+Female,"APC, 30 years",2011,5,log rate 30-49,0.03638200083346681
+Female,"APC, 30 years",2011,5,log rate 50-64,-0.004772665959533167
+Female,"APC, 30 years",2011,5,log rate 65-79,0.012166640379091
+Female,"APC, 30 years",2011,5,log rate 80+,0.10999551210711922
+Female,"Lee-Carter, 17 years",2011,5,e,-0.6023645479618338
+Female,"Lee-Carter, 17 years",2011,5,q25,-0.3616144329095192
+Female,"Lee-Carter, 17 years",2011,5,q50,-0.7063344741544171
+Female,"Lee-Carter, 17 years",2011,5,q75,-0.6399931455016912
+Female,"Lee-Carter, 17 years",2011,5,log rate 30-49,0.04597921181963869
+Female,"Lee-Carter, 17 years",2011,5,log rate 50-64,0.05682678201193089
+Female,"Lee-Carter, 17 years",2011,5,log rate 65-79,0.04907117280721442
+Female,"Lee-Carter, 17 years",2011,5,log rate 80+,0.08614065678028608
+Female,"Lee-Carter, 30 years",2011,5,e,-0.4020323722406616
+Female,"Lee-Carter, 30 years",2011,5,q25,-0.1764833222625981
+Female,"Lee-Carter, 30 years",2011,5,q50,-0.49334675527946104
+Female,"Lee-Carter, 30 years",2011,5,q75,-0.41634674790273607
+Female,"Lee-Carter, 30 years",2011,5,log rate 30-49,0.03625808251845589
+Female,"Lee-Carter, 30 years",2011,5,log rate 50-64,0.03320271707861843
+Female,"Lee-Carter, 30 years",2011,5,log rate 65-79,0.026870932196650217
+Female,"Lee-Carter, 30 years",2011,5,log rate 80+,0.06203692514059076
+Female,"Lee-Carter, 10 years",2011,5,e,-0.5242045402006639
+Female,"Lee-Carter, 10 years",2011,5,q25,-0.31910069137974517
+Female,"Lee-Carter, 10 years",2011,5,q50,-0.6002297109798178
+Female,"Lee-Carter, 10 years",2011,5,q75,-0.5519097351753857
+Female,"Lee-Carter, 10 years",2011,5,log rate 30-49,0.02328034276608599
+Female,"Lee-Carter, 10 years",2011,5,log rate 50-64,0.05398629954001894
+Female,"Lee-Carter, 10 years",2011,5,log rate 65-79,0.04973912852307492
+Female,"Lee-Carter, 10 years",2011,5,log rate 80+,0.07195289364044768
+Female,"APC, 30 years",2011,6,e,-0.4034066941579084
+Female,"APC, 30 years",2011,6,q25,0.04350603280843757
+Female,"APC, 30 years",2011,6,q50,-0.33367976538509936
+Female,"APC, 30 years",2011,6,q75,-0.7456429816648154
+Female,"APC, 30 years",2011,6,log rate 30-49,0.01675329991138111
+Female,"APC, 30 years",2011,6,log rate 50-64,-0.026949741978556447
+Female,"APC, 30 years",2011,6,log rate 65-79,0.001579853263566532
+Female,"APC, 30 years",2011,6,log rate 80+,0.10868238226190896
+Female,"Lee-Carter, 17 years",2011,6,e,-0.5367068426726078
+Female,"Lee-Carter, 17 years",2011,6,q25,-0.33720158098360287
+Female,"Lee-Carter, 17 years",2011,6,q50,-0.6063481498598549
+Female,"Lee-Carter, 17 years",2011,6,q75,-0.6442662788307416
+Female,"Lee-Carter, 17 years",2011,6,log rate 30-49,0.030254508050247816
+Female,"Lee-Carter, 17 years",2011,6,log rate 50-64,0.04542553048044228
+Female,"Lee-Carter, 17 years",2011,6,log rate 65-79,0.0438170001008132
+Female,"Lee-Carter, 17 years",2011,6,log rate 80+,0.0822225302202279
+Female,"Lee-Carter, 30 years",2011,6,e,-0.29709172333549105
+Female,"Lee-Carter, 30 years",2011,6,q25,-0.11312240078630964
+Female,"Lee-Carter, 30 years",2011,6,q50,-0.3439733194580157
+Female,"Lee-Carter, 30 years",2011,6,q75,-0.3765704220943178
+Female,"Lee-Carter, 30 years",2011,6,log rate 30-49,0.01840928164517796
+Female,"Lee-Carter, 30 years",2011,6,log rate 50-64,0.017021287344664078
+Female,"Lee-Carter, 30 years",2011,6,log rate 65-79,0.01702835605895618
+Female,"Lee-Carter, 30 years",2011,6,log rate 80+,0.05339848286015596
+Female,"Lee-Carter, 10 years",2011,6,e,-0.44078932586955943
+Female,"Lee-Carter, 10 years",2011,6,q25,-0.2690168668480055
+Female,"Lee-Carter, 10 years",2011,6,q50,-0.46868148956737343
+Female,"Lee-Carter, 10 years",2011,6,q75,-0.5409768559719481
+Female,"Lee-Carter, 10 years",2011,6,log rate 30-49,0.003114129466595346
+Female,"Lee-Carter, 10 years",2011,6,log rate 50-64,0.04174478349691959
+Female,"Lee-Carter, 10 years",2011,6,log rate 65-79,0.044158573603239465
+Female,"Lee-Carter, 10 years",2011,6,log rate 80+,0.06521394524948208
+Female,"APC, 30 years",2012,5,e,-0.387481450352702
+Female,"APC, 30 years",2012,5,q25,-0.03215373455540771
+Female,"APC, 30 years",2012,5,q50,-0.35050901989203
+Female,"APC, 30 years",2012,5,q75,-0.6872478444506385
+Female,"APC, 30 years",2012,5,log rate 30-49,0.006175377905704064
+Female,"APC, 30 years",2012,5,log rate 50-64,-0.010662755187424563
+Female,"APC, 30 years",2012,5,log rate 65-79,0.0074996014992209864
+Female,"APC, 30 years",2012,5,log rate 80+,0.09672408493762448
+Female,"Lee-Carter, 17 years",2012,5,e,-0.43175988592084025
+Female,"Lee-Carter, 17 years",2012,5,q25,-0.27104962368277086
+Female,"Lee-Carter, 17 years",2012,5,q50,-0.4966331965444226
+Female,"Lee-Carter, 17 years",2012,5,q75,-0.539324812564189
+Female,"Lee-Carter, 17 years",2012,5,log rate 30-49,0.01062688467888881
+Female,"Lee-Carter, 17 years",2012,5,log rate 50-64,0.048538480625792954
+Female,"Lee-Carter, 17 years",2012,5,log rate 65-79,0.03408942385709984
+Female,"Lee-Carter, 17 years",2012,5,log rate 80+,0.06501678358133094
+Female,"Lee-Carter, 30 years",2012,5,e,-0.2959108265809647
+Female,"Lee-Carter, 30 years",2012,5,q25,-0.156443658416336
+Female,"Lee-Carter, 30 years",2012,5,q50,-0.35952789081237313
+Female,"Lee-Carter, 30 years",2012,5,q75,-0.36814723237684177
+Female,"Lee-Carter, 30 years",2012,5,log rate 30-49,0.007194178879860023
+Female,"Lee-Carter, 30 years",2012,5,log rate 50-64,0.0267428999099741
+Female,"Lee-Carter, 30 years",2012,5,log rate 65-79,0.020539505612570497
+Female,"Lee-Carter, 30 years",2012,5,log rate 80+,0.04850843704751127
+Female,"Lee-Carter, 10 years",2012,5,e,-0.39444202928778793
+Female,"Lee-Carter, 10 years",2012,5,q25,-0.2875828896093253
+Female,"Lee-Carter, 10 years",2012,5,q50,-0.4225156065428308
+Female,"Lee-Carter, 10 years",2012,5,q75,-0.47039156221269707
+Female,"Lee-Carter, 10 years",2012,5,log rate 30-49,-0.0038741816056585728
+Female,"Lee-Carter, 10 years",2012,5,log rate 50-64,0.05267301338858818
+Female,"Lee-Carter, 10 years",2012,5,log rate 65-79,0.04016421838329619
+Female,"Lee-Carter, 10 years",2012,5,log rate 80+,0.052386882991117774
+Female,"APC, 30 years",2012,6,e,-0.3584065737451567
+Female,"APC, 30 years",2012,6,q25,0.04600544769101589
+Female,"APC, 30 years",2012,6,q50,-0.2882308022278153
+Female,"APC, 30 years",2012,6,q75,-0.5454804984725001
+Female,"APC, 30 years",2012,6,log rate 30-49,0.05125328445867133
+Female,"APC, 30 years",2012,6,log rate 50-64,0.010327537451240753
+Female,"APC, 30 years",2012,6,log rate 65-79,-0.010255393160064403
+Female,"APC, 30 years",2012,6,log rate 80+,0.08247299316067476
+Female,"Lee-Carter, 17 years",2012,6,e,-0.40089418904335616
+Female,"Lee-Carter, 17 years",2012,6,q25,-0.22829760134442267
+Female,"Lee-Carter, 17 years",2012,6,q50,-0.4616421757747986
+Female,"Lee-Carter, 17 years",2012,6,q75,-0.3661253553317749
+Female,"Lee-Carter, 17 years",2012,6,log rate 30-49,0.05576716266237176
+Female,"Lee-Carter, 17 years",2012,6,log rate 50-64,0.08185006371821503
+Female,"Lee-Carter, 17 years",2012,6,log rate 65-79,0.021039305417525193
+Female,"Lee-Carter, 17 years",2012,6,log rate 80+,0.04480668679516797
+Female,"Lee-Carter, 30 years",2012,6,e,-0.2387771512230259
+Female,"Lee-Carter, 30 years",2012,6,q25,-0.09958907056228838
+Female,"Lee-Carter, 30 years",2012,6,q50,-0.2929461846660928
+Female,"Lee-Carter, 30 years",2012,6,q75,-0.16171398191616504
+Female,"Lee-Carter, 30 years",2012,6,log rate 30-49,0.05147128477130081
+Female,"Lee-Carter, 30 years",2012,6,log rate 50-64,0.055760868287780097
+Female,"Lee-Carter, 30 years",2012,6,log rate 65-79,0.0046504628880117615
+Female,"Lee-Carter, 30 years",2012,6,log rate 80+,0.02509916309644969
+Female,"Lee-Carter, 10 years",2012,6,e,-0.3547063783362816
+Female,"Lee-Carter, 10 years",2012,6,q25,-0.23959745562289925
+Female,"Lee-Carter, 10 years",2012,6,q50,-0.3637319549514757
+Female,"Lee-Carter, 10 years",2012,6,q75,-0.28487711032894936
+Female,"Lee-Carter, 10 years",2012,6,log rate 30-49,0.03848532043335712
+Female,"Lee-Carter, 10 years",2012,6,log rate 50-64,0.08664806795854704
+Female,"Lee-Carter, 10 years",2012,6,log rate 65-79,0.028027927450099254
+Female,"Lee-Carter, 10 years",2012,6,log rate 80+,0.029808988247624693
+Female,"APC, 30 years",2013,5,e,-0.4491820550108585
+Female,"APC, 30 years",2013,5,q25,-0.06324425057576377
+Female,"APC, 30 years",2013,5,q50,-0.38781319647165446
+Female,"APC, 30 years",2013,5,q75,-0.602455380263109
+Female,"APC, 30 years",2013,5,log rate 30-49,0.0720219008140168
+Female,"APC, 30 years",2013,5,log rate 50-64,0.023843744127601638
+Female,"APC, 30 years",2013,5,log rate 65-79,-0.0009441446900023511
+Female,"APC, 30 years",2013,5,log rate 80+,0.08838644721448222
+Female,"Lee-Carter, 17 years",2013,5,e,-0.4630643032251953
+Female,"Lee-Carter, 17 years",2013,5,q25,-0.2838347026396377
+Female,"Lee-Carter, 17 years",2013,5,q50,-0.5101324842089525
+Female,"Lee-Carter, 17 years",2013,5,q75,-0.4291473120335354
+Female,"Lee-Carter, 17 years",2013,5,log rate 30-49,0.06494548354724022
+Female,"Lee-Carter, 17 years",2013,5,log rate 50-64,0.0851695095799727
+Female,"Lee-Carter, 17 years",2013,5,log rate 65-79,0.027392986250111228
+Female,"Lee-Carter, 17 years",2013,5,log rate 80+,0.05305048746051773
+Female,"Lee-Carter, 30 years",2013,5,e,-0.3285207197034907
+Female,"Lee-Carter, 30 years",2013,5,q25,-0.17925264503992366
+Female,"Lee-Carter, 30 years",2013,5,q50,-0.38531152502304167
+Female,"Lee-Carter, 30 years",2013,5,q75,-0.2584992532278534
+Female,"Lee-Carter, 30 years",2013,5,log rate 30-49,0.062085616674039654
+Female,"Lee-Carter, 30 years",2013,5,log rate 50-64,0.06184453658033333
+Female,"Lee-Carter, 30 years",2013,5,log rate 65-79,0.013245291898737476
+Female,"Lee-Carter, 30 years",2013,5,log rate 80+,0.03704526583813779
+Female,"Lee-Carter, 10 years",2013,5,e,-0.4721094113915498
+Female,"Lee-Carter, 10 years",2013,5,q25,-0.3426836768067574
+Female,"Lee-Carter, 10 years",2013,5,q50,-0.4746123013556911
+Female,"Lee-Carter, 10 years",2013,5,q75,-0.3665523438704241
+Female,"Lee-Carter, 10 years",2013,5,log rate 30-49,0.07416790706861567
+Female,"Lee-Carter, 10 years",2013,5,log rate 50-64,0.09083440735500942
+Female,"Lee-Carter, 10 years",2013,5,log rate 65-79,0.035252434187821036
+Female,"Lee-Carter, 10 years",2013,5,log rate 80+,0.04538027753046366
+Female,"APC, 30 years",2013,6,e,-0.45506538191786206
+Female,"APC, 30 years",2013,6,q25,-0.01673252336428277
+Female,"APC, 30 years",2013,6,q50,-0.39517608768825596
+Female,"APC, 30 years",2013,6,q75,-0.7612458008573526
+Female,"APC, 30 years",2013,6,log rate 30-49,0.04499046791404897
+Female,"APC, 30 years",2013,6,log rate 50-64,0.016888652921063653
+Female,"APC, 30 years",2013,6,log rate 65-79,-0.01088712998327125
+Female,"APC, 30 years",2013,6,log rate 80+,0.10488737422782304
+Female,"Lee-Carter, 17 years",2013,6,e,-0.47233682133983734
+Female,"Lee-Carter, 17 years",2013,6,q25,-0.3016634654736521
+Female,"Lee-Carter, 17 years",2013,6,q50,-0.5174602997107769
+Female,"Lee-Carter, 17 years",2013,6,q75,-0.5740031963666041
+Female,"Lee-Carter, 17 years",2013,6,log rate 30-49,0.03569445366328198
+Female,"Lee-Carter, 17 years",2013,6,log rate 50-64,0.09157296018861165
+Female,"Lee-Carter, 17 years",2013,6,log rate 65-79,0.023000830107604245
+Female,"Lee-Carter, 17 years",2013,6,log rate 80+,0.06441168231466578
+Female,"Lee-Carter, 30 years",2013,6,e,-0.311914917020097
+Female,"Lee-Carter, 30 years",2013,6,q25,-0.16941159316482413
+Female,"Lee-Carter, 30 years",2013,6,q50,-0.3784323232023752
+Female,"Lee-Carter, 30 years",2013,6,q75,-0.370291300165178
+Female,"Lee-Carter, 30 years",2013,6,log rate 30-49,0.03189079501518462
+Female,"Lee-Carter, 30 years",2013,6,log rate 50-64,0.06384745364920597
+Female,"Lee-Carter, 30 years",2013,6,log rate 65-79,0.005851422481353925
+Female,"Lee-Carter, 30 years",2013,6,log rate 80+,0.04536292803989971
+Female,"Lee-Carter, 10 years",2013,6,e,-0.48222648394696677
+Female,"Lee-Carter, 10 years",2013,6,q25,-0.36387776735448085
+Female,"Lee-Carter, 10 years",2013,6,q50,-0.47818185997672913
+Female,"Lee-Carter, 10 years",2013,6,q75,-0.502915924285233
+Female,"Lee-Carter, 10 years",2013,6,log rate 30-49,0.046375883257400476
+Female,"Lee-Carter, 10 years",2013,6,log rate 50-64,0.09826461848626579
+Female,"Lee-Carter, 10 years",2013,6,log rate 65-79,0.03220861825491535
+Female,"Lee-Carter, 10 years",2013,6,log rate 80+,0.055553408477489234
+Female,"APC, 30 years",2014,5,e,-0.060039114666700755
+Female,"APC, 30 years",2014,5,q25,0.34043912162250933
+Female,"APC, 30 years",2014,5,q50,-0.04775279480841732
+Female,"APC, 30 years",2014,5,q75,-0.36072030944312417
+Female,"APC, 30 years",2014,5,log rate 30-49,0.0006450815729760621
+Female,"APC, 30 years",2014,5,log rate 50-64,-0.026338618672061016
+Female,"APC, 30 years",2014,5,log rate 65-79,-0.04882841513652363
+Female,"APC, 30 years",2014,5,log rate 80+,0.06069863781935611
+Female,"Lee-Carter, 17 years",2014,5,e,-0.055216764167568044
+Female,"Lee-Carter, 17 years",2014,5,q25,0.1681947964004138
+Female,"Lee-Carter, 17 years",2014,5,q50,-0.08692903332017465
+Female,"Lee-Carter, 17 years",2014,5,q75,-0.18510475038024765
+Female,"Lee-Carter, 17 years",2014,5,log rate 30-49,-0.004709264582110049
+Female,"Lee-Carter, 17 years",2014,5,log rate 50-64,0.03464051294442098
+Female,"Lee-Carter, 17 years",2014,5,log rate 65-79,-0.03322599554285518
+Female,"Lee-Carter, 17 years",2014,5,log rate 80+,0.027216610088248844
+Female,"Lee-Carter, 30 years",2014,5,e,0.02282562861845605
+Female,"Lee-Carter, 30 years",2014,5,q25,0.22143528444235017
+Female,"Lee-Carter, 30 years",2014,5,q50,-0.032590221737393676
+Female,"Lee-Carter, 30 years",2014,5,q75,-0.09490494552787254
+Female,"Lee-Carter, 30 years",2014,5,log rate 30-49,-0.005251359289880526
+Female,"Lee-Carter, 30 years",2014,5,log rate 50-64,0.017231607198291407
+Female,"Lee-Carter, 30 years",2014,5,log rate 65-79,-0.04085436568952047
+Female,"Lee-Carter, 30 years",2014,5,log rate 80+,0.018617443398932836
+Female,"Lee-Carter, 10 years",2014,5,e,-0.007156230556802257
+Female,"Lee-Carter, 10 years",2014,5,q25,0.13939995464471622
+Female,"Lee-Carter, 10 years",2014,5,q50,-0.022039622030177952
+Female,"Lee-Carter, 10 years",2014,5,q75,-0.06713721961585861
+Female,"Lee-Carter, 10 years",2014,5,log rate 30-49,-0.0020726688587649547
+Female,"Lee-Carter, 10 years",2014,5,log rate 50-64,0.03263008815376468
+Female,"Lee-Carter, 10 years",2014,5,log rate 65-79,-0.029286027641493427
+Female,"Lee-Carter, 10 years",2014,5,log rate 80+,0.012174420192199904
+Male,"APC, 30 years",2005,5,e,1.0475690514410374
+Male,"APC, 30 years",2005,5,q25,1.4512529960002212
+Male,"APC, 30 years",2005,5,q50,1.2441133153846948
+Male,"APC, 30 years",2005,5,q75,0.7647684728605526
+Male,"APC, 30 years",2005,5,log rate 30-49,-0.09236003062276214
+Male,"APC, 30 years",2005,5,log rate 50-64,-0.11313852110054844
+Male,"APC, 30 years",2005,5,log rate 65-79,-0.10870252725931694
+Male,"APC, 30 years",2005,5,log rate 80+,-0.026513729901196766
+Male,"Lee-Carter, 17 years",2005,5,e,0.7407241210343116
+Male,"Lee-Carter, 17 years",2005,5,q25,1.1377177167575496
+Male,"Lee-Carter, 17 years",2005,5,q50,0.6227419033088495
+Male,"Lee-Carter, 17 years",2005,5,q75,0.4872144797333249
+Male,"Lee-Carter, 17 years",2005,5,log rate 30-49,-0.07832454087928184
+Male,"Lee-Carter, 17 years",2005,5,log rate 50-64,-0.08325295326499181
+Male,"Lee-Carter, 17 years",2005,5,log rate 65-79,-0.055347690295295036
+Male,"Lee-Carter, 17 years",2005,5,log rate 80+,-0.04898819203079295
+Male,"Lee-Carter, 30 years",2005,5,e,0.7815105546797056
+Male,"Lee-Carter, 30 years",2005,5,q25,1.0509466456777545
+Male,"Lee-Carter, 30 years",2005,5,q50,0.5650727999465062
+Male,"Lee-Carter, 30 years",2005,5,q75,0.5654023676990079
+Male,"Lee-Carter, 30 years",2005,5,log rate 30-49,-0.08544411031594953
+Male,"Lee-Carter, 30 years",2005,5,log rate 50-64,-0.07950077225494129
+Male,"Lee-Carter, 30 years",2005,5,log rate 65-79,-0.04480216482764333
+Male,"Lee-Carter, 30 years",2005,5,log rate 80+,-0.07803698783054723
+Male,"Lee-Carter, 10 years",2005,5,e,0.5635082129893831
+Male,"Lee-Carter, 10 years",2005,5,q25,0.8749661057360356
+Male,"Lee-Carter, 10 years",2005,5,q50,0.5729367448494429
+Male,"Lee-Carter, 10 years",2005,5,q75,0.3378608870342248
+Male,"Lee-Carter, 10 years",2005,5,log rate 30-49,-0.06384332095088802
+Male,"Lee-Carter, 10 years",2005,5,log rate 50-64,-0.04807952167513234
+Male,"Lee-Carter, 10 years",2005,5,log rate 65-79,-0.06176617391525101
+Male,"Lee-Carter, 10 years",2005,5,log rate 80+,-0.022428765085011855
+Male,"APC, 30 years",2005,6,e,0.6715365291061062
+Male,"APC, 30 years",2005,6,q25,1.148881393513122
+Male,"APC, 30 years",2005,6,q50,0.8700435450662667
+Male,"APC, 30 years",2005,6,q75,0.4453597211247029
+Male,"APC, 30 years",2005,6,log rate 30-49,-0.03336770908796643
+Male,"APC, 30 years",2005,6,log rate 50-64,-0.10161141046174307
+Male,"APC, 30 years",2005,6,log rate 65-79,-0.07857809428771657
+Male,"APC, 30 years",2005,6,log rate 80+,0.01637781400913156
+Male,"Lee-Carter, 17 years",2005,6,e,0.3071963176131547
+Male,"Lee-Carter, 17 years",2005,6,q25,0.7915124046806881
+Male,"Lee-Carter, 17 years",2005,6,q50,0.15000153319284948
+Male,"Lee-Carter, 17 years",2005,6,q75,0.1107968070042773
+Male,"Lee-Carter, 17 years",2005,6,log rate 30-49,-0.021936847867679382
+Male,"Lee-Carter, 17 years",2005,6,log rate 50-64,-0.062191497607562485
+Male,"Lee-Carter, 17 years",2005,6,log rate 65-79,-0.016687066532403257
+Male,"Lee-Carter, 17 years",2005,6,log rate 80+,-0.007237596224440063
+Male,"Lee-Carter, 30 years",2005,6,e,0.35933066726818197
+Male,"Lee-Carter, 30 years",2005,6,q25,0.684344413105137
+Male,"Lee-Carter, 30 years",2005,6,q50,0.0811706441210589
+Male,"Lee-Carter, 30 years",2005,6,q75,0.20012078537797606
+Male,"Lee-Carter, 30 years",2005,6,log rate 30-49,-0.030517380986899007
+Male,"Lee-Carter, 30 years",2005,6,log rate 50-64,-0.05776587258912153
+Male,"Lee-Carter, 30 years",2005,6,log rate 65-79,-0.004099317347835397
+Male,"Lee-Carter, 30 years",2005,6,log rate 80+,-0.04235389821967118
+Male,"Lee-Carter, 10 years",2005,6,e,0.09231751670428423
+Male,"Lee-Carter, 10 years",2005,6,q25,0.47687515934030955
+Male,"Lee-Carter, 10 years",2005,6,q50,0.08668388914162506
+Male,"Lee-Carter, 10 years",2005,6,q75,-0.07594841619552994
+Male,"Lee-Carter, 10 years",2005,6,log rate 30-49,-0.004523026121564541
+Male,"Lee-Carter, 10 years",2005,6,log rate 50-64,-0.01974252382877494
+Male,"Lee-Carter, 10 years",2005,6,log rate 65-79,-0.024341235162760645
+Male,"Lee-Carter, 10 years",2005,6,log rate 80+,0.02486274401187419
+Male,"APC, 30 years",2006,5,e,0.060840466928937076
+Male,"APC, 30 years",2006,5,q25,0.5048887485821467
+Male,"APC, 30 years",2006,5,q50,0.18808899288707437
+Male,"APC, 30 years",2006,5,q75,-0.24820412160340766
+Male,"APC, 30 years",2006,5,log rate 30-49,-0.012864004092426032
+Male,"APC, 30 years",2006,5,log rate 50-64,-0.04899968223231337
+Male,"APC, 30 years",2006,5,log rate 65-79,-0.013657193164029798
+Male,"APC, 30 years",2006,5,log rate 80+,0.07311186080327102
+Male,"Lee-Carter, 17 years",2006,5,e,-0.23933835350590726
+Male,"Lee-Carter, 17 years",2006,5,q25,0.29248807076169214
+Male,"Lee-Carter, 17 years",2006,5,q50,-0.45511336346775977
+Male,"Lee-Carter, 17 years",2006,5,q75,-0.6811985343282885
+Male,"Lee-Carter, 17 years",2006,5,log rate 30-49,-0.037071697742284686
+Male,"Lee-Carter, 17 years",2006,5,log rate 50-64,-0.01401853492844593
+Male,"Lee-Carter, 17 years",2006,5,log rate 65-79,0.041429151375948194
+Male,"Lee-Carter, 17 years",2006,5,log rate 80+,0.07272452701942221
+Male,"Lee-Carter, 30 years",2006,5,e,-0.13162370929531164
+Male,"Lee-Carter, 30 years",2006,5,q25,0.22237026742634214
+Male,"Lee-Carter, 30 years",2006,5,q50,-0.5137576334768852
+Male,"Lee-Carter, 30 years",2006,5,q75,-0.5009801804800134
+Male,"Lee-Carter, 30 years",2006,5,log rate 30-49,-0.040127149345904056
+Male,"Lee-Carter, 30 years",2006,5,log rate 50-64,-0.020959371129625134
+Male,"Lee-Carter, 30 years",2006,5,log rate 65-79,0.05770439731860723
+Male,"Lee-Carter, 30 years",2006,5,log rate 80+,0.023867787880077557
+Male,"Lee-Carter, 10 years",2006,5,e,-0.35561816332631224
+Male,"Lee-Carter, 10 years",2006,5,q25,0.043904415835470445
+Male,"Lee-Carter, 10 years",2006,5,q50,-0.4002648114966405
+Male,"Lee-Carter, 10 years",2006,5,q75,-0.8300130028042219
+Male,"Lee-Carter, 10 years",2006,5,log rate 30-49,-0.03966392363956799
+Male,"Lee-Carter, 10 years",2006,5,log rate 50-64,0.018462143322132085
+Male,"Lee-Carter, 10 years",2006,5,log rate 65-79,0.029755564744097043
+Male,"Lee-Carter, 10 years",2006,5,log rate 80+,0.10258680763655878
+Male,"APC, 30 years",2006,6,e,0.264211380743987
+Male,"APC, 30 years",2006,6,q25,0.8270085231951327
+Male,"APC, 30 years",2006,6,q50,0.47820332692924694
+Male,"APC, 30 years",2006,6,q75,-0.19026929342679466
+Male,"APC, 30 years",2006,6,log rate 30-49,-0.03723045232676457
+Male,"APC, 30 years",2006,6,log rate 50-64,-0.08395452734019236
+Male,"APC, 30 years",2006,6,log rate 65-79,-0.03524015066488024
+Male,"APC, 30 years",2006,6,log rate 80+,0.08260418931798359
+Male,"Lee-Carter, 17 years",2006,6,e,-0.10370197372427725
+Male,"Lee-Carter, 17 years",2006,6,q25,0.5709219185805239
+Male,"Lee-Carter, 17 years",2006,6,q50,-0.2702308396930988
+Male,"Lee-Carter, 17 years",2006,6,q75,-0.699877156553228
+Male,"Lee-Carter, 17 years",2006,6,log rate 30-49,-0.06636092816204667
+Male,"Lee-Carter, 17 years",2006,6,log rate 50-64,-0.04093272088395359
+Male,"Lee-Carter, 17 years",2006,6,log rate 65-79,0.0300117139922108
+Male,"Lee-Carter, 17 years",2006,6,log rate 80+,0.08543808582313252
+Male,"Lee-Carter, 30 years",2006,6,e,0.027854782977655645
+Male,"Lee-Carter, 30 years",2006,6,q25,0.4898370514340087
+Male,"Lee-Carter, 30 years",2006,6,q50,-0.3232491211846735
+Male,"Lee-Carter, 30 years",2006,6,q75,-0.5042053006794021
+Male,"Lee-Carter, 30 years",2006,6,log rate 30-49,-0.06994336761528541
+Male,"Lee-Carter, 30 years",2006,6,log rate 50-64,-0.049209320770038055
+Male,"Lee-Carter, 30 years",2006,6,log rate 65-79,0.0480666808141173
+Male,"Lee-Carter, 30 years",2006,6,log rate 80+,0.029173604098498226
+Male,"Lee-Carter, 10 years",2006,6,e,-0.24194404998624464
+Male,"Lee-Carter, 10 years",2006,6,q25,0.2914892931802626
+Male,"Lee-Carter, 10 years",2006,6,q50,-0.21425679691270716
+Male,"Lee-Carter, 10 years",2006,6,q75,-0.874765470957712
+Male,"Lee-Carter, 10 years",2006,6,log rate 30-49,-0.06930360194110663
+Male,"Lee-Carter, 10 years",2006,6,log rate 50-64,-0.0035542990100640498
+Male,"Lee-Carter, 10 years",2006,6,log rate 65-79,0.01707635838308407
+Male,"Lee-Carter, 10 years",2006,6,log rate 80+,0.11999943474845426
+Male,"APC, 30 years",2007,5,e,0.3037942117517929
+Male,"APC, 30 years",2007,5,q25,0.8397816143531429
+Male,"APC, 30 years",2007,5,q50,0.4784053965604613
+Male,"APC, 30 years",2007,5,q75,-0.14338303944333575
+Male,"APC, 30 years",2007,5,log rate 30-49,-0.05713006029073419
+Male,"APC, 30 years",2007,5,log rate 50-64,-0.07981464162557637
+Male,"APC, 30 years",2007,5,log rate 65-79,-0.033668449324582475
+Male,"APC, 30 years",2007,5,log rate 80+,0.07869084832126458
+Male,"Lee-Carter, 17 years",2007,5,e,0.08592097005015376
+Male,"Lee-Carter, 17 years",2007,5,q25,0.6258493940749474
+Male,"Lee-Carter, 17 years",2007,5,q50,0.018574451333421393
+Male,"Lee-Carter, 17 years",2007,5,q75,-0.44497189982705265
+Male,"Lee-Carter, 17 years",2007,5,log rate 30-49,-0.07877782893683599
+Male,"Lee-Carter, 17 years",2007,5,log rate 50-64,-0.04194570935063406
+Male,"Lee-Carter, 17 years",2007,5,log rate 65-79,0.0018948682673924028
+Male,"Lee-Carter, 17 years",2007,5,log rate 80+,0.07245890754695647
+Male,"Lee-Carter, 30 years",2007,5,e,0.16432867990761935
+Male,"Lee-Carter, 30 years",2007,5,q25,0.615061939531401
+Male,"Lee-Carter, 30 years",2007,5,q50,-0.055504220888053624
+Male,"Lee-Carter, 30 years",2007,5,q75,-0.3301995078760456
+Male,"Lee-Carter, 30 years",2007,5,log rate 30-49,-0.08061090325860674
+Male,"Lee-Carter, 30 years",2007,5,log rate 50-64,-0.05374709465312276
+Male,"Lee-Carter, 30 years",2007,5,log rate 65-79,0.018686035185037694
+Male,"Lee-Carter, 30 years",2007,5,log rate 80+,0.03589225493088619
+Male,"Lee-Carter, 10 years",2007,5,e,-0.10272000467927711
+Male,"Lee-Carter, 10 years",2007,5,q25,0.3671482756880238
+Male,"Lee-Carter, 10 years",2007,5,q50,-0.028535263342874373
+Male,"Lee-Carter, 10 years",2007,5,q75,-0.701949240874086
+Male,"Lee-Carter, 10 years",2007,5,log rate 30-49,-0.08673779692250626
+Male,"Lee-Carter, 10 years",2007,5,log rate 50-64,-0.011795053934301867
+Male,"Lee-Carter, 10 years",2007,5,log rate 65-79,0.004880508502015112
+Male,"Lee-Carter, 10 years",2007,5,log rate 80+,0.11682530920299351
+Male,"APC, 30 years",2007,6,e,0.5328738873918795
+Male,"APC, 30 years",2007,6,q25,1.0631920254862877
+Male,"APC, 30 years",2007,6,q50,0.7171750615823669
+Male,"APC, 30 years",2007,6,q75,6.608181706724281e-06
+Male,"APC, 30 years",2007,6,log rate 30-49,-0.11415109579188208
+Male,"APC, 30 years",2007,6,log rate 50-64,-0.07384915425444269
+Male,"APC, 30 years",2007,6,log rate 65-79,-0.06208441954316982
+Male,"APC, 30 years",2007,6,log rate 80+,0.07079736327204848
+Male,"Lee-Carter, 17 years",2007,6,e,0.25563292609318466
+Male,"Lee-Carter, 17 years",2007,6,q25,0.8044521925713184
+Male,"Lee-Carter, 17 years",2007,6,q50,0.18200942604497072
+Male,"Lee-Carter, 17 years",2007,6,q75,-0.3883839755130083
+Male,"Lee-Carter, 17 years",2007,6,log rate 30-49,-0.1404051676297451
+Male,"Lee-Carter, 17 years",2007,6,log rate 50-64,-0.02661600445818771
+Male,"Lee-Carter, 17 years",2007,6,log rate 65-79,-0.01925404864890603
+Male,"Lee-Carter, 17 years",2007,6,log rate 80+,0.06757428468233509
+Male,"Lee-Carter, 30 years",2007,6,e,0.34791127779521247
+Male,"Lee-Carter, 30 years",2007,6,q25,0.7856350269632202
+Male,"Lee-Carter, 30 years",2007,6,q50,0.10194829284350249
+Male,"Lee-Carter, 30 years",2007,6,q75,-0.2623201284723393
+Male,"Lee-Carter, 30 years",2007,6,log rate 30-49,-0.14242074763606133
+Male,"Lee-Carter, 30 years",2007,6,log rate 50-64,-0.04017731890564078
+Male,"Lee-Carter, 30 years",2007,6,log rate 65-79,0.00019018929000549656
+Male,"Lee-Carter, 30 years",2007,6,log rate 80+,0.025428340863196973
+Male,"Lee-Carter, 10 years",2007,6,e,0.027315497458204163
+Male,"Lee-Carter, 10 years",2007,6,q25,0.5048325742497184
+Male,"Lee-Carter, 10 years",2007,6,q50,0.1165848952261399
+Male,"Lee-Carter, 10 years",2007,6,q75,-0.698002449942976
+Male,"Lee-Carter, 10 years",2007,6,log rate 30-49,-0.14946153569171108
+Male,"Lee-Carter, 10 years",2007,6,log rate 50-64,0.008762941862410428
+Male,"Lee-Carter, 10 years",2007,6,log rate 65-79,-0.01513134381255063
+Male,"Lee-Carter, 10 years",2007,6,log rate 80+,0.11976836599212189
+Male,"APC, 30 years",2008,5,e,0.5477287123625914
+Male,"APC, 30 years",2008,5,q25,1.0141325248757909
+Male,"APC, 30 years",2008,5,q50,0.7172956126718901
+Male,"APC, 30 years",2008,5,q75,0.04190863915405885
+Male,"APC, 30 years",2008,5,log rate 30-49,-0.11451568232929084
+Male,"APC, 30 years",2008,5,log rate 50-64,-0.0691274713482536
+Male,"APC, 30 years",2008,5,log rate 65-79,-0.061929260856718814
+Male,"APC, 30 years",2008,5,log rate 80+,0.061036569061858226
+Male,"Lee-Carter, 17 years",2008,5,e,0.2872735160226938
+Male,"Lee-Carter, 17 years",2008,5,q25,0.6926624731484736
+Male,"Lee-Carter, 17 years",2008,5,q50,0.2847636740397519
+Male,"Lee-Carter, 17 years",2008,5,q75,-0.29140094137285644
+Male,"Lee-Carter, 17 years",2008,5,log rate 30-49,-0.13018560351741487
+Male,"Lee-Carter, 17 years",2008,5,log rate 50-64,-0.02030988434370085
+Male,"Lee-Carter, 17 years",2008,5,log rate 65-79,-0.029068323253155934
+Male,"Lee-Carter, 17 years",2008,5,log rate 80+,0.05940637167864792
+Male,"Lee-Carter, 30 years",2008,5,e,0.3645437283170665
+Male,"Lee-Carter, 30 years",2008,5,q25,0.7336126033492434
+Male,"Lee-Carter, 30 years",2008,5,q50,0.22844659332812967
+Male,"Lee-Carter, 30 years",2008,5,q75,-0.19777613556182416
+Male,"Lee-Carter, 30 years",2008,5,log rate 30-49,-0.13297582756025494
+Male,"Lee-Carter, 30 years",2008,5,log rate 50-64,-0.03561307034629561
+Male,"Lee-Carter, 30 years",2008,5,log rate 65-79,-0.015115053899794567
+Male,"Lee-Carter, 30 years",2008,5,log rate 80+,0.030436841499200652
+Male,"Lee-Carter, 10 years",2008,5,e,0.21149307251886995
+Male,"Lee-Carter, 10 years",2008,5,q25,0.5118419809806767
+Male,"Lee-Carter, 10 years",2008,5,q50,0.2976762083788884
+Male,"Lee-Carter, 10 years",2008,5,q75,-0.41705779531260134
+Male,"Lee-Carter, 10 years",2008,5,log rate 30-49,-0.14549014488215337
+Male,"Lee-Carter, 10 years",2008,5,log rate 50-64,-0.0016723285845497927
+Male,"Lee-Carter, 10 years",2008,5,log rate 65-79,-0.02782547212462653
+Male,"Lee-Carter, 10 years",2008,5,log rate 80+,0.08319919697473203
+Male,"APC, 30 years",2008,6,e,0.27636496052409143
+Male,"APC, 30 years",2008,6,q25,0.8128054967197755
+Male,"APC, 30 years",2008,6,q50,0.4819332220166217
+Male,"APC, 30 years",2008,6,q75,-0.15924646270835296
+Male,"APC, 30 years",2008,6,log rate 30-49,-0.0806508727786808
+Male,"APC, 30 years",2008,6,log rate 50-64,-0.06749964614854488
+Male,"APC, 30 years",2008,6,log rate 65-79,-0.03769504871100378
+Male,"APC, 30 years",2008,6,log rate 80+,0.10721277980660102
+Male,"Lee-Carter, 17 years",2008,6,e,-0.04742531566900965
+Male,"Lee-Carter, 17 years",2008,6,q25,0.4466710820959747
+Male,"Lee-Carter, 17 years",2008,6,q50,-0.009297137994494165
+Male,"Lee-Carter, 17 years",2008,6,q75,-0.5870832459404909
+Male,"Lee-Carter, 17 years",2008,6,log rate 30-49,-0.10080349072306645
+Male,"Lee-Carter, 17 years",2008,6,log rate 50-64,-0.010181834017579964
+Male,"Lee-Carter, 17 years",2008,6,log rate 65-79,0.0015497771938645728
+Male,"Lee-Carter, 17 years",2008,6,log rate 80+,0.11222862899529293
+Male,"Lee-Carter, 30 years",2008,6,e,0.04831177469637993
+Male,"Lee-Carter, 30 years",2008,6,q25,0.4921662469997301
+Male,"Lee-Carter, 30 years",2008,6,q50,-0.06962997300414031
+Male,"Lee-Carter, 30 years",2008,6,q75,-0.4732545076566339
+Male,"Lee-Carter, 30 years",2008,6,log rate 30-49,-0.10412598112157738
+Male,"Lee-Carter, 30 years",2008,6,log rate 50-64,-0.02848948516516031
+Male,"Lee-Carter, 30 years",2008,6,log rate 65-79,0.017867615079201635
+Male,"Lee-Carter, 30 years",2008,6,log rate 80+,0.07761033484849628
+Male,"Lee-Carter, 10 years",2008,6,e,-0.1391173544685529
+Male,"Lee-Carter, 10 years",2008,6,q25,0.2359253450863008
+Male,"Lee-Carter, 10 years",2008,6,q50,0.0051638251859031925
+Male,"Lee-Carter, 10 years",2008,6,q75,-0.7415426030246692
+Male,"Lee-Carter, 10 years",2008,6,log rate 30-49,-0.11895697595814683
+Male,"Lee-Carter, 10 years",2008,6,log rate 50-64,0.011942672804942012
+Male,"Lee-Carter, 10 years",2008,6,log rate 65-79,0.0030602412408432056
+Male,"Lee-Carter, 10 years",2008,6,log rate 80+,0.14053599616555895
+Male,"APC, 30 years",2009,5,e,-0.09689308789599949
+Male,"APC, 30 years",2009,5,q25,0.3717189612918048
+Male,"APC, 30 years",2009,5,q50,0.11351682706130362
+Male,"APC, 30 years",2009,5,q75,-0.43551599832626664
+Male,"APC, 30 years",2009,5,log rate 30-49,-0.03932694583077638
+Male,"APC, 30 years",2009,5,log rate 50-64,-0.03139395799394822
+Male,"APC, 30 years",2009,5,log rate 65-79,-0.006877524915117301
+Male,"APC, 30 years",2009,5,log rate 80+,0.12642996440271842
+Male,"Lee-Carter, 17 years",2009,5,e,-0.36312543369019323
+Male,"Lee-Carter, 17 years",2009,5,q25,0.03287329589272758
+Male,"Lee-Carter, 17 years",2009,5,q50,-0.2619587242596282
+Male,"Lee-Carter, 17 years",2009,5,q75,-0.792720690181369
+Male,"Lee-Carter, 17 years",2009,5,log rate 30-49,-0.059400508488408346
+Male,"Lee-Carter, 17 years",2009,5,log rate 50-64,0.01831943407636762
+Male,"Lee-Carter, 17 years",2009,5,log rate 65-79,0.020994862663464422
+Male,"Lee-Carter, 17 years",2009,5,log rate 80+,0.1363841625364399
+Male,"Lee-Carter, 30 years",2009,5,e,-0.28592373247366254
+Male,"Lee-Carter, 30 years",2009,5,q25,0.10844214387995521
+Male,"Lee-Carter, 30 years",2009,5,q50,-0.3494860715170205
+Male,"Lee-Carter, 30 years",2009,5,q75,-0.7258490138839306
+Male,"Lee-Carter, 30 years",2009,5,log rate 30-49,-0.06611384283143573
+Male,"Lee-Carter, 30 years",2009,5,log rate 50-64,-0.0030165122910509427
+Male,"Lee-Carter, 30 years",2009,5,log rate 65-79,0.040892960253091346
+Male,"Lee-Carter, 30 years",2009,5,log rate 80+,0.10932842270869382
+Male,"Lee-Carter, 10 years",2009,5,e,-0.4205153738904528
+Male,"Lee-Carter, 10 years",2009,5,q25,-0.18981918418468524
+Male,"Lee-Carter, 10 years",2009,5,q50,-0.2453590867402653
+Male,"Lee-Carter, 10 years",2009,5,q75,-0.8810808965822332
+Male,"Lee-Carter, 10 years",2009,5,log rate 30-49,-0.07761662879198909
+Male,"Lee-Carter, 10 years",2009,5,log rate 50-64,0.03295435000845583
+Male,"Lee-Carter, 10 years",2009,5,log rate 65-79,0.02714947197453803
+Male,"Lee-Carter, 10 years",2009,5,log rate 80+,0.15470755742528308
+Male,"APC, 30 years",2009,6,e,0.06952699584635269
+Male,"APC, 30 years",2009,6,q25,0.5662131561270201
+Male,"APC, 30 years",2009,6,q50,0.29663245303207475
+Male,"APC, 30 years",2009,6,q75,-0.2852154053301774
+Male,"APC, 30 years",2009,6,log rate 30-49,-0.06610065318897765
+Male,"APC, 30 years",2009,6,log rate 50-64,-0.03830298626974258
+Male,"APC, 30 years",2009,6,log rate 65-79,-0.02548873056343785
+Male,"APC, 30 years",2009,6,log rate 80+,0.11627787139655207
+Male,"Lee-Carter, 17 years",2009,6,e,-0.2609405405299654
+Male,"Lee-Carter, 17 years",2009,6,q25,0.15287400023890996
+Male,"Lee-Carter, 17 years",2009,6,q50,-0.1570572684378817
+Male,"Lee-Carter, 17 years",2009,6,q75,-0.7465914105902982
+Male,"Lee-Carter, 17 years",2009,6,log rate 30-49,-0.09115934522587939
+Male,"Lee-Carter, 17 years",2009,6,log rate 50-64,0.024102877369500043
+Male,"Lee-Carter, 17 years",2009,6,log rate 65-79,0.006376032912318625
+Male,"Lee-Carter, 17 years",2009,6,log rate 80+,0.13293861984161057
+Male,"Lee-Carter, 30 years",2009,6,e,-0.16502733687613613
+Male,"Lee-Carter, 30 years",2009,6,q25,0.2358379335611005
+Male,"Lee-Carter, 30 years",2009,6,q50,-0.24855722265178315
+Male,"Lee-Carter, 30 years",2009,6,q75,-0.6557773323071814
+Male,"Lee-Carter, 30 years",2009,6,log rate 30-49,-0.09901542127436272
+Male,"Lee-Carter, 30 years",2009,6,log rate 50-64,-0.0008511209066194936
+Male,"Lee-Carter, 30 years",2009,6,log rate 65-79,0.028794914972095804
+Male,"Lee-Carter, 30 years",2009,6,log rate 80+,0.10120366292467156
+Male,"Lee-Carter, 10 years",2009,6,e,-0.3332155311701541
+Male,"Lee-Carter, 10 years",2009,6,q25,-0.10033326972974521
+Male,"Lee-Carter, 10 years",2009,6,q50,-0.13964018170091208
+Male,"Lee-Carter, 10 years",2009,6,q75,-0.8593405977471491
+Male,"Lee-Carter, 10 years",2009,6,log rate 30-49,-0.11205707814916234
+Male,"Lee-Carter, 10 years",2009,6,log rate 50-64,0.04137917674447481
+Male,"Lee-Carter, 10 years",2009,6,log rate 65-79,0.013889245244373138
+Male,"Lee-Carter, 10 years",2009,6,log rate 80+,0.15473866269448733
+Male,"APC, 30 years",2010,5,e,-0.10797886381417499
+Male,"APC, 30 years",2010,5,q25,0.2749080972202762
+Male,"APC, 30 years",2010,5,q50,0.09653279183147845
+Male,"APC, 30 years",2010,5,q75,-0.3297299998233427
+Male,"APC, 30 years",2010,5,log rate 30-49,-0.02435389640357183
+Male,"APC, 30 years",2010,5,log rate 50-64,-0.024726241620341347
+Male,"APC, 30 years",2010,5,log rate 65-79,-0.006969100046878256
+Male,"APC, 30 years",2010,5,log rate 80+,0.10584365607329019
+Male,"Lee-Carter, 17 years",2010,5,e,-0.3468205354664349
+Male,"Lee-Carter, 17 years",2010,5,q25,-0.060291303770043214
+Male,"Lee-Carter, 17 years",2010,5,q50,-0.22723854431082202
+Male,"Lee-Carter, 17 years",2010,5,q75,-0.6775768460838947
+Male,"Lee-Carter, 17 years",2010,5,log rate 30-49,-0.06011298683885347
+Male,"Lee-Carter, 17 years",2010,5,log rate 50-64,0.033637367867449884
+Male,"Lee-Carter, 17 years",2010,5,log rate 65-79,0.01421681922747767
+Male,"Lee-Carter, 17 years",2010,5,log rate 80+,0.11993682299961882
+Male,"Lee-Carter, 30 years",2010,5,e,-0.24262816270442045
+Male,"Lee-Carter, 30 years",2010,5,q25,0.07246946905405593
+Male,"Lee-Carter, 30 years",2010,5,q50,-0.2810951385045115
+Male,"Lee-Carter, 30 years",2010,5,q75,-0.6026978819213866
+Male,"Lee-Carter, 30 years",2010,5,log rate 30-49,-0.07135070870649941
+Male,"Lee-Carter, 30 years",2010,5,log rate 50-64,0.007724781898793013
+Male,"Lee-Carter, 30 years",2010,5,log rate 65-79,0.030261011068285423
+Male,"Lee-Carter, 30 years",2010,5,log rate 80+,0.09614698907973868
+Male,"Lee-Carter, 10 years",2010,5,e,-0.4425991260747324
+Male,"Lee-Carter, 10 years",2010,5,q25,-0.3475038704292359
+Male,"Lee-Carter, 10 years",2010,5,q50,-0.2903808846094762
+Male,"Lee-Carter, 10 years",2010,5,q75,-0.7112875387927744
+Male,"Lee-Carter, 10 years",2010,5,log rate 30-49,-0.06384111976506389
+Male,"Lee-Carter, 10 years",2010,5,log rate 50-64,0.04852956495478179
+Male,"Lee-Carter, 10 years",2010,5,log rate 65-79,0.029301920424318877
+Male,"Lee-Carter, 10 years",2010,5,log rate 80+,0.12598804428037724
+Male,"APC, 30 years",2010,6,e,-0.4651106445893447
+Male,"APC, 30 years",2010,6,q25,0.041887808874946586
+Male,"APC, 30 years",2010,6,q50,-0.17180347262851114
+Male,"APC, 30 years",2010,6,q75,-0.7656615815773762
+Male,"APC, 30 years",2010,6,log rate 30-49,-0.01214803499678095
+Male,"APC, 30 years",2010,6,log rate 50-64,0.00912471239767447
+Male,"APC, 30 years",2010,6,log rate 65-79,0.0095096076865127
+Male,"APC, 30 years",2010,6,log rate 80+,0.15977665271917532
+Male,"Lee-Carter, 17 years",2010,6,e,-0.7628825946488149
+Male,"Lee-Carter, 17 years",2010,6,q25,-0.40166275627311165
+Male,"Lee-Carter, 17 years",2010,6,q50,-0.571190091694703
+Male,"Lee-Carter, 17 years",2010,6,q75,-1.2123031791622338
+Male,"Lee-Carter, 17 years",2010,6,log rate 30-49,-0.05487253316462455
+Male,"Lee-Carter, 17 years",2010,6,log rate 50-64,0.08131224595357364
+Male,"Lee-Carter, 17 years",2010,6,log rate 65-79,0.03399013405049385
+Male,"Lee-Carter, 17 years",2010,6,log rate 80+,0.18078580251146242
+Male,"Lee-Carter, 30 years",2010,6,e,-0.6356513751301378
+Male,"Lee-Carter, 30 years",2010,6,q25,-0.24653233278738185
+Male,"Lee-Carter, 30 years",2010,6,q50,-0.624173946707387
+Male,"Lee-Carter, 30 years",2010,6,q75,-1.1141070942425984
+Male,"Lee-Carter, 30 years",2010,6,log rate 30-49,-0.06803460194434865
+Male,"Lee-Carter, 30 years",2010,6,log rate 50-64,0.05087657100008216
+Male,"Lee-Carter, 30 years",2010,6,log rate 65-79,0.05212654906167427
+Male,"Lee-Carter, 30 years",2010,6,log rate 80+,0.15263841322448546
+Male,"Lee-Carter, 10 years",2010,6,e,-0.8756311074076777
+Male,"Lee-Carter, 10 years",2010,6,q25,-0.7374539722419655
+Male,"Lee-Carter, 10 years",2010,6,q50,-0.640682008535407
+Male,"Lee-Carter, 10 years",2010,6,q75,-1.2532395327597925
+Male,"Lee-Carter, 10 years",2010,6,log rate 30-49,-0.05922031368346111
+Male,"Lee-Carter, 10 years",2010,6,log rate 50-64,0.09868162099167262
+Male,"Lee-Carter, 10 years",2010,6,log rate 65-79,0.051583849683825435
+Male,"Lee-Carter, 10 years",2010,6,log rate 80+,0.18799797609976082
+Male,"APC, 30 years",2011,5,e,0.012541515317863627
+Male,"APC, 30 years",2011,5,q25,0.4760762813298669
+Male,"APC, 30 years",2011,5,q50,0.2296175810347023
+Male,"APC, 30 years",2011,5,q75,-0.26047614011498865
+Male,"APC, 30 years",2011,5,log rate 30-49,-0.05220838662532927
+Male,"APC, 30 years",2011,5,log rate 50-64,-0.022298733257774254
+Male,"APC, 30 years",2011,5,log rate 65-79,-0.026584510290748372
+Male,"APC, 30 years",2011,5,log rate 80+,0.10145218562471213
+Male,"Lee-Carter, 17 years",2011,5,e,-0.36398717445293727
+Male,"Lee-Carter, 17 years",2011,5,q25,-0.11683647458231405
+Male,"Lee-Carter, 17 years",2011,5,q50,-0.16146111118548845
+Male,"Lee-Carter, 17 years",2011,5,q75,-0.7262017099617282
+Male,"Lee-Carter, 17 years",2011,5,log rate 30-49,-0.06776598367020191
+Male,"Lee-Carter, 17 years",2011,5,log rate 50-64,0.05454754781554083
+Male,"Lee-Carter, 17 years",2011,5,log rate 65-79,0.0004157046125604277
+Male,"Lee-Carter, 17 years",2011,5,log rate 80+,0.12416127271488506
+Male,"Lee-Carter, 30 years",2011,5,e,-0.19966495698368902
+Male,"Lee-Carter, 30 years",2011,5,q25,0.08808110880082154
+Male,"Lee-Carter, 30 years",2011,5,q50,-0.09435841388088306
+Male,"Lee-Carter, 30 years",2011,5,q75,-0.579407633383866
+Male,"Lee-Carter, 30 years",2011,5,log rate 30-49,-0.07868563821591915
+Male,"Lee-Carter, 30 years",2011,5,log rate 50-64,0.027368019859139323
+Male,"Lee-Carter, 30 years",2011,5,log rate 65-79,0.0012050719369725608
+Male,"Lee-Carter, 30 years",2011,5,log rate 80+,0.09988747777408613
+Male,"Lee-Carter, 10 years",2011,5,e,-0.182339354896925
+Male,"Lee-Carter, 10 years",2011,5,q25,-0.05669064782688338
+Male,"Lee-Carter, 10 years",2011,5,q50,0.03218462219982143
+Male,"Lee-Carter, 10 years",2011,5,q75,-0.47241027283382664
+Male,"Lee-Carter, 10 years",2011,5,log rate 30-49,-0.07322717216245274
+Male,"Lee-Carter, 10 years",2011,5,log rate 50-64,0.040864456853650755
+Male,"Lee-Carter, 10 years",2011,5,log rate 65-79,-0.01148143636878829
+Male,"Lee-Carter, 10 years",2011,5,log rate 80+,0.09612761037649126
+Male,"APC, 30 years",2011,6,e,0.33227729618810287
+Male,"APC, 30 years",2011,6,q25,0.8598034401046561
+Male,"APC, 30 years",2011,6,q50,0.4950906798561334
+Male,"APC, 30 years",2011,6,q75,0.10192056291965912
+Male,"APC, 30 years",2011,6,log rate 30-49,-0.0905937324486051
+Male,"APC, 30 years",2011,6,log rate 50-64,-0.062072543841800505
+Male,"APC, 30 years",2011,6,log rate 65-79,-0.0427649503031152
+Male,"APC, 30 years",2011,6,log rate 80+,0.08187700043238798
+Male,"Lee-Carter, 17 years",2011,6,e,-0.11504755349249507
+Male,"Lee-Carter, 17 years",2011,6,q25,0.1745343521746321
+Male,"Lee-Carter, 17 years",2011,6,q50,0.028853142406404686
+Male,"Lee-Carter, 17 years",2011,6,q75,-0.46015089217920035
+Male,"Lee-Carter, 17 years",2011,6,log rate 30-49,-0.11630385403346359
+Male,"Lee-Carter, 17 years",2011,6,log rate 50-64,0.030448869771055587
+Male,"Lee-Carter, 17 years",2011,6,log rate 65-79,-0.011757095750230833
+Male,"Lee-Carter, 17 years",2011,6,log rate 80+,0.11361909265667984
+Male,"Lee-Carter, 30 years",2011,6,e,0.0832002743780933
+Male,"Lee-Carter, 30 years",2011,6,q25,0.4186638388403594
+Male,"Lee-Carter, 30 years",2011,6,q50,0.11202389466728846
+Male,"Lee-Carter, 30 years",2011,6,q75,-0.27826415388589965
+Male,"Lee-Carter, 30 years",2011,6,log rate 30-49,-0.12944808536728633
+Male,"Lee-Carter, 30 years",2011,6,log rate 50-64,-0.0024767046715138434
+Male,"Lee-Carter, 30 years",2011,6,log rate 65-79,-0.010448251381098504
+Male,"Lee-Carter, 30 years",2011,6,log rate 80+,0.08432315724037719
+Male,"Lee-Carter, 10 years",2011,6,e,0.10647871298491651
+Male,"Lee-Carter, 10 years",2011,6,q25,0.24727492691795305
+Male,"Lee-Carter, 10 years",2011,6,q50,0.27341450839142567
+Male,"Lee-Carter, 10 years",2011,6,q75,-0.1449110008524741
+Male,"Lee-Carter, 10 years",2011,6,log rate 30-49,-0.12291792120509745
+Male,"Lee-Carter, 10 years",2011,6,log rate 50-64,0.013888794818729467
+Male,"Lee-Carter, 10 years",2011,6,log rate 65-79,-0.0261528954756563
+Male,"Lee-Carter, 10 years",2011,6,log rate 80+,0.07961436201967145
+Male,"APC, 30 years",2012,5,e,0.044032776515969374
+Male,"APC, 30 years",2012,5,q25,0.41483254422806226
+Male,"APC, 30 years",2012,5,q50,0.16810747088159417
+Male,"APC, 30 years",2012,5,q75,-0.09356819124947435
+Male,"APC, 30 years",2012,5,log rate 30-49,-0.06189006258995669
+Male,"APC, 30 years",2012,5,log rate 50-64,-0.02198359495432512
+Male,"APC, 30 years",2012,5,log rate 65-79,-0.014177369897258589
+Male,"APC, 30 years",2012,5,log rate 80+,0.08253219408346714
+Male,"Lee-Carter, 17 years",2012,5,e,-0.2527805823229201
+Male,"Lee-Carter, 17 years",2012,5,q25,-0.10829682587171874
+Male,"Lee-Carter, 17 years",2012,5,q50,-0.1232796714526927
+Male,"Lee-Carter, 17 years",2012,5,q75,-0.5168467710191464
+Male,"Lee-Carter, 17 years",2012,5,log rate 30-49,-0.100951715426399
+Male,"Lee-Carter, 17 years",2012,5,log rate 50-64,0.057517834118879715
+Male,"Lee-Carter, 17 years",2012,5,log rate 65-79,0.001275020193463911
+Male,"Lee-Carter, 17 years",2012,5,log rate 80+,0.10719892600895589
+Male,"Lee-Carter, 30 years",2012,5,e,-0.11741118784390636
+Male,"Lee-Carter, 30 years",2012,5,q25,0.1318874854402452
+Male,"Lee-Carter, 30 years",2012,5,q50,-0.11981090057599886
+Male,"Lee-Carter, 30 years",2012,5,q75,-0.4289034333191353
+Male,"Lee-Carter, 30 years",2012,5,log rate 30-49,-0.11401488135488069
+Male,"Lee-Carter, 30 years",2012,5,log rate 50-64,0.02475232347345321
+Male,"Lee-Carter, 30 years",2012,5,log rate 65-79,0.009403731580803033
+Male,"Lee-Carter, 30 years",2012,5,log rate 80+,0.08880331524993332
+Male,"Lee-Carter, 10 years",2012,5,e,-0.11393587440644382
+Male,"Lee-Carter, 10 years",2012,5,q25,-0.1550046007762944
+Male,"Lee-Carter, 10 years",2012,5,q50,0.027449074174953125
+Male,"Lee-Carter, 10 years",2012,5,q75,-0.2316209226116399
+Male,"Lee-Carter, 10 years",2012,5,log rate 30-49,-0.08909857486554433
+Male,"Lee-Carter, 10 years",2012,5,log rate 50-64,0.04877726975689081
+Male,"Lee-Carter, 10 years",2012,5,log rate 65-79,-0.0053675045607368506
+Male,"Lee-Carter, 10 years",2012,5,log rate 80+,0.06953476119872663
+Male,"APC, 30 years",2012,6,e,0.20215646948624055
+Male,"APC, 30 years",2012,6,q25,0.6552267556339899
+Male,"APC, 30 years",2012,6,q50,0.34715793519880833
+Male,"APC, 30 years",2012,6,q75,-0.03348287178388887
+Male,"APC, 30 years",2012,6,log rate 30-49,-0.09049862053608189
+Male,"APC, 30 years",2012,6,log rate 50-64,-0.030615298397985317
+Male,"APC, 30 years",2012,6,log rate 65-79,-0.03608406758611544
+Male,"APC, 30 years",2012,6,log rate 80+,0.07652428327498884
+Male,"Lee-Carter, 17 years",2012,6,e,-0.15334033789728352
+Male,"Lee-Carter, 17 years",2012,6,q25,0.021975494269099727
+Male,"Lee-Carter, 17 years",2012,6,q50,0.007962128472357222
+Male,"Lee-Carter, 17 years",2012,6,q75,-0.559313683683655
+Male,"Lee-Carter, 17 years",2012,6,log rate 30-49,-0.1410198568337196
+Male,"Lee-Carter, 17 years",2012,6,log rate 50-64,0.06523619640934389
+Male,"Lee-Carter, 17 years",2012,6,log rate 65-79,-0.018124565193661926
+Male,"Lee-Carter, 17 years",2012,6,log rate 80+,0.10953140559536416
+Male,"Lee-Carter, 30 years",2012,6,e,0.00959157242680675
+Male,"Lee-Carter, 30 years",2012,6,q25,0.30794015997857116
+Male,"Lee-Carter, 30 years",2012,6,q50,0.015214287264370796
+Male,"Lee-Carter, 30 years",2012,6,q75,-0.4466569348588223
+Male,"Lee-Carter, 30 years",2012,6,log rate 30-49,-0.15649295090261964
+Male,"Lee-Carter, 30 years",2012,6,log rate 50-64,0.0262988288237997
+Male,"Lee-Carter, 30 years",2012,6,log rate 65-79,-0.008786026929077623
+Male,"Lee-Carter, 30 years",2012,6,log rate 80+,0.08747843134745212
+Male,"Lee-Carter, 10 years",2012,6,e,0.02196166336002392
+Male,"Lee-Carter, 10 years",2012,6,q25,-0.026036659901905068
+Male,"Lee-Carter, 10 years",2012,6,q50,0.19199331856080448
+Male,"Lee-Carter, 10 years",2012,6,q75,-0.2077013941648005
+Male,"Lee-Carter, 10 years",2012,6,log rate 30-49,-0.1276472603111597
+Male,"Lee-Carter, 10 years",2012,6,log rate 50-64,0.054090175095931135
+Male,"Lee-Carter, 10 years",2012,6,log rate 65-79,-0.026795857627188707
+Male,"Lee-Carter, 10 years",2012,6,log rate 80+,0.06429320965576733
+Male,"APC, 30 years",2013,5,e,0.0033265004299352086
+Male,"APC, 30 years",2013,5,q25,0.3527490821409742
+Male,"APC, 30 years",2013,5,q50,0.12142411730984293
+Male,"APC, 30 years",2013,5,q75,-0.15209860745510184
+Male,"APC, 30 years",2013,5,log rate 30-49,-0.053407365264513534
+Male,"APC, 30 years",2013,5,log rate 50-64,-0.011676907805009178
+Male,"APC, 30 years",2013,5,log rate 65-79,-0.016979366605380453
+Male,"APC, 30 years",2013,5,log rate 80+,0.07529778802161037
+Male,"Lee-Carter, 17 years",2013,5,e,-0.2088330685122628
+Male,"Lee-Carter, 17 years",2013,5,q25,-0.14719731386776402
+Male,"Lee-Carter, 17 years",2013,5,q50,-0.06124568805063291
+Male,"Lee-Carter, 17 years",2013,5,q75,-0.5201184744747138
+Male,"Lee-Carter, 17 years",2013,5,log rate 30-49,-0.11860147735602372
+Male,"Lee-Carter, 17 years",2013,5,log rate 50-64,0.06609442057912304
+Male,"Lee-Carter, 17 years",2013,5,log rate 65-79,-0.006656077511453768
+Male,"Lee-Carter, 17 years",2013,5,log rate 80+,0.0978180477586898
+Male,"Lee-Carter, 30 years",2013,5,e,-0.07007727030228494
+Male,"Lee-Carter, 30 years",2013,5,q25,0.16691459012712073
+Male,"Lee-Carter, 30 years",2013,5,q50,-0.057282895513225185
+Male,"Lee-Carter, 30 years",2013,5,q75,-0.46121816371127977
+Male,"Lee-Carter, 30 years",2013,5,log rate 30-49,-0.13753550484672553
+Male,"Lee-Carter, 30 years",2013,5,log rate 50-64,0.03201840267165473
+Male,"Lee-Carter, 30 years",2013,5,log rate 65-79,-0.0010038117885870614
+Male,"Lee-Carter, 30 years",2013,5,log rate 80+,0.08570007124746813
+Male,"Lee-Carter, 10 years",2013,5,e,-0.2892751305716388
+Male,"Lee-Carter, 10 years",2013,5,q25,-0.48310789414752264
+Male,"Lee-Carter, 10 years",2013,5,q50,-0.1390846383695532
+Male,"Lee-Carter, 10 years",2013,5,q75,-0.35043454843261657
+Male,"Lee-Carter, 10 years",2013,5,log rate 30-49,-0.06686832358707694
+Male,"Lee-Carter, 10 years",2013,5,log rate 50-64,0.07443544026698613
+Male,"Lee-Carter, 10 years",2013,5,log rate 65-79,0.006753349941707948
+Male,"Lee-Carter, 10 years",2013,5,log rate 80+,0.06773123806259726
+Male,"APC, 30 years",2013,6,e,0.0067755290748650054
+Male,"APC, 30 years",2013,6,q25,0.2175464385221204
+Male,"APC, 30 years",2013,6,q50,0.26775329056380315
+Male,"APC, 30 years",2013,6,q75,-0.05598978913690189
+Male,"APC, 30 years",2013,6,log rate 30-49,-0.03989724822258072
+Male,"APC, 30 years",2013,6,log rate 50-64,-0.002519246902553845
+Male,"APC, 30 years",2013,6,log rate 65-79,-0.0298218046945563
+Male,"APC, 30 years",2013,6,log rate 80+,0.07629162097143864
+Male,"Lee-Carter, 17 years",2013,6,e,-0.25086579025030886
+Male,"Lee-Carter, 17 years",2013,6,q25,-0.36603990151365906
+Male,"Lee-Carter, 17 years",2013,6,q50,0.046702316491391116
+Male,"Lee-Carter, 17 years",2013,6,q75,-0.5126259359538068
+Male,"Lee-Carter, 17 years",2013,6,log rate 30-49,-0.1165638606368251
+Male,"Lee-Carter, 17 years",2013,6,log rate 50-64,0.08802619194271678
+Male,"Lee-Carter, 17 years",2013,6,log rate 65-79,-0.01400225534123091
+Male,"Lee-Carter, 17 years",2013,6,log rate 80+,0.10423850973763926
+Male,"Lee-Carter, 30 years",2013,6,e,-0.0859602477645538
+Male,"Lee-Carter, 30 years",2013,6,q25,-0.013239410897483594
+Male,"Lee-Carter, 30 years",2013,6,q50,0.05454867822290055
+Male,"Lee-Carter, 30 years",2013,6,q75,-0.4352928711389126
+Male,"Lee-Carter, 30 years",2013,6,log rate 30-49,-0.13855841427644167
+Male,"Lee-Carter, 30 years",2013,6,log rate 50-64,0.04825865084106115
+Male,"Lee-Carter, 30 years",2013,6,log rate 65-79,-0.007981067161739115
+Male,"Lee-Carter, 30 years",2013,6,log rate 80+,0.08969347930918023
+Male,"Lee-Carter, 10 years",2013,6,e,-0.3338987510363296
+Male,"Lee-Carter, 10 years",2013,6,q25,-0.765092516783227
+Male,"Lee-Carter, 10 years",2013,6,q50,-0.031079947289782694
+Male,"Lee-Carter, 10 years",2013,6,q75,-0.3076417977028285
+Male,"Lee-Carter, 10 years",2013,6,log rate 30-49,-0.05749751948786089
+Male,"Lee-Carter, 10 years",2013,6,log rate 50-64,0.09717950201104894
+Male,"Lee-Carter, 10 years",2013,6,log rate 65-79,0.000931657964911757
+Male,"Lee-Carter, 10 years",2013,6,log rate 80+,0.06905518430147614
+Male,"APC, 30 years",2014,5,e,0.3509171990412625
+Male,"APC, 30 years",2014,5,q25,0.5191243525592881
+Male,"APC, 30 years",2014,5,q50,0.5364102430719839
+Male,"APC, 30 years",2014,5,q75,0.3152797702266952
+Male,"APC, 30 years",2014,5,log rate 30-49,-0.05965196000736898
+Male,"APC, 30 years",2014,5,log rate 50-64,-0.026568308493341526
+Male,"APC, 30 years",2014,5,log rate 65-79,-0.05524582967389922
+Male,"APC, 30 years",2014,5,log rate 80+,0.027185397226684116
+Male,"Lee-Carter, 17 years",2014,5,e,0.12595325205758456
+Male,"Lee-Carter, 17 years",2014,5,q25,-0.00031785442693887944
+Male,"Lee-Carter, 17 years",2014,5,q50,0.3638356611958642
+Male,"Lee-Carter, 17 years",2014,5,q75,-0.012464113201431815
+Male,"Lee-Carter, 17 years",2014,5,log rate 30-49,-0.11529407421862585
+Male,"Lee-Carter, 17 years",2014,5,log rate 50-64,0.05263281177438964
+Male,"Lee-Carter, 17 years",2014,5,log rate 65-79,-0.04239511765622457
+Male,"Lee-Carter, 17 years",2014,5,log rate 80+,0.04455078297611799
+Male,"Lee-Carter, 30 years",2014,5,e,0.22290702921349492
+Male,"Lee-Carter, 30 years",2014,5,q25,0.2439856582988824
+Male,"Lee-Carter, 30 years",2014,5,q50,0.3787111606396394
+Male,"Lee-Carter, 30 years",2014,5,q75,0.011562861676665648
+Male,"Lee-Carter, 30 years",2014,5,log rate 30-49,-0.13059611263342616
+Male,"Lee-Carter, 30 years",2014,5,log rate 50-64,0.028994373779412684
+Male,"Lee-Carter, 30 years",2014,5,log rate 65-79,-0.0411004682534636
+Male,"Lee-Carter, 30 years",2014,5,log rate 80+,0.03995000285322535
+Male,"Lee-Carter, 10 years",2014,5,e,-0.010931566540456572
+Male,"Lee-Carter, 10 years",2014,5,q25,-0.3469072359533669
+Male,"Lee-Carter, 10 years",2014,5,q50,0.22607056138022585
+Male,"Lee-Carter, 10 years",2014,5,q75,0.07481573821324616
+Male,"Lee-Carter, 10 years",2014,5,log rate 30-49,-0.05622370976442161
+Male,"Lee-Carter, 10 years",2014,5,log rate 50-64,0.06691960301739482
+Male,"Lee-Carter, 10 years",2014,5,log rate 65-79,-0.027007470049803625
+Male,"Lee-Carter, 10 years",2014,5,log rate 80+,0.017729316006199085

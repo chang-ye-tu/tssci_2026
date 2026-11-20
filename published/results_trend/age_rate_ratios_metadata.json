@@ -1,0 +1,21 @@
+{
+  "script": "research/trend_age_rates.py",
+  "fit_window": [
+    2003,
+    2019
+  ],
+  "jump": "corrected",
+  "seed": 20261120,
+  "poisson_bootstrap_fits": 2000,
+  "paths_per_fit": 4,
+  "standard": "2019 exposure of the same population and sex, within each age group",
+  "interval": "all refits x paths (N_BOOT x N_PATHS simulated rates); ratio bounds are the observed rate divided by the 97.5th and 2.5th percentiles",
+  "p_value": "two-sided: twice the smaller tail share of the simulated rates, not below 1 / (N_BOOT x N_PATHS)",
+  "monte_carlo_error": "columns *_mcse: standard error due to the finite number of simulations.  Quantiles of the simulated rates: 100 resamples of whole refits (separate random stream); ratio bounds: delta method applied to those quantiles.  p-values: analytic clustered approximation, not resampled (trendlib.two_sided_p_mcse)",
+  "mcse_seed": 20261198,
+  "taiwan_2025": "rebuilt rates from results_trend/taiwan_2025_rates.csv",
+  "code_sha256": {
+    "research/trend_age_rates.py": "0b8f735a198994aa49101a7f2a35bf17019dde0674570d02a14234ce9388e6e8",
+    "research/trendlib.py": "6a096663d18acd461c4f9e95cacfbc27bbc36af32cfc5c30bfbe9c65ea31cd56"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "script": "research/trend_cohort_check.py",
+  "apc_window_years": 30,
+  "population": "TWN",
+  "ages": "30-100+",
+  "cohort_rule": "cohorts with fewer than 5 observed cells and unobserved cohorts: linear extrapolation from the 15 cohorts before them",
+  "alternative_rule": "every observed cohort keeps its estimate; only unobserved cohorts are extrapolated, from the last 15 observed cohorts (the rule changes both the cohorts extrapolated and the cohorts the line is fitted to)",
+  "cohort_windows_2019_fit": {
+    "main": {
+      "last_cohort_kept": 1985,
+      "line_fitted_to_cohorts": [
+        1971,
+        1985
+      ]
+    },
+    "alternative": {
+      "last_cohort_kept": 1989,
+      "line_fitted_to_cohorts": [
+        1975,
+        1989
+      ]
+    }
+  },
+  "max_abs_difference_between_rules_in_gap_years": 0.022938639484294754,
+  "max_abs_difference_between_rules_in_band_contribution_years": 0.02253178862238059,
+  "backtest": {
+    "origins_first_last_by_horizon": {
+      "5": [
+        2005,
+        2014
+      ],
+      "6": [
+        2005,
+        2013
+      ]
+    },
+    "horizons": [
+      5,
+      6
+    ],
+    "cases": {
+      "5": 10,
+      "6": 9
+    },
+    "error": "observed minus forecast for life-table measures; log(observed rate / forecast rate) for age bands"
+  },
+  "age_band_backtest_weights": "2019 exposure (known only after the forecast origin; used for scoring, not for fitting)",
+  "code_sha256": {
+    "research/trend_cohort_check.py": "d9568e648f73aa1521264470931e72189987578f4c0fd32d8d5aae98a9a68604",
+    "research/trendlib.py": "6a096663d18acd461c4f9e95cacfbc27bbc36af32cfc5c30bfbe9c65ea31cd56"
+  }
+}

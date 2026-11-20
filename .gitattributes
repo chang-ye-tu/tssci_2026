@@ -1,0 +1,2 @@
+# keep every file byte for byte on every system, so that CHECKSUMS.sha256 holds after a checkout
+* -text

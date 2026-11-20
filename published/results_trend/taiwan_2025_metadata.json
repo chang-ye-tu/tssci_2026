@@ -1,0 +1,30 @@
+{
+  "script": "research/taiwan_2025.py",
+  "seed": 20261119,
+  "calibration_years": 3,
+  "poisson_bootstrap_fits": 2000,
+  "paths_per_fit": 4,
+  "decomposition_steps": 40,
+  "age_band_interval": "one simulated life table per refit (Poisson variation of the 2025 deaths included), decomposed against the observed rates",
+  "not_included_in_intervals": "uncertainty of the exposure scale factor used to rebuild 2025",
+  "monte_carlo_error": "columns *_mcse: standard error due to the finite number of simulations.  Interval end points: 100 resamples of whole refits (separate random stream).  p-values: analytic clustered approximation, not resampled (trendlib.two_sided_p_mcse)",
+  "mcse_seed": 20261198,
+  "inputs_sha256": {
+    "data/moi/2026-11-17/downloads/deaths_single_age/y3s3-00000.xls": "d9086f5d4c25fa12bc7028e535c6dee4b958eb7ea56d5b927237909fd0bc1d11",
+    "data/moi/2026-11-17/downloads/population_single_age/y1s6-00000.xls": "9aa8a978ff57d74917eb63cedb8e8e6f720c7c68c5ea8ca57735006b46219e7c"
+  },
+  "code_sha256": {
+    "research/taiwan_2025.py": "e8b78caf2e15b1a93c893b1321ed5b97756855048f2258b37ae990fa9d4cd869",
+    "research/trendlib.py": "6a096663d18acd461c4f9e95cacfbc27bbc36af32cfc5c30bfbe9c65ea31cd56"
+  },
+  "decomposition_precision": "contributions add up to the gap up to the finite-step residual (total_deficit against sum_of_contributions); negligible for life expectancy, up to a few thousandths of a year for the death-age quantiles",
+  "max_abs_bridge_error": {
+    "e": 0.0221,
+    "iqr": 0.0307,
+    "q10": 0.0001,
+    "q25": 0.0001,
+    "q50": 0.0203,
+    "q75": 0.0308,
+    "q90": 0.0693
+  }
+}

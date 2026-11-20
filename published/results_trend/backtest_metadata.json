@@ -1,0 +1,24 @@
+{
+  "script": "research/trend_backtest.py",
+  "age_range": "30-100+",
+  "windows_years": [
+    17,
+    10
+  ],
+  "jump_off": [
+    "fit",
+    "corrected"
+  ],
+  "first_origin": 1990,
+  "last_target": 2019,
+  "interval_origins": [
+    2005,
+    2014
+  ],
+  "n_boot": 200,
+  "n_paths": 4,
+  "seed": 20261117,
+  "rows_point": 76720,
+  "skipped": 0,
+  "seconds": 162.0
+}

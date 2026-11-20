@@ -1,0 +1,34 @@
+{
+  "script": "research/cause_decomposition.py",
+  "periods": [
+    [
+      2012,
+      2018
+    ],
+    [
+      2019,
+      2025
+    ],
+    [
+      2019,
+      2022
+    ],
+    [
+      2022,
+      2025
+    ],
+    [
+      2019,
+      2024
+    ]
+  ],
+  "measures": [
+    "e",
+    "q25",
+    "q50",
+    "q75"
+  ],
+  "steps": 60,
+  "max_abs_residual_years": 0.0010964267128610317,
+  "note": "Compare within 2008-2018 or within 2019-2025 only (cause-selection rules changed in 2019)."
+}

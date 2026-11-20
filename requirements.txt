@@ -1,0 +1,6 @@
+# Versions with which the published results were computed (Python 3.12.8).
+numpy==2.2.2
+pandas==2.2.3
+matplotlib==3.10.0
+openpyxl==3.1.5
+xlrd==2.0.2

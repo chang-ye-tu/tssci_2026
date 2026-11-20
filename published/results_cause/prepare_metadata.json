@@ -1,0 +1,60 @@
+{
+  "script": "research/cause_prepare.py",
+  "inputs_sha256": {
+    "data/mohw/2026-11-17/downloads/icd_detail/icd_detail.zip": "15777bca1f7395d84345538df86c20ae9e4342a6b814bfb0cfe3c38a1cf2a58c",
+    "data/mohw/2026-11-17/downloads/condensed_42/all_cause_42.zip": "e52700c312efe5eb9c05b3a123b1b3579519a37a04ad1534a5dc8f086e898b6e"
+  },
+  "years": [
+    2008,
+    2025
+  ],
+  "deaths_by_year": {
+    "2008": 142283,
+    "2009": 142240,
+    "2010": 144709,
+    "2011": 152030,
+    "2012": 153823,
+    "2013": 154374,
+    "2014": 162886,
+    "2015": 163574,
+    "2016": 172418,
+    "2017": 171857,
+    "2018": 172859,
+    "2019": 175424,
+    "2020": 173067,
+    "2021": 184172,
+    "2022": 208438,
+    "2023": 205575,
+    "2024": 201383,
+    "2025": 199576
+  },
+  "distinct_icd_codes": 2890,
+  "cause_groups": {
+    "covid19": "COVID-19",
+    "cancer_oral_esophagus": "口腔癌及食道癌",
+    "cancer_liver": "肝癌",
+    "cancer_lung": "肺癌",
+    "cancer_colorectal": "結腸直腸癌",
+    "cancer_breast": "乳癌",
+    "cancer_other": "其他惡性腫瘤",
+    "heart_ischemic": "缺血性心臟病",
+    "heart_other": "其他心臟疾病",
+    "cerebrovascular": "腦血管疾病",
+    "hypertensive": "高血壓性疾病",
+    "diabetes": "糖尿病",
+    "pneumonia_influenza": "肺炎及流感",
+    "aspiration": "吸入性肺炎等",
+    "chronic_lower_respiratory": "慢性下呼吸道疾病",
+    "alcohol_specific": "酒精所致疾病",
+    "liver_nonalcohol": "慢性肝病及病毒性肝炎（非酒精）",
+    "kidney": "腎炎、腎病症候群及腎病變",
+    "sepsis": "敗血症",
+    "dementia_parkinson": "失智症、帕金森病及阿茲海默病",
+    "senility_illdefined": "衰老及診斷欠明",
+    "accidents": "事故傷害",
+    "suicide": "蓄意自我傷害",
+    "other": "其他"
+  },
+  "coding_break": "2008-2018: earlier ICD-10 selection rules; 2019 onwards: 2016 edition. Compare within each period only.",
+  "condensed_check_max_abs_difference": 0
+}
