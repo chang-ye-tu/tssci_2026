@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare the results recomputed by reproduce.sh with the published results in published/.
+"""Compare the results recomputed by reproduce.py with the published results in published/.
 
 For every file in published/ the script looks at its recomputed counterpart:
 
@@ -18,7 +18,7 @@ differs is reported as a warning: it depends on the fonts installed and is not a
 Before comparing, the script checks with CHECKSUMS.sha256 that the data, the programs and the published results
 in this folder are the files the package was shipped with.
 
-Run from the package root after reproduce.sh:  python3 verify.py
+reproduce.py runs this script as its last step.  To run it alone, from the package root:  python3 verify.py
 Exit status 0: every result reproduces.  1: something is missing or differs.
 """
 from __future__ import annotations
@@ -157,7 +157,7 @@ def main() -> None:
                 continue
             recomputed = Path(new_dir) / published.name
             if not recomputed.is_file():
-                status, detail = "MISSING", "not recomputed; run reproduce.sh first"
+                status, detail = "MISSING", "not recomputed; run reproduce.py first"
             else:
                 status, detail = compare(published, recomputed)
             counts[status] = counts.get(status, 0) + 1
