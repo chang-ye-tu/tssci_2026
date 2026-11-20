@@ -151,7 +151,8 @@ def load() -> dict[str, pd.DataFrame]:
     t = d["t25"].copy()
     t.insert(0, "population", "TWN")
     d["gaps"] = pd.concat([d["exp"][d["exp"].observed.notna()][["population", "sex", "spec", "year", "measure", "observed", "expected",
-                                                                 "deficit", "deficit_low", "deficit_high", "p_value"]], t], ignore_index=True)
+                                                                 "deficit", "deficit_low", "deficit_high", "p_value",
+                                                                 "deficit_low_mcse", "deficit_high_mcse", "p_value_mcse"]], t], ignore_index=True)
     b = d["bands25"].copy()
     b.insert(0, "population", "TWN")
     b.insert(2, "spec", "main")
@@ -187,6 +188,8 @@ def build_numbers(d: dict[str, pd.DataFrame]) -> dict[str, str]:
     q = main24.pivot_table(index=["population", "sex"], columns="measure", values="deficit")
     N["n.q25worse.2024"] = str(int((q["q25"] < q["q75"]).sum()))
     N["n.populations"] = str(main24.population.nunique())
+    names = [NAMES[p] for p in sorted(main24.population.unique())]                    # in the order of the HMD codes
+    N["populations.names"] = "、".join(names[:-1]) + "與" + names[-1]
 
     # death-rate ratios -----------------------------------------------------
     rr = d["rr"][d["rr"].grouping == "band"]
@@ -497,15 +500,25 @@ def build_numbers(d: dict[str, pd.DataFrame]) -> dict[str, str]:
         N[f"apc.rule.{key}.line0"], N[f"apc.rule.{key}.line1"] = (str(v) for v in w["line_fitted_to_cohorts"])
 
     # Monte Carlo error of the interval end points (Taiwan, main specification) ----------------
+    def largest(frame: pd.DataFrame, ends: list[str], errors: list[str], rows: int, what: str) -> float:
+        """Largest standard error of the interval end points.  A maximum does not show that rows are missing, so
+        the rows with an interval are counted first and each must carry both standard errors."""
+        have = frame[frame[ends].notna().all(axis=1)]
+        without = int(have[errors].isna().any(axis=1).sum())
+        if len(have) != rows or without:
+            raise ValueError(f"simulation error of {what}: {len(have)} rows with an interval where {rows} are expected, {without} of them without a standard error")
+        return float(have[errors].max().max())
+
+    # rows expected: 2 sexes x the years with an interval (x the age groups)
     g = d["gaps"][(d["gaps"].population == "TWN") & (d["gaps"].spec == "main") & (d["gaps"].measure == "e")]
-    N["mcse.gap.TWN.max"] = plain(float(g[["deficit_low_mcse", "deficit_high_mcse"]].max().max()), 3)
+    N["mcse.gap.TWN.max"] = plain(largest(g, ["deficit_low", "deficit_high"], ["deficit_low_mcse", "deficit_high_mcse"], 2 * 6, "the gap in e30, 2020-2025"), 3)
     b = d["bands_all"][(d["bands_all"].population == "TWN") & (d["bands_all"].spec == "main") & (d["bands_all"].measure == "e")]
-    N["mcse.band.TWN.max"] = plain(float(b[["low_mcse", "high_mcse"]].max().max()), 3)
+    N["mcse.band.TWN.max"] = plain(largest(b, ["low", "high"], ["low_mcse", "high_mcse"], 2 * 3 * 4, "the contributions of the four age bands, 2022, 2024 and 2025"), 3)
     r4 = d["rr"][(d["rr"].population == "TWN") & (d["rr"].grouping == "band") & d["rr"].ratio_to_trend.notna()]
-    N["mcse.rr.TWN.max"] = plain(100.0 * float(r4[["ratio_low_mcse", "ratio_high_mcse"]].max().max()), 2)
+    N["mcse.rr.TWN.max"] = plain(100.0 * largest(r4, ["ratio_low", "ratio_high"], ["ratio_low_mcse", "ratio_high_mcse"], 2 * 6 * 4, "the rate ratios of the four age bands, 2020-2025"), 2)
     N["mcse.rrlow.TWN.max"] = plain(100.0 * float(r4["ratio_low_mcse"].max()), 2)
     r5 = d["rr"][(d["rr"].population == "TWN") & (d["rr"].grouping == "five_year") & d["rr"].ratio_to_trend.notna()]
-    N["mcse.rr5.TWN.max"] = plain(100.0 * float(r5[["ratio_low_mcse", "ratio_high_mcse"]].max().max()), 2)
+    N["mcse.rr5.TWN.max"] = plain(100.0 * largest(r5, ["ratio_low", "ratio_high"], ["ratio_low_mcse", "ratio_high_mcse"], 2 * 6 * 14, "the rate ratios of the five-year age groups, 2020-2025"), 2)
     for r in d["rr"][(d["rr"].grouping == "band") & d["rr"].ratio_to_trend.notna()].itertuples():
         k = f"{r.population}.{sex_code[r.sex]}.{r.age_group}.{r.year}"
         N[f"rrp.{k}"] = pvalue(r.p_value)
@@ -538,16 +551,16 @@ def build_numbers(d: dict[str, pd.DataFrame]) -> dict[str, str]:
     return N
 
 
-def three_code_share(d: dict[str, pd.DataFrame], sex: str) -> float:
-    """Ages 50-64, 2019 to 2025: rise in deaths coded R57.0, R09.2 or I51.6 as a share of the rise in deaths of
-    the two broad classes (circulatory, ill-defined)."""
+def rise_in_registered_deaths(d: dict[str, pd.DataFrame], sex: str) -> tuple[float, float]:
+    """Ages 50-64, 2019 to 2025: rise in the number of deaths coded R57.0, R09.2 or I51.6, and rise in the number
+    of deaths of the two broad classes (circulatory, ill-defined) to which these codes belong."""
     def rise(frame: pd.DataFrame) -> float:
         by_year = frame[(frame.sex == sex) & (frame.age_band == "50-64")].groupby("year").deaths.sum()
         return float(by_year[2025] - by_year[2019])
     chap = d["chap"]
     two = chap[chap.broad_class.isin(["circulatory (I00-I99)", "ill-defined (R00-R99)"])]
     code = d["code4"]
-    return rise(code[code.ICD.isin(["R570", "R092", "I516"])]) / rise(two)
+    return rise(code[code.ICD.isin(["R570", "R092", "I516"])]), rise(two)
 
 
 def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
@@ -624,18 +637,22 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
             all(ratio("TWN", s, "50-64", 2025)[0] > ratio("TWN", s, "50-64", 2022)[0] for s in "FM"),
         "men aged 50-64: death rate above its 2019 level in every year 2022-2025":
             all(float(r19.loc[("TWN", "Male", "50-64", y)]) > 1.0 for y in (2022, 2023, 2024, 2025)),
-        "ages 50-64, 2019-2025: more than half of the rise in deaths of the two broad classes is in three codes, both sexes":
-            all(three_code_share(d, s) > 0.5 for s in ("Female", "Male")),
+        "ages 50-64, 2019-2025: deaths of the two broad classes rose and more than half of the rise is in three codes, both sexes":
+            all(two > 0 and three > 0.5 * two for three, two in (rise_in_registered_deaths(d, s) for s in ("Female", "Male"))),
         "ages 80+ in 2022: the same rounded percentage above expectation for women and men":
             N["rrpct.TWN.F.80+.2022"] == N["rrpct.TWN.M.80+.2022"],
         "women in 2022: ages 80+ account for more than half of the gap in e30":
             band("F", "80+", 2022)[0] / gap("TWN", "F", 2022)[0] > 0.5,
-        "R09.2, both sexes, ages 30+: between 4,000 and 4,999 deaths in each year 2023-2025":
-            all(4000 <= v(f"natcode.R092.{y}") < 5000 for y in (2023, 2024, 2025)),
+        "R09.2, both sexes, ages 30+: more than 4,000 and fewer than 5,000 deaths in each year 2023-2025":
+            all(4000 < v(f"natcode.R092.{y}") < 5000 for y in (2023, 2024, 2025)),
+        # research/taiwan_2025.py stops if an age is missing in either source, so each row stands for all 71 ages
+        # (30-99 and 100+); here every sex and year must be present once, with a finite difference below 0.1
         "deaths by single year of age, 2015-2024: the two sources differ by less than 0.1 at every age, both sexes":
-            bool((d["sources"].max_abs_death_difference_by_age < 0.1).all()) and sorted(d["sources"].year.unique()) == list(range(2015, 2025)),
-        "the supplement names 22 populations":
-            v("n.populations") == 22,
+            sorted(zip(d["sources"].sex, d["sources"].year)) == [(s, y) for s in ("Female", "Male") for y in range(2015, 2025)]
+            and bool(np.isfinite(d["sources"].max_abs_death_difference_by_age).all())
+            and bool((d["sources"].max_abs_death_difference_by_age < 0.1).all()),
+        "the line of the cohort effects is fitted to 15 birth cohorts (main rule)":
+            v("apc.rule.main.line1") - v("apc.rule.main.line0") + 1 == 15,
         "ages 80+ and 65-79 in 2025: rate ratios and band contributions inside their intervals":
             all(inside("TWN", s, b, 2025) and band(s, b, 2025)[1] < 0 < band(s, b, 2025)[2] for s in "FM" for b in ("80+", "65-79")),
         "ages 50-64: band contribution below zero with its whole interval in 2022, 2024 and 2025, and not smaller in 2025 than in 2022":
@@ -643,14 +660,15 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
             and all(band(s, "50-64", 2025)[0] <= band(s, "50-64", 2022)[0] for s in "FM"),
         "ages 80+ and 65-79: contributions smaller in 2025 than in 2022":
             all(abs(band(s, b, 2025)[0]) < abs(band(s, b, 2022)[0]) for s in "FM" for b in ("80+", "65-79")),
-        "ages 65-79 make up 30 to 45 per cent of the 2025 gap (point estimates)":
-            all(30 <= 100 * band(s, "65-79", 2025)[0] / gap("TWN", s, 2025)[0] <= 45 for s in "FM"),
+        "ages 65-79 make up about three tenths of the 2025 gap of women and about four tenths of that of men (point estimates)":
+            25 <= 100 * band("F", "65-79", 2025)[0] / gap("TWN", "F", 2025)[0] < 35
+            and 35 <= 100 * band("M", "65-79", 2025)[0] / gap("TWN", "M", 2025)[0] < 45,
         "women aged 30-49 above the interval in 2025, men inside":
             above("TWN", "F", "30-49", 2025) and inside("TWN", "M", "30-49", 2025),
-        "2024: Japan and Korea above expectation in all four bands, 50-64 by about 10 per cent or more, 80+ above the interval; "
+        "2024: Japan and Korea above expectation in all four bands, 50-64 by 10 per cent or more, 80+ above the interval; "
         "Hong Kong inside in all four; Taiwan 80+ inside":
             all(ratio(pp, s, b, 2024)[0] > 1.0 for pp in ("JPN", "KOR") for s in "FM" for b in BANDS)
-            and all(ratio(pp, s, "50-64", 2024)[0] >= 1.095 and above(pp, s, "80+", 2024) for pp in ("JPN", "KOR") for s in "FM")
+            and all(ratio(pp, s, "50-64", 2024)[0] >= 1.10 and above(pp, s, "80+", 2024) for pp in ("JPN", "KOR") for s in "FM")
             and all(inside("HKG", s, b, 2024) for s in "FM" for b in BANDS) and all(inside("TWN", s, "80+", 2024) for s in "FM"),
         "e30: Japan's gap widens every year and Japan and Korea are below the interval in 2022-2024; Hong Kong's 2024 gap is within 0.1 years of zero":
             all(gap("JPN", s, 2022)[0] > gap("JPN", s, 2023)[0] > gap("JPN", s, 2024)[0] for s in "FM")
@@ -769,6 +787,9 @@ def tex_escape(v) -> str:
     return re.sub(r"(?<!\\)([%&_])", r"\\\1", str(v))
 
 
+KEEP_PANEL = 12             # a panel of a long table with at most this many rows stays on one page
+
+
 class TableSource(str):
     """LaTeX of a table.  `cells` keeps what every row is meant to show, so that the typeset files can be
     checked against the intended content and not against the LaTeX (research/check_outputs.py)."""
@@ -819,30 +840,40 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
     if long:
         plain_title = title.split(r"\label{")[0]
         lines += [r"\endfirsthead", r"\multicolumn{" + str(len(headers)) + r"}{l}{" + plain_title + r"（續）}\\"] + head + [r"\endhead"]
-    first_row = len(lines)
+    data_lines: list[int] = []                  # where the ordinary rows are in `lines`
+    panel_rows: list[list[int]] = []            # the same, panel by panel
     for row in rows:
         if row == "midrule":
             lines.append(r"\midrule")
         elif isinstance(row, tuple) and row[0] == "panel":          # a line spanning the table, e.g. the name of a panel
             # in a long table the name of a panel stays on the same page as its first row
             lines.append(r"\multicolumn{" + str(len(headers)) + r"}{l}{" + row[1] + r"} \\" + ("*" if long else ""))
+            panel_rows.append([])
         elif isinstance(row, tuple) and row[0] == "raw":
             lines.append(row[1])
         else:
             lines.append(" & ".join(tex_escape(v) for v in row) + r" \\")
+            data_lines.append(len(lines) - 1)
+            if panel_rows:
+                panel_rows[-1].append(len(lines) - 1)
+    if long:
+        # A panel of up to KEEP_PANEL rows is not split between two pages: a continuation page repeats the title
+        # and the column heads but not the name of the panel, so its rows would stand there without it.
+        for members in panel_rows:
+            if len(members) <= KEEP_PANEL:
+                for k in members[:-1]:
+                    lines[k] += "*"
     note_line = r"\par\smallskip{\footnotesize\raggedright " + note + r"\par}"
     if long and note:
         # In the PDF the note of a long table is the last row of the table, as wide as the text and held together
-        # with the rule and the three rows above it: a page break can neither split the note nor part it from
-        # the end of the table.  The Word version keeps the note as a paragraph after the table.  It drops the
-        # lines marked PDFONLY, and with them the \iffalse ... \fi around the two parts that LaTeX skips.
-        kept = 0
-        for k in range(len(lines) - 1, first_row - 1, -1):
-            if lines[k].endswith(r" \\"):
+        # with the rule and the rows above it (the last panel, or the last three rows of a table without
+        # panels): a page break can neither split the note nor part it from the end of the table.  The Word
+        # version keeps the note as a paragraph after the table.  It drops the lines marked PDFONLY, and with
+        # them the \iffalse ... \fi around the two parts that LaTeX skips.
+        last_panel = panel_rows[-1] if panel_rows and len(panel_rows[-1]) <= KEEP_PANEL else []
+        for k in (last_panel or data_lines[-3:]):                   # the whole last panel, or the last three rows
+            if not lines[k].endswith("*"):
                 lines[k] += "*"
-                kept += 1
-                if kept == 3:
-                    break
         span = r"\multicolumn{" + str(len(headers)) + r"}{@{}c@{}}"
         # the closing rule is a row of its own, as wide as the table; the two skips take back the height and the
         # depth that every row of a table has, so that the rule sits as \bottomrule would
@@ -861,6 +892,9 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
     lines.append(r"\endgroup")
     out = TableSource("\n".join(lines))
     out.cells, out.note = cells, plain_text(note)
+    # rows of `cells` that are names of panels (the title, the spanning heads and the column heads come first)
+    n_head = len(cells) - len([r for r in rows if r != "midrule"])
+    out.panels = [n_head + k for k, r in enumerate([r for r in rows if r != "midrule"]) if isinstance(r, tuple) and r[0] == "panel"]
     return out
 
 
@@ -985,7 +1019,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             g = gaps[(gaps.population == pop) & (gaps.sex == sex) & (gaps.year == 2024)].set_index("measure")
             rows.append([NAMES[pop], short] + [star(signed(g.loc[m, "deficit"]), g.loc[m, "deficit_low"], g.loc[m, "deficit_high"]) for m in ("e", "q25", "q50", "q75")]
                         + [f"{signed(g.loc['e', 'deficit_low'])} 至 {signed(g.loc['e', 'deficit_high'])}"])
-    T["tableS_pops"] = table(cap("pops", "22 個地區 2024 年與趨勢預期值的差距"), ["地區", "性別", "平均餘命", "第 25 百分位", "中位數", "第 75 百分位", r"平均餘命缺口的 95\% 區間"], rows,
+    T["tableS_pops"] = table(cap("pops", N["n.populations"] + " 個地區 2024 年與趨勢預期值的差距"), ["地區", "性別", "平均餘命", "第 25 百分位", "中位數", "第 75 百分位", r"平均餘命缺口的 95\% 區間"], rows,
                              r"註：表中數值為各指標的缺口（實際值減趨勢預期值），單位為年；「平均餘命」指 30 歲平均餘命。各地區依兩性平均的 30 歲平均餘命缺口由低到高排列。* 表示實際值落在 95\% 預測區間之外。",
                              align="llrrrrc", long=True, supplement=True, size=FS)
 
@@ -1334,7 +1368,7 @@ def main() -> None:
     T = build_tables(d, N)
     (GEN / "numbers.json").write_text(json.dumps(N, ensure_ascii=False, indent=0, sort_keys=True))
     (GEN / "tables.json").write_text(json.dumps(T, ensure_ascii=False, indent=0))
-    (GEN / "table_cells.json").write_text(json.dumps({name: {"cells": t.cells, "note": t.note} for name, t in T.items()}, ensure_ascii=False, indent=0))
+    (GEN / "table_cells.json").write_text(json.dumps({name: {"cells": t.cells, "note": t.note, "panels": t.panels} for name, t in T.items()}, ensure_ascii=False, indent=0))
     style()
     figure1(d)
     figure2(d)
