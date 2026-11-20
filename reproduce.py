@@ -2,7 +2,8 @@
 """Recompute every result from the data in this package, in order, then compare the results with the
 ones in published/ (verify.py).
 
-Run it with the Python that has the packages of requirements.txt installed, from any directory:
+Run it with the Python that has the packages of requirements.txt installed.  It can be started from any
+directory; from another directory, give the path to this file:
 
     python3 reproduce.py
 

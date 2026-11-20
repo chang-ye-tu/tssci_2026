@@ -18,7 +18,7 @@
 | `online_appendix/` | 該文的線上附錄（PDF 與 Word），含 13 張附表 |
 | `DATA_SOURCES.md` | 每個資料檔的來源、取得日期與授權 |
 | `LICENSE` | 程式碼的授權條款（MIT） |
-| `CHECKSUMS.sha256` | 套件內所有檔案的 SHA-256 |
+| `CHECKSUMS.sha256` | 套件內其他各檔案的 SHA-256（清單不含這個檔案本身） |
 
 ## 重現方式
 
@@ -29,7 +29,7 @@ python3 -m pip install -r requirements.txt
 python3 reproduce.py
 ```
 
-`reproduce.py` 是純 Python 程式，不需要 shell，在 Linux、macOS 與 Windows 的用法相同；系統若沒有 `python3` 這個指令，改用 `python`。可以從任何目錄執行。
+`reproduce.py` 是純 Python 程式，不需要 shell，在 Linux、macOS 與 Windows 的用法相同；系統若沒有 `python3` 這個指令，改用 `python`。可以從任何目錄執行；不在套件目錄時，指令要寫出 `reproduce.py` 的路徑，例如 `python3 路徑/reproduce.py`。
 
 全部跑完約需 11 分鐘（24 核心的 Linux 主機，只安裝 `requirements.txt` 所列套件的全新 Python 環境，記憶體用量約 0.4 GB，2026-11-20 實測）。程式把結果寫到 `results_trend/`、`results_cause/` 與 `manuscript/`，不會更動 `published/`。最後一步 `verify.py` 逐檔比對，全部相符時印出：
 
@@ -91,7 +91,7 @@ RESULT: every result reproduces
 - 附表 3　不同趨勢基準下臺灣的缺口
 - 附表 4　四種基準下臺灣各年齡組對平均餘命缺口的貢獻與死亡率差距
 - 附表 5　臺灣各年齡組 2025 年死亡率差距與疫情前回測誤差的比較（對數尺度）
-- 附表 6　回測結果：提前 1、3、5 年
+- 附表 6　以 2005–2014 年各年為起點、提前 1、3、5 年的回測結果
 - 附表 7　以內政部原始統計重建的數值與 HMD 數值的差
 - 附表 8　戶籍人口中死亡以外的淨變動（每百人）
 - 附表 9　死因類別與 ICD-10 代碼

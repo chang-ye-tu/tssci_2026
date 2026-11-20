@@ -131,6 +131,7 @@ def load() -> dict[str, pd.DataFrame]:
         "coh_band": pd.read_csv(RT / "cohort_check_age_bands.csv"),
         "coh_rr": pd.read_csv(RT / "cohort_check_rate_ratios.csv"),
         "bridge": pd.read_csv(RT / "taiwan_2025_bridge_validation.csv"),
+        "sources": pd.read_csv(RT / "taiwan_2025_source_comparison.csv"),
         "reg": pd.read_csv(RT / "taiwan_registration_check.csv"),
         "fit": pd.read_csv(RT / "lc_fit_summary.csv"),
         "cc": pd.read_csv(RC / "cause_contributions_by_band.csv"),
@@ -537,6 +538,18 @@ def build_numbers(d: dict[str, pd.DataFrame]) -> dict[str, str]:
     return N
 
 
+def three_code_share(d: dict[str, pd.DataFrame], sex: str) -> float:
+    """Ages 50-64, 2019 to 2025: rise in deaths coded R57.0, R09.2 or I51.6 as a share of the rise in deaths of
+    the two broad classes (circulatory, ill-defined)."""
+    def rise(frame: pd.DataFrame) -> float:
+        by_year = frame[(frame.sex == sex) & (frame.age_band == "50-64")].groupby("year").deaths.sum()
+        return float(by_year[2025] - by_year[2019])
+    chap = d["chap"]
+    two = chap[chap.broad_class.isin(["circulatory (I00-I99)", "ill-defined (R00-R99)"])]
+    code = d["code4"]
+    return rise(code[code.ICD.isin(["R570", "R092", "I516"])]) / rise(two)
+
+
 def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
     """Statements of the text that are words, not numbers.  If a rerun changes one of them, the build
     stops here instead of producing a text that no longer matches the results.
@@ -607,6 +620,22 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
             and all(above("TWN", s, "50-64", y) for s in "FM" for y in (2022, 2023, 2024, 2025)),
         "ages 50-64: more than 10 per cent above expectation in every year 2022-2025":
             all(ratio("TWN", s, "50-64", y)[0] > 1.10 for s in "FM" for y in (2022, 2023, 2024, 2025)),
+        "ages 50-64: the gap to expectation is larger in 2025 than in 2022, both sexes, under the main baseline":
+            all(ratio("TWN", s, "50-64", 2025)[0] > ratio("TWN", s, "50-64", 2022)[0] for s in "FM"),
+        "men aged 50-64: death rate above its 2019 level in every year 2022-2025":
+            all(float(r19.loc[("TWN", "Male", "50-64", y)]) > 1.0 for y in (2022, 2023, 2024, 2025)),
+        "ages 50-64, 2019-2025: more than half of the rise in deaths of the two broad classes is in three codes, both sexes":
+            all(three_code_share(d, s) > 0.5 for s in ("Female", "Male")),
+        "ages 80+ in 2022: the same rounded percentage above expectation for women and men":
+            N["rrpct.TWN.F.80+.2022"] == N["rrpct.TWN.M.80+.2022"],
+        "women in 2022: ages 80+ account for more than half of the gap in e30":
+            band("F", "80+", 2022)[0] / gap("TWN", "F", 2022)[0] > 0.5,
+        "R09.2, both sexes, ages 30+: between 4,000 and 4,999 deaths in each year 2023-2025":
+            all(4000 <= v(f"natcode.R092.{y}") < 5000 for y in (2023, 2024, 2025)),
+        "deaths by single year of age, 2015-2024: the two sources differ by less than 0.1 at every age, both sexes":
+            bool((d["sources"].max_abs_death_difference_by_age < 0.1).all()) and sorted(d["sources"].year.unique()) == list(range(2015, 2025)),
+        "the supplement names 22 populations":
+            v("n.populations") == 22,
         "ages 80+ and 65-79 in 2025: rate ratios and band contributions inside their intervals":
             all(inside("TWN", s, b, 2025) and band(s, b, 2025)[1] < 0 < band(s, b, 2025)[2] for s in "FM" for b in ("80+", "65-79")),
         "ages 50-64: band contribution below zero with its whole interval in 2022, 2024 and 2025, and not smaller in 2025 than in 2022":
@@ -790,6 +819,7 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
     if long:
         plain_title = title.split(r"\label{")[0]
         lines += [r"\endfirsthead", r"\multicolumn{" + str(len(headers)) + r"}{l}{" + plain_title + r"（續）}\\"] + head + [r"\endhead"]
+    first_row = len(lines)
     for row in rows:
         if row == "midrule":
             lines.append(r"\midrule")
@@ -800,9 +830,32 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
             lines.append(row[1])
         else:
             lines.append(" & ".join(tex_escape(v) for v in row) + r" \\")
-    lines += [r"\bottomrule", r"\end{" + env + "}"]
-    if note:
-        lines.append(r"\par\smallskip{\footnotesize\raggedright " + note + r"\par}")
+    note_line = r"\par\smallskip{\footnotesize\raggedright " + note + r"\par}"
+    if long and note:
+        # In the PDF the note of a long table is the last row of the table, as wide as the text and held together
+        # with the rule and the three rows above it: a page break can neither split the note nor part it from
+        # the end of the table.  The Word version keeps the note as a paragraph after the table.  It drops the
+        # lines marked PDFONLY, and with them the \iffalse ... \fi around the two parts that LaTeX skips.
+        kept = 0
+        for k in range(len(lines) - 1, first_row - 1, -1):
+            if lines[k].endswith(r" \\"):
+                lines[k] += "*"
+                kept += 1
+                if kept == 3:
+                    break
+        span = r"\multicolumn{" + str(len(headers)) + r"}{@{}c@{}}"
+        # the closing rule is a row of its own, as wide as the table; the two skips take back the height and the
+        # depth that every row of a table has, so that the rule sits as \bottomrule would
+        lines += [r"\noalign{\nobreak\vskip\dimexpr\aboverulesep-\arraystretch\ht\strutbox\relax}% PDFONLY",
+                  span + r"{\leavevmode\leaders\hrule height\heavyrulewidth\hfill\kern0pt} \\*% PDFONLY",
+                  r"\noalign{\nobreak\vskip\dimexpr\belowrulesep-\arraystretch\dp\strutbox+\smallskipamount\relax\nobreak}% PDFONLY",
+                  span + r"{\makebox[0pt][c]{\parbox[t]{\linewidth}{\footnotesize\raggedright " + note + r"}}} \\% PDFONLY",
+                  r"\iffalse% PDFONLY", r"\bottomrule", r"\fi% PDFONLY", r"\end{" + env + "}",
+                  r"\iffalse% PDFONLY", note_line, r"\fi% PDFONLY"]
+    else:
+        lines += [r"\bottomrule", r"\end{" + env + "}"]
+        if note:
+            lines.append(note_line)
     if not long:
         lines.append(r"\end{table}")
     lines.append(r"\endgroup")
@@ -911,7 +964,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
     rows.append("midrule")
     rows.append(["全死因"] + [v for _, sc, *_ in SEXES[::-1] for v in (N[f"cr.{sc}.50-64.all.2019"], N[f"cr.{sc}.50-64.all.2025"], N[f"crpct.{sc}.50-64.all.1925"])])
     T["table5"] = table("臺灣 50–64 歲死因別死亡率：2019 年與 2025 年", ["死因（ICD-10）", "2019", "2025", r"變動（\%）", "2019", "2025", r"變動（\%）"], rows,
-                        "註：2019 與 2025 兩欄為年齡標準化死亡率，單位為每十萬人年的死亡人數，以各性別 2019 年 50–64 歲暴露人年的年齡結構為標準；「變動」欄為兩個年度之間的百分比變動。"
+                        "註：2019 與 2025 兩欄為年齡標準化死亡率，單位為每十萬人年的死亡人數，以各性別 2019 年 50–64 歲暴露人年的年齡結構為標準。"
                         "全死因死亡率取自 HMD 與本文重建的 2025 年數值，再依衛生福利部死因統計中各年齡組的死因比率分配到各類死因。"
                         "「其他」指表中所列各類以外的全部死因。「變動」為 2025 年相對於 2019 年的百分比變動。",
                         align=par_col("13em") + "rrrrrr", tabcolsep="4pt", label="tab:midlife",
@@ -945,7 +998,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             for band in BANDS:
                 rows.append([short, BAND_ZH[band]] + [cell("TWN", sex, band, y) for y in years3])
     T["tableS_agerates"] = table(cap("agerates", r"臺灣各年齡組死亡率與趨勢預期值的差距，2020–2025 年（\%）"), ["性別", "年齡", "2020", "2021", "2022"], rows,
-                                 r"註：表中數值的定義與正文表 3 相同，也就是（實際死亡率 ÷ 趨勢預期死亡率 − 1）× 100；括號內為 95\% 區間，* 表示區間不包含 0。趨勢預期值來自主要基準。",
+                                 r"註：表中數值為死亡率的差距，定義與正文表 3 相同，也就是（實際死亡率 ÷ 趨勢預期死亡率 − 1）× 100；括號內為差距的 95\% 區間，* 表示區間不包含 0。各年齡組死亡率以該性別 2019 年暴露人年的年齡結構標準化，趨勢預期值來自主要基準。",
                                  align="llccc", supplement=True, size=FS)
 
     # Taiwan under alternative baselines
@@ -960,7 +1013,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
         for label, f in specs:
             rows.append(["　" + label] + [f(sc, m, y) for m in ("e", "q25", "q75") for y in (2022, 2024, 2025)])
     T["tableS_baselines"] = table(cap("baselines", "不同趨勢基準下臺灣的缺口"), ["基準", "2022", "2024", "2025", "2022", "2024", "2025", "2022", "2024", "2025"], rows,
-                                  "註：表中數值為各指標的缺口（實際值減趨勢預期值），單位為年；兩個百分位都是活到 30 歲的人的死亡年齡百分位。" + LC_NOTE + "除了標明「不校正起點」的一列之外，各基準都以配適期最後三年的實際死亡數校正預測起點。",
+                                  "註：表中數值為各指標的缺口（實際值減趨勢預期值），單位為年；兩個百分位都指活到 30 歲者的死亡年齡百分位。" + LC_NOTE + "除了標明「不校正起點」的一列之外，各基準都以配適期最後三年的實際死亡數校正預測起點。",
                                   align="lrrrrrrrrr", supplement=True, size=FS, tabcolsep="1.6pt",
                                   group_header=r" & \multicolumn{3}{c}{30 歲平均餘命} & \multicolumn{3}{c}{第 25 百分位} & \multicolumn{3}{c}{第 75 百分位} \\ \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}")
 
@@ -975,7 +1028,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
         if sex == "Female":
             rows.append("midrule")
     T["tableS_bands"] = table(cap("bands", "四種基準下臺灣各年齡組對平均餘命缺口的貢獻與死亡率差距"), ["性別", "基準", "年"] + short_band * 2, rows,
-                              r"註：每個年齡組各有兩個數值。前四欄是各年齡組對 30 歲平均餘命缺口的貢獻，單位為年；後四欄是各年齡組死亡率的差距，單位為 \%，負值表示實際死亡率低於預期值。" + LC_NOTE, align="lllrrrrrrrr", supplement=True, size=FS, long=True,
+                              r"註：每個年齡組各有兩個數值：對 30 歲平均餘命缺口的貢獻（單位為年），以及死亡率的差距（單位為 \%，負值表示實際死亡率低於預期值）。" + LC_NOTE, align="lllrrrrrrrr", supplement=True, size=FS, long=True,
                               group_header=r" & & & \multicolumn{4}{c}{對平均餘命缺口的貢獻（年）} & \multicolumn{4}{c}{死亡率的差距（\%）} \\ \cmidrule(lr){4-7}\cmidrule(lr){8-11}")
 
     # the 2025 gap in death rates against pre-pandemic forecast errors of the same quantity and the same horizon
@@ -1016,8 +1069,8 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
                     k = f"{w}.corrected.{scope}.{m}.{h}"
                     row += [N[f"bt.bias.{k}"], N[f"bt.rmse.{k}"], N[f"bt.cover.{k}"]]
                 rows.append(row)
-    T["tableS_backtest"] = table(cap("backtest", "回測結果：提前 1、3、5 年"), ["指標", "平均", "均方根", "涵蓋率", "平均", "均方根", "涵蓋率", "平均", "均方根", "涵蓋率"], rows,
-                                 r"註：回測起點為 2005–2014 年每一年。「平均」為平均誤差，「均方根」為均方根誤差；誤差為實際值減預測值，單位為年。涵蓋率是實際值落在 95\% 預測區間之內的回測所占百分比。配適期 17 年的回測只納入資料年數足夠的地區，不含韓國與克羅埃西亞。",
+    T["tableS_backtest"] = table(cap("backtest", "以 2005–2014 年各年為起點、提前 1、3、5 年的回測結果"), ["指標", "平均", "均方根", "涵蓋率", "平均", "均方根", "涵蓋率", "平均", "均方根", "涵蓋率"], rows,
+                                 r"註：「平均」為平均誤差，「均方根」為均方根誤差；誤差為實際值減預測值，單位為年。涵蓋率是實際值落在 95\% 預測區間之內的回測所占百分比。17 年配適期不含資料年數不足的韓國與克羅埃西亞。",
                                  align="lrrrrrrrrr", supplement=True, size=FS, long=True,
                                  group_header=r" & \multicolumn{3}{c}{提前 1 年} & \multicolumn{3}{c}{提前 3 年} & \multicolumn{3}{c}{提前 5 年} \\ \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}")
 
@@ -1029,7 +1082,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             g = br[(br.sex == sex) & (br.measure == m)].set_index("year")
             rows.append([short, MEASURE_ZH[m]] + [signed(g.loc[y, "difference"], 3) for y in range(2018, 2025)])
     T["tableS_bridge"] = table(cap("bridge", "以內政部原始統計重建的數值與 HMD 數值的差"), ["性別", "指標"] + [str(y) for y in range(2018, 2025)], rows,
-                               "註：表中數值為重建數值減去由當年 HMD 死亡數與暴露人年編算的數值，單位為年；百分位是活到 30 歲的人的死亡年齡百分位。重建每一年的數值時，都只用該年之前三年的 HMD 資料換算暴露人年，再與該年的 HMD 數值比較；2025 年的重建採用同一程序。",
+                               "註：表中差值為重建數值減去由當年 HMD 死亡數與暴露人年編算的數值，單位為年；百分位指活到 30 歲者的死亡年齡百分位。重建每一年的數值時，都只用該年之前三年的 HMD 資料換算暴露人年，再與該年的 HMD 數值比較；2025 年的重建採用同一程序。",
                                align="llrrrrrrr", supplement=True, size=FS)
 
     # registration
@@ -1040,8 +1093,8 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             g = reg[(reg.sex == sex) & (reg.age_band_at_start == band)].set_index("year")
             rows.append([short, band.replace("-", "–")] + [signed(g.loc[y, "per_100_population"]) for y in range(2018, 2026)] + [signed(g.loc[y, "cumulative_since_end_2019_per_100"]) for y in (2022, 2025)])
     T["tableS_registration"] = table(cap("registration", "戶籍人口中死亡以外的淨變動（每百人）"), ["性別", "年齡"] + [str(y) for y in range(2018, 2026)] + ["至 2022", "至 2025"], rows,
-                                     "註：各年數值，是同一出生世代年底人口的變動加上該世代當年死亡數（取相鄰兩個年齡的死亡數各半），再除以年初人口；表中的年齡是年初的年齡。"
-                                     "負值表示扣除死亡之後，戶籍人口仍然減少。最後兩欄是 2020 年起各年數值的加總；各年的年齡組由不同出生世代組成，這項加總只是概略的累計。",
+                                     "註：各年數值按年初年齡分組計算：把各出生世代相鄰兩個年底的人口差加回當年死亡數（取相鄰兩個年齡的死亡數各半），加總後除以該組年初人口，再乘以 100。"
+                                     "負值表示加回死亡數之後，戶籍人口仍然減少。最後兩欄是 2020 年起各年數值的加總；各年的年齡組由不同出生世代組成，這項加總只是概略的累計。",
                                      align="llrrrrrrrrrr", supplement=True, size=FS, tabcolsep=TC)
 
     # cause categories and their ICD-10 codes
@@ -1073,7 +1126,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
                     raise KeyError(f"no Chinese name for {code}")
                 rows.append(["　" + code, ICD_ZH[code], count(dth.loc[code, 2019]), count(dth.loc[code, 2025]), plain(r[2019], 1), plain(r[2025], 1), signed(r["change"], 1)])
     T["tableS_codes"] = table(cap("codes", "臺灣 50–64 歲死亡率變動最大的 ICD-10 代碼，2019–2025 年"), ["代碼", "名稱", "2019", "2025", "2019", "2025", "變動"], rows,
-                              "註：死亡率是年齡標準化死亡率（每十萬人年；以各性別 2019 年 50–64 歲暴露人年的年齡結構為標準），「變動」是 2025 年減去 2019 年的死亡率。COVID-19（U07）與司法相驗中的案件沒有列入排序。",
+                              "註：死亡率是年齡標準化死亡率（每十萬人年；以各性別 2019 年 50–64 歲暴露人年的年齡結構為標準），「變動」為 2025 年死亡率減 2019 年死亡率。COVID-19（U07）與司法相驗中的案件沒有列入排序。",
                               align="l" + par_col("15em") + "rrrrr", supplement=True, size=FS, long=True,
                               group_header=r" & & \multicolumn{2}{c}{死亡人數} & \multicolumn{3}{c}{死亡率} \\ \cmidrule(lr){3-4}\cmidrule(lr){5-7}")
 
