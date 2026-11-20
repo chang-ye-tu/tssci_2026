@@ -1,6 +1,6 @@
 {
   "script": "research/trend_baseline.py",
-  "created_utc": "2026-11-20T13:55:19Z",
+  "created_utc": "2026-11-20T14:19:28Z",
   "hmd_release": "20261111",
   "populations": [
     "AUT",
@@ -87,7 +87,7 @@
   "python": "3.12.8",
   "numpy": "2.2.2",
   "pandas": "2.2.3",
-  "seconds": 362.5,
+  "seconds": 356.4,
   "inputs_sha256": {
     "data/hmd/2026-11-17/raw/core/AUT/STATS/Deaths_1x1.txt": "a99dbb447ec36cb1f7bf63e9e63b8393c284b3b4b768f9cdd2bb5f8a7132ec91",
     "data/hmd/2026-11-17/raw/core/AUT/STATS/Exposures_1x1.txt": "c6704df2b4b03ea085d00f7ac35a8ce13ef832576b3a3b40cf6ee24d21b20d8a",
@@ -180,7 +180,7 @@
   },
   "code_sha256": {
     "research/trend_baseline.py": "e2a57ed5ab13eb668f30cbe8a84cc2cc7bf4a74700bd40caeb4bc98384dd9a01",
-    "research/trendlib.py": "6a096663d18acd461c4f9e95cacfbc27bbc36af32cfc5c30bfbe9c65ea31cd56",
+    "research/trendlib.py": "f9fbef34e26621a09319b153b2878ffca617e5a997a5f8ef3156d0f103e27e83",
     "research/trend_backtest.py": "8e1c759b6c346cd41a7d786133528c049616ed5031316e8a289d1b551184e7eb"
   }
 }

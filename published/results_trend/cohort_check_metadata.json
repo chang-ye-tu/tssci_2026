@@ -47,6 +47,6 @@
   "age_band_backtest_weights": "2019 exposure (known only after the forecast origin; used for scoring, not for fitting)",
   "code_sha256": {
     "research/trend_cohort_check.py": "d9568e648f73aa1521264470931e72189987578f4c0fd32d8d5aae98a9a68604",
-    "research/trendlib.py": "6a096663d18acd461c4f9e95cacfbc27bbc36af32cfc5c30bfbe9c65ea31cd56"
+    "research/trendlib.py": "f9fbef34e26621a09319b153b2878ffca617e5a997a5f8ef3156d0f103e27e83"
   }
 }

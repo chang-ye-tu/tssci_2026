@@ -15,7 +15,7 @@
   },
   "code_sha256": {
     "research/taiwan_2025.py": "e8b78caf2e15b1a93c893b1321ed5b97756855048f2258b37ae990fa9d4cd869",
-    "research/trendlib.py": "6a096663d18acd461c4f9e95cacfbc27bbc36af32cfc5c30bfbe9c65ea31cd56"
+    "research/trendlib.py": "f9fbef34e26621a09319b153b2878ffca617e5a997a5f8ef3156d0f103e27e83"
   },
   "decomposition_precision": "contributions add up to the gap up to the finite-step residual (total_deficit against sum_of_contributions); negligible for life expectancy, up to a few thousandths of a year for the death-age quantiles",
   "max_abs_bridge_error": {

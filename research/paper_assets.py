@@ -832,7 +832,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             cells = [star(signed(g.loc[y, "deficit"]), g.loc[y, "deficit_low"], g.loc[y, "deficit_high"]) if y in g.index else "—" for y in range(2020, 2026)]
             last = g.index.max()
             rows.append([zh, short] + cells + [f"{signed(g.loc[last, 'deficit_low'])} 至 {signed(g.loc[last, 'deficit_high'])}"])
-    T["table1"] = table("東亞四地 30 歲平均餘命與趨勢預期值的差距，2020–2025 年", ["地區", "性別", "2020", "2021", "2022", "2023", "2024", "2025", r"最近一年的 95\% 區間"], rows,
+    T["table1"] = table("東亞四地 30 歲平均餘命與趨勢預期值的差距，2020–2025 年", ["地區", "性別", "2020", "2021", "2022", "2023", "2024", "2025", r"最近一年缺口的 95\% 區間"], rows,
                         "註：表中數值為 30 歲平均餘命的缺口，也就是實際值減去趨勢預期值，單位為年；負值表示實際平均餘命低於疫情前趨勢延續時的水準。"
                         "趨勢預期值由 2003–2019 年資料配適的 Lee–Carter 模型推估。"
                         r"* 表示實際值落在 95\% 預測區間之外。最後一欄是各地最近一年缺口的 95\% 區間；最近一年在臺灣為 2025 年，在其餘三地為 2024 年。"
@@ -841,7 +841,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
 
     # Table 2: backtest, five years ahead ----------------------------------------------
     rows = []
-    for scope, label in (("pool", "各地區合計"), ("TWN", "臺灣")):
+    for scope, label in (("pool", "各地區彙整（不含波羅的海三國）"), ("TWN", "臺灣")):
         rows.append(("panel", label))
         for m in ("e", "q25", "q50", "q75"):
             row = ["\u3000" + MEASURE_ZH[m]]
@@ -854,8 +854,8 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
     T["table2"] = table("疫情前回測：提前 5 年預測的誤差與區間涵蓋率", ["指標", "平均誤差", "均方根誤差", "涵蓋率", "平均誤差", "均方根誤差", "涵蓋率"], rows,
                         "註：回測以 2005–2014 年每一年為起點，只用起點當年及以前的資料配適模型，再把提前 5 年的預測值與實際值比較。"
                         "誤差為實際值減預測值，單位為年；"
-                        r"涵蓋率是實際值落在 95\% 預測區間之內的回測所占百分比。「各地區合計」不包含愛沙尼亞、拉脫維亞與立陶宛，因為這三國在回測期間死亡率變動劇烈。"
-                        f"資料起始年較晚的地區，只納入配適期完整的起點。包含全部地區的結果見附表 {TS['backtest']}。",
+                        r"涵蓋率是實際值落在 95\% 預測區間之內的回測所占百分比。「各地區彙整」把各地區的回測合併計算，不包含愛沙尼亞、拉脫維亞與立陶宛，因為這三國在回測期間死亡率變動劇烈。"
+                        f"資料起始年較晚的地區，只納入配適期完整的起點。納入這三國的結果見附表 {TS['backtest']}。",
                         align="lrrrrrr", tabcolsep="4.5pt", label="tab:backtest",
                         group_header=r" & \multicolumn{3}{c}{配適期 17 年} & \multicolumn{3}{c}{配適期 10 年} \\ \cmidrule(lr){2-4}\cmidrule(lr){5-7}")
 
@@ -877,8 +877,8 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
     for sex, sc, _, short in SEXES:
         for band in BANDS:
             rows.append([short, BAND_ZH[band]] + [cell(p, sex, band, 2024) for p in ("TWN", "JPN", "KOR", "HKG")])
-    T["table3"] = table(r"各年齡組死亡率高於趨勢預期值的幅度（\%）", ["性別", "年齡", "2022", "2023", "2024", "2025"], rows,
-                        r"註：表中數值為實際死亡率高於趨勢預期死亡率的幅度，也就是（實際死亡率 ÷ 趨勢預期死亡率 − 1）× 100；括號內為 95\% 區間，* 表示區間不包含 0。"
+    T["table3"] = table(r"各年齡組死亡率與趨勢預期值的差距（\%）", ["性別", "年齡", "2022", "2023", "2024", "2025"], rows,
+                        r"註：表中數值為死亡率的差距，也就是（實際死亡率 ÷ 趨勢預期死亡率 − 1）× 100；正值表示實際死亡率高於預期值，負值表示低於預期值。括號內為差距的 95\% 區間，* 表示區間不包含 0。"
                         "各年齡組死亡率，以該地區、該性別 2019 年暴露人年的年齡結構標準化。",
                         align="llcccc", label="tab:ratios")
 
@@ -894,7 +894,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
     T["table4"] = table("各死因對臺灣 30 歲平均餘命變動的貢獻：2012–2018 年與 2019–2025 年", ["死因", "2012–2018", "2019–2025", "差", "2012–2018", "2019–2025", "差"], rows,
                         "註：表中數值為各死因對 30 歲平均餘命變動的貢獻，單位為年。正值表示該死因死亡率下降，使平均餘命增加；負值表示該死因死亡率上升，使平均餘命減少。"
                         "兩段期間各為六年：2012–2018 年適用舊版死因選取準則，2019–2025 年適用 2016 年版準則，兩段期間各自在同一套準則之內計算。"
-                        "「差」為後一段期間的貢獻減去前一段期間的貢獻。各列數值加總與「合計」列之間的差異，來自四捨五入。",
+                        "「差」為後一段期間的貢獻減去前一段期間的貢獻；兩段期間適用不同的死因選取準則，解讀「差」時需要留意。各列數值加總與「合計」列之間的差異，來自四捨五入。",
                         align=par_col("11.4em") + "rrrrrr", tabcolsep="2.6pt", label="tab:causes",
                         group_header=r" & \multicolumn{3}{c}{男性} & \multicolumn{3}{c}{女性} \\ \cmidrule(lr){2-4}\cmidrule(lr){5-7}")
 
@@ -911,7 +911,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
     rows.append("midrule")
     rows.append(["全死因"] + [v for _, sc, *_ in SEXES[::-1] for v in (N[f"cr.{sc}.50-64.all.2019"], N[f"cr.{sc}.50-64.all.2025"], N[f"crpct.{sc}.50-64.all.1925"])])
     T["table5"] = table("臺灣 50–64 歲死因別死亡率：2019 年與 2025 年", ["死因（ICD-10）", "2019", "2025", r"變動（\%）", "2019", "2025", r"變動（\%）"], rows,
-                        "註：表中數值為年齡標準化死亡率，單位為每十萬人的死亡人數，以各性別 2019 年 50–64 歲暴露人年的年齡結構為標準。"
+                        "註：2019 與 2025 兩欄為年齡標準化死亡率，單位為每十萬人年的死亡人數，以各性別 2019 年 50–64 歲暴露人年的年齡結構為標準；「變動」欄為兩個年度之間的百分比變動。"
                         "全死因死亡率取自 HMD 與本文重建的 2025 年數值，再依衛生福利部死因統計中各年齡組的死因比率分配到各類死因。"
                         "「其他」指表中所列各類以外的全部死因。「變動」為 2025 年相對於 2019 年的百分比變動。",
                         align=par_col("13em") + "rrrrrr", tabcolsep="4pt", label="tab:midlife",
@@ -932,7 +932,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             g = gaps[(gaps.population == pop) & (gaps.sex == sex) & (gaps.year == 2024)].set_index("measure")
             rows.append([NAMES[pop], short] + [star(signed(g.loc[m, "deficit"]), g.loc[m, "deficit_low"], g.loc[m, "deficit_high"]) for m in ("e", "q25", "q50", "q75")]
                         + [f"{signed(g.loc['e', 'deficit_low'])} 至 {signed(g.loc['e', 'deficit_high'])}"])
-    T["tableS_pops"] = table(cap("pops", "22 個地區 2024 年與趨勢預期值的差距"), ["地區", "性別", "平均餘命", "第 25 百分位", "中位數", "第 75 百分位", r"平均餘命的 95\% 區間"], rows,
+    T["tableS_pops"] = table(cap("pops", "22 個地區 2024 年與趨勢預期值的差距"), ["地區", "性別", "平均餘命", "第 25 百分位", "中位數", "第 75 百分位", r"平均餘命缺口的 95\% 區間"], rows,
                              r"註：表中數值為各指標的缺口（實際值減趨勢預期值），單位為年；「平均餘命」指 30 歲平均餘命。各地區依兩性平均的 30 歲平均餘命缺口由低到高排列。* 表示實際值落在 95\% 預測區間之外。",
                              align="llrrrrc", long=True, supplement=True, size=FS)
 
@@ -944,7 +944,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
         for sex, sc, _, short in SEXES:
             for band in BANDS:
                 rows.append([short, BAND_ZH[band]] + [cell("TWN", sex, band, y) for y in years3])
-    T["tableS_agerates"] = table(cap("agerates", r"臺灣各年齡組死亡率高於趨勢預期值的幅度，2020–2025 年（\%）"), ["性別", "年齡", "2020", "2021", "2022"], rows,
+    T["tableS_agerates"] = table(cap("agerates", r"臺灣各年齡組死亡率與趨勢預期值的差距，2020–2025 年（\%）"), ["性別", "年齡", "2020", "2021", "2022"], rows,
                                  r"註：表中數值的定義與正文表 3 相同，也就是（實際死亡率 ÷ 趨勢預期死亡率 − 1）× 100；括號內為 95\% 區間，* 表示區間不包含 0。趨勢預期值來自主要基準。",
                                  align="llccc", supplement=True, size=FS)
 
@@ -960,7 +960,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
         for label, f in specs:
             rows.append(["　" + label] + [f(sc, m, y) for m in ("e", "q25", "q75") for y in (2022, 2024, 2025)])
     T["tableS_baselines"] = table(cap("baselines", "不同趨勢基準下臺灣的缺口"), ["基準", "2022", "2024", "2025", "2022", "2024", "2025", "2022", "2024", "2025"], rows,
-                                  "註：表中數值為各指標的缺口（實際值減趨勢預期值），單位為年。" + LC_NOTE + "除了標明「不校正起點」的一列之外，各基準都以配適期最後三年的實際死亡數校正預測起點。",
+                                  "註：表中數值為各指標的缺口（實際值減趨勢預期值），單位為年；兩個百分位都是活到 30 歲的人的死亡年齡百分位。" + LC_NOTE + "除了標明「不校正起點」的一列之外，各基準都以配適期最後三年的實際死亡數校正預測起點。",
                                   align="lrrrrrrrrr", supplement=True, size=FS, tabcolsep="1.6pt",
                                   group_header=r" & \multicolumn{3}{c}{30 歲平均餘命} & \multicolumn{3}{c}{第 25 百分位} & \multicolumn{3}{c}{第 75 百分位} \\ \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}")
 
@@ -974,9 +974,9 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
                 rows.append([short, label, str(y)] + [N[f"coh.{b}.{sc}.{band}.{y}"] for band in BANDS] + [N[f"cohrr.{b}.{sc}.{band}.{y}"] for band in BANDS])
         if sex == "Female":
             rows.append("midrule")
-    T["tableS_bands"] = table(cap("bands", "四種基準下臺灣各年齡組的缺口"), ["性別", "基準", "年"] + short_band * 2, rows,
-                              r"註：左邊四欄是各年齡組對 30 歲平均餘命缺口的貢獻，單位為年；右邊四欄是各年齡組實際死亡率高於預期值的幅度，單位為 \%。" + LC_NOTE, align="lllrrrrrrrr", supplement=True, size=FS, long=True,
-                              group_header=r" & & & \multicolumn{4}{c}{對平均餘命缺口的貢獻} & \multicolumn{4}{c}{死亡率高於預期的幅度} \\ \cmidrule(lr){4-7}\cmidrule(lr){8-11}")
+    T["tableS_bands"] = table(cap("bands", "四種基準下臺灣各年齡組對平均餘命缺口的貢獻與死亡率差距"), ["性別", "基準", "年"] + short_band * 2, rows,
+                              r"註：每個年齡組各有兩個數值。前四欄是各年齡組對 30 歲平均餘命缺口的貢獻，單位為年；後四欄是各年齡組死亡率的差距，單位為 \%，負值表示實際死亡率低於預期值。" + LC_NOTE, align="lllrrrrrrrr", supplement=True, size=FS, long=True,
+                              group_header=r" & & & \multicolumn{4}{c}{對平均餘命缺口的貢獻（年）} & \multicolumn{4}{c}{死亡率的差距（\%）} \\ \cmidrule(lr){4-7}\cmidrule(lr){8-11}")
 
     # the 2025 gap in death rates against pre-pandemic forecast errors of the same quantity and the same horizon
     rows = []
@@ -996,7 +996,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
                     row += [N[f"cohbt.bias.{key}"], N[f"cohbt.min.{key}"], N[f"cohbt.max.{key}"], N[f"cohlog.{b}.{sc}.{band}.2025"]]
                 rows.append(row)
     n6 = N["cohbt.n.h6.lc.M.rate50-64"]
-    T["tableS_backtestgap"] = table(cap("backtestgap", "臺灣各年齡組 2025 年死亡率缺口與疫情前回測誤差的比較"), stat_head.split(" & "), rows,
+    T["tableS_backtestgap"] = table(cap("backtestgap", "臺灣各年齡組 2025 年死亡率差距與疫情前回測誤差的比較（對數尺度）"), stat_head.split(" & "), rows,
                                     "註：表中數值為 100 × ln（實際死亡率 ÷ 預期死亡率），接近以百分比表示的差距；正值表示實際死亡率高於預期，也就是預測低估了死亡率。"
                                     f"「平均」「最小」「最大」三欄，是以 2005–2013 年為起點、提前 6 年預測的 {n6} 次回測誤差的平均值、最小值與最大值；"
                                     "「2025」一欄是 2025 年實際死亡率相對於各基準預期值的差距，同樣是提前 6 年的預測。"
@@ -1007,7 +1007,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
 
     # backtest in full
     rows = []
-    for scope, label in (("pool", "不含波羅的海三國"), ("all", "全部地區"), ("TWN", "臺灣")):
+    for scope, label in (("pool", "不含波羅的海三國"), ("all", "納入波羅的海三國"), ("TWN", "臺灣")):
         for w, wl in (("17y", "17 年"), ("10y", "10 年")):
             rows.append(("panel", f"{label}，配適期 {wl}"))
             for m in ("e", "q25", "q75"):
@@ -1017,7 +1017,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
                     row += [N[f"bt.bias.{k}"], N[f"bt.rmse.{k}"], N[f"bt.cover.{k}"]]
                 rows.append(row)
     T["tableS_backtest"] = table(cap("backtest", "回測結果：提前 1、3、5 年"), ["指標", "平均", "均方根", "涵蓋率", "平均", "均方根", "涵蓋率", "平均", "均方根", "涵蓋率"], rows,
-                                 r"註：回測起點為 2005–2014 年每一年。「平均」為平均誤差，「均方根」為均方根誤差；誤差為實際值減預測值，單位為年。涵蓋率是實際值落在 95\% 預測區間之內的回測所占百分比。",
+                                 r"註：回測起點為 2005–2014 年每一年。「平均」為平均誤差，「均方根」為均方根誤差；誤差為實際值減預測值，單位為年。涵蓋率是實際值落在 95\% 預測區間之內的回測所占百分比。配適期 17 年的回測只納入資料年數足夠的地區，不含韓國與克羅埃西亞。",
                                  align="lrrrrrrrrr", supplement=True, size=FS, long=True,
                                  group_header=r" & \multicolumn{3}{c}{提前 1 年} & \multicolumn{3}{c}{提前 3 年} & \multicolumn{3}{c}{提前 5 年} \\ \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}")
 
@@ -1029,7 +1029,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             g = br[(br.sex == sex) & (br.measure == m)].set_index("year")
             rows.append([short, MEASURE_ZH[m]] + [signed(g.loc[y, "difference"], 3) for y in range(2018, 2025)])
     T["tableS_bridge"] = table(cap("bridge", "以內政部原始統計重建的數值與 HMD 數值的差"), ["性別", "指標"] + [str(y) for y in range(2018, 2025)], rows,
-                               "註：表中數值為重建數值減去 HMD 數值，單位為年。重建每一年的數值時，都只用該年之前三年的 HMD 資料換算暴露人年，再與該年的 HMD 數值比較；2025 年的重建採用同一程序。",
+                               "註：表中數值為重建數值減去由當年 HMD 死亡數與暴露人年編算的數值，單位為年；百分位是活到 30 歲的人的死亡年齡百分位。重建每一年的數值時，都只用該年之前三年的 HMD 資料換算暴露人年，再與該年的 HMD 數值比較；2025 年的重建採用同一程序。",
                                align="llrrrrrrr", supplement=True, size=FS)
 
     # registration
@@ -1041,7 +1041,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             rows.append([short, band.replace("-", "–")] + [signed(g.loc[y, "per_100_population"]) for y in range(2018, 2026)] + [signed(g.loc[y, "cumulative_since_end_2019_per_100"]) for y in (2022, 2025)])
     T["tableS_registration"] = table(cap("registration", "戶籍人口中死亡以外的淨變動（每百人）"), ["性別", "年齡"] + [str(y) for y in range(2018, 2026)] + ["至 2022", "至 2025"], rows,
                                      "註：各年數值，是同一出生世代年底人口的變動加上該世代當年死亡數（取相鄰兩個年齡的死亡數各半），再除以年初人口；表中的年齡是年初的年齡。"
-                                     "負值表示遷出戶籍的人多於遷入戶籍的人。最後兩欄是 2020 年起各年數值的加總；各年的年齡組由不同出生世代組成，這項加總只是概略的累計。",
+                                     "負值表示扣除死亡之後，戶籍人口仍然減少。最後兩欄是 2020 年起各年數值的加總；各年的年齡組由不同出生世代組成，這項加總只是概略的累計。",
                                      align="llrrrrrrrrrr", supplement=True, size=FS, tabcolsep=TC)
 
     # cause categories and their ICD-10 codes
@@ -1054,7 +1054,9 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
             ["其他", "其餘代碼，含司法相驗中的案件"]]
     if [r[0] for r in rows] != [label for _, label, _ in CAUSE_ROWS]:
         raise ValueError("the category table and CAUSE_ROWS list different categories")
-    T["tableS_categories"] = table(cap("categories", "死因類別與 ICD-10 代碼"), ["類別", "ICD-10 代碼"], rows, align="l" + par_col("24em"), supplement=True, size=FS)
+    T["tableS_categories"] = table(cap("categories", "死因類別與 ICD-10 代碼"), ["類別", "ICD-10 代碼"], rows,
+                                   "註：「肺炎、流感及吸入性肺炎」除了 J10–J18 之外，另含 J66–J69，也就是吸入有機粉塵、化學物質、固體或液體引起的呼吸系統疾病。"
+                                   "「慢性肝病、肝硬化及酒精所致疾病」另含病毒性肝炎（B15–B19）與酒精意外中毒（X45）。", align="l" + par_col("24em"), supplement=True, size=FS)
 
     # codes at ages 50-64
     c3 = d["code3"]
@@ -1071,7 +1073,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
                     raise KeyError(f"no Chinese name for {code}")
                 rows.append(["　" + code, ICD_ZH[code], count(dth.loc[code, 2019]), count(dth.loc[code, 2025]), plain(r[2019], 1), plain(r[2025], 1), signed(r["change"], 1)])
     T["tableS_codes"] = table(cap("codes", "臺灣 50–64 歲死亡率變動最大的 ICD-10 代碼，2019–2025 年"), ["代碼", "名稱", "2019", "2025", "2019", "2025", "變動"], rows,
-                              "註：死亡率是每十萬人的年齡標準化死亡率，「變動」是 2025 年死亡率減去 2019 年死亡率。COVID-19（U07）與司法相驗中尚未確定死因的案件沒有列入排序。",
+                              "註：死亡率是年齡標準化死亡率（每十萬人年；以各性別 2019 年 50–64 歲暴露人年的年齡結構為標準），「變動」是 2025 年減去 2019 年的死亡率。COVID-19（U07）與司法相驗中的案件沒有列入排序。",
                               align="l" + par_col("15em") + "rrrrr", supplement=True, size=FS, long=True,
                               group_header=r" & & \multicolumn{2}{c}{死亡人數} & \multicolumn{3}{c}{死亡率} \\ \cmidrule(lr){3-4}\cmidrule(lr){5-7}")
 
@@ -1084,7 +1086,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
                 rows.append(["　" + label, N[f"cr.{sc}.{band}.{key}.2012"], N[f"cr.{sc}.{band}.{key}.2018"], N[f"crpct.{sc}.{band}.{key}.1218"],
                              N[f"cr.{sc}.{band}.{key}.2019"], N[f"cr.{sc}.{band}.{key}.2025"], N[f"crpct.{sc}.{band}.{key}.1925"]])
     T["tableS_broad"] = table(cap("broad", "臺灣各年齡組兩大類死因的死亡率"), ["死因", "2012", "2018", r"變動（\%）", "2019", "2025", r"變動（\%）"], rows,
-                              "註：表中數值為每十萬人的年齡標準化死亡率。循環系統疾病指 I00–I99，診斷欠明指 R00–R99。「其他死因」指這兩大類與 COVID-19 以外的全部死因，"
+                              "註：各年度欄為年齡標準化死亡率，單位為每十萬人年的死亡人數，以同一性別、同一年齡組 2019 年暴露人年的年齡結構為標準；「變動」欄為該段期間的百分比變動。循環系統疾病指 I00–I99，診斷欠明指 R00–R99。「其他死因」指這兩大類與 COVID-19 以外的全部死因，"
                               "全死因則包含 COVID-19。死因選取準則在 2018 年與 2019 年之間改版，因此 2012–2018 年與 2019–2025 年兩段期間各自比較。",
                               align="lrrrrrr", supplement=True, size=FS, long=True)
 
@@ -1092,7 +1094,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
     c4 = d["code4"]
     nat = c4.groupby(["ICD", "year"]).deaths.sum().unstack("year").fillna(0)
     labels = [("R570", "R57.0 心因性休克"), ("R092", "R09.2 呼吸停止、心肺衰竭"), ("R54", "R54 衰老"), ("I516", "I51.6 未明示心血管疾病"),
-              ("I519", "I51.9 未明示心臟病"), ("I509", "I50.9 未明示心臟衰竭"), ("I10", "I10 本態性高血壓"), ("I219", "I21.9 急性心肌梗塞")]
+              ("I519", "I51.9 未明示心臟病"), ("I509", "I50.9 未明示心臟衰竭"), ("I10", "I10 本態性高血壓"), ("I219", "I21.9 未明示急性心肌梗塞")]
     years = list(range(2015, 2026))
     rows = [[lab] + [count(nat.loc[code, y]) for y in years] for code, lab in labels]
     rows.append("midrule")
@@ -1121,7 +1123,7 @@ def build_tables(d: dict[str, pd.DataFrame], N: dict[str, str]) -> dict[str, str
     T["tableS_context"] = table(cap("context", "不使用死因代碼的三項全國指標，2019–2025 年"), ["年", "死亡人數", "心肺功能停止", "相驗案件", r"相驗率（\%）", r"兩性（\%）", r"男性（\%）", r"醫院外（\%）"], rows,
                                 "註：「死亡人數」是戶籍登記的死亡人數。「心肺功能停止」是消防機關救護送醫的非創傷類到院前心肺功能停止人數，只計入送醫的人。"
                                 "「相驗案件」是全國地方檢察署司法相驗案件數，不包含衛生所等辦理的行政相驗；「相驗率」是司法相驗案件數占死亡人數的比率。"
-                                "「兩性」與「男性」兩欄，是在住居所死亡的人數占死亡人數的比率。「醫院外」是在醫院以外各場所死亡的人數合計占死亡人數的比率。這三項統計都沒有公布年齡別數字。",
+                                "「兩性」與「男性」兩欄，是在住居所死亡的人數占死亡人數的比率。「醫院外」一欄是兩性合計在醫院以外各場所死亡的人數占死亡人數的比率。這三項統計都沒有公布年齡別數字。",
                                 align="lrrrrrrr", supplement=True, size=FS, tabcolsep="2pt",
                                 group_header=r" & & & & & \multicolumn{2}{c}{在住居所死亡} & \\ \cmidrule(lr){6-7}")
     missing = [name for name in SUPP_ORDER if f"tableS_{name}" not in T]
@@ -1210,7 +1212,7 @@ def figure2(d) -> None:
         ax.set_xlabel("年齡組（歲）")
         ax.grid(axis="y", color="0.9", linewidth=0.5)
         ax.set_axisbelow(True)
-    axes[0].set_ylabel("對 30 歲平均餘命差距的貢獻（年）")
+    axes[0].set_ylabel("對 30 歲平均餘命缺口的貢獻（年）")
     axes[0].legend(frameon=False, loc="lower left")
     fig.tight_layout()
     save(fig, "fig2_age_gap")

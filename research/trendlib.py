@@ -30,7 +30,8 @@ POPULATIONS = (
     "LVA NLD NOR PRT SVK SWE TWN USA"
 ).split()
 
-# Iceland and Luxembourg have only about 2,000 adult deaths a year.  A
+# Iceland and Luxembourg are small (about 2,200 and 4,200 deaths a year at ages
+# 30 and over, both sexes together, in 2019).  A
 # single-year-of-age Lee-Carter model is not estimable for them (fits and
 # resampled fits diverge), so the trend analysis uses the other 22.
 SMALL_POPULATIONS = ("ISL", "LUX")

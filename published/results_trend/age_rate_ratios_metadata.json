@@ -16,6 +16,6 @@
   "taiwan_2025": "rebuilt rates from results_trend/taiwan_2025_rates.csv",
   "code_sha256": {
     "research/trend_age_rates.py": "0b8f735a198994aa49101a7f2a35bf17019dde0674570d02a14234ce9388e6e8",
-    "research/trendlib.py": "6a096663d18acd461c4f9e95cacfbc27bbc36af32cfc5c30bfbe9c65ea31cd56"
+    "research/trendlib.py": "f9fbef34e26621a09319b153b2878ffca617e5a997a5f8ef3156d0f103e27e83"
   }
 }
