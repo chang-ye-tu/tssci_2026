@@ -16,6 +16,8 @@ Run from the repository root:  python3 research/paper_assets.py
 """
 from __future__ import annotations
 
+import functools
+import itertools
 import json
 import math
 import re
@@ -194,27 +196,118 @@ KEYS = {
     "bands_all": ["population", "sex", "spec", "year", "measure", "age_band"],
     "groups_all": ["population", "sex", "spec", "year", "measure", "age_group"],
 }
-# Tables over which the text counts cases or takes a smallest or largest value.  Within each group of the first
-# columns, every combination of the values of the other columns is there.
-GRIDS = {
-    "coh_rr": ([], ["baseline", "sex", "age_band", "year"]), "coh_band": ([], ["baseline", "sex", "age_band", "year"]),
-    "coh_gap": ([], ["sex", "year", "measure"]), "coh_bt": (["horizon"], ["sex", "model", "measure", "origin"]),
-    "rr": (["population"], ["sex", "year", "age_group"]), "gaps": (["population", "spec"], ["sex", "year", "measure"]),
-}
+# The design of the analysis.  The rows that a table of results must hold follow from it (designed_rows); nothing of
+# it is read from the results.
+POPULATIONS = sorted(NAMES)                                                     # the 22 populations
+SEX_NAMES = [s[0] for s in SEXES]
+SPECS = ["main", "window2010", "fitted_start"]
+MEASURES7, MEASURES4 = ["e", "q10", "q25", "q50", "q75", "q90", "iqr"], ["e", "q25", "q50", "q75"]
+PARTS = [f"{a}-{a + 4}" for a in range(30, 100, 5)] + ["100+"]                  # five-year age groups of the decompositions
+RATE_GROUPS = [f"{a}-{a + 4}" for a in range(30, 95, 5)] + ["95+"]              # five-year age groups of the death rates
+CAUSE_GROUPS = [m for _, _, members in CAUSE_ROWS for m in members]
+BROAD_CLASSES = sorted({m for _, _, members in BROAD_ROWS for m in members})
+PERIODS = [(2012, 2018), (2019, 2022), (2019, 2024), (2019, 2025), (2022, 2025)]    # changes in e30 decomposed by cause
+COHORT_BASELINES = ["APC", "Lee-Carter", "Lee-Carter, 1990-2019", "Lee-Carter, 2010-2019"]
+COHORT_MODELS = ["APC, 30 years", "Lee-Carter, 17 years", "Lee-Carter, 30 years", "Lee-Carter, 10 years"]
+CONDENSED = ["03", "06", "09", "15", "16", "17", "21", "23", "28", "32", "accidents", "covid", "suicide"]
+AGES_BY_CAUSE = [0, 1] + list(range(5, 101, 5))                                 # lower ages of deaths_by_cause.csv
+CAUSE_YEARS = range(2008, 2026)
+WATCHED = ("R57", "R09", "R96", "R98", "R99", "R54", "I46", "I50", "I51", "I10", "I11", "I21", "I25", "I64", "J96", "J98")
+# The backtests take every forecast origin from 1990 to 2014 that leaves a fitting window of 17 or of 10 years.  The
+# HMD series of these five populations begin after 1974, so their first year decides which origins there are.
+HMD_FIRST_YEAR = {"CHL": 1992, "DEUTNP": 1990, "HKG": 1986, "HRV": 2001, "KOR": 2003}
+SPARSE = ("chap", "code3", "code4")         # a row only where deaths were registered (cause_table_problems)
+TEXT_COLUMNS = {"exp": ["jump", "window"], "fit": ["jump"]}     # besides the key columns, the only columns that hold words
 
 
-def absent_by_design(d: dict[str, pd.DataFrame]) -> dict[str, list[tuple[list[str], pd.Series | None]]]:
-    """Columns that hold no value in part of the rows, with the rows in which they do hold one (None: columns the
-    text does not use; they are not looked at)."""
+def product(*axes) -> set[tuple]:
+    return set(itertools.product(*axes))
+
+
+def key_tuples(frame: pd.DataFrame, keys: list[str]) -> set[tuple]:
+    """The combinations of the key columns that a table holds."""
+    return set(zip(*(frame[k].tolist() for k in keys)))
+
+
+def backtest_rows(intervals: bool) -> set[tuple]:
+    """Rows of the backtests of the 22 populations: fitting windows of 17 and of 10 years that end in a forecast
+    origin from 1990 to 2014, as far as the series reaches back, and the window 2003-2014; forecasts one to five
+    years ahead.  Prediction intervals exist for the origins 2005 to 2014 of the two rolling windows."""
+    rows = set()
+    for p in POPULATIONS:
+        first = HMD_FIRST_YEAR.get(p, 1974)
+        plans = [(f"{w}y", range(max(first + w - 1, 2005 if intervals else 1990), 2015)) for w in (17, 10)]
+        if not intervals:
+            plans.append(("2003-2014", [2014]))
+        for window, origins in plans:
+            rows |= product([p], SEX_NAMES, [window], ["fit", "corrected"], origins, range(1, 6), MEASURES4)
+    return rows
+
+
+@functools.lru_cache(maxsize=None)
+def designed_rows() -> dict[str, frozenset]:
+    """The rows of each table of results, as combinations of its key columns (KEYS), written down from the design of
+    the analysis.  The three tables of SPARSE cannot be listed in advance."""
+    P, S, four = POPULATIONS, SEX_NAMES, [p for p, _ in FOCUS]
+    after, to_2025 = range(2020, 2025), range(2020, 2026)
+    # gaps decomposed by age.  Main specification: every year for the four populations of the article, 2022 and 2024
+    # for the others; the other two specifications: the four populations in 2024
+    decomposed = ({(p, s, "main", y, m) for p in P for s in S for y in (after if p in four else (2022, 2024)) for m in MEASURES4}
+                  | product(four, S, ["window2010", "fitted_start"], [2024], MEASURES4))
+    rows = {
+        "exp": product(P, S, SPECS, to_2025, MEASURES7),
+        "t25": product(S, SPECS, [2025], MEASURES7),
+        "bands": {(*gap, b) for gap in decomposed for b in BANDS},
+        "bands25": product(S, [2025], MEASURES4, BANDS),
+        "groups": {(*gap, g) for gap in decomposed for g in PARTS},
+        "groups25": product(S, [2025], MEASURES4, PARTS),
+        # death rates of the four populations from 2012; Taiwan has 2025 as well
+        "rr": {(p, s, y, grouping, g) for p in four for s in S for y in range(2012, 2026 if p == "TWN" else 2025)
+               for grouping, groups in (("band", BANDS), ("five_year", RATE_GROUPS)) for g in groups},
+        "obs": product(P, S, range(2003, 2025), MEASURES7),
+        "bt": backtest_rows(intervals=False), "bti": backtest_rows(intervals=True),
+        # backtests of the four baselines for Taiwan: origins 2005-2014 five years ahead, 2005-2013 six years ahead
+        "coh_bt": {(s, m, o, h, x) for h, last in ((5, 2014), (6, 2013)) for o in range(2005, last + 1) for s in S
+                   for m in COHORT_MODELS for x in MEASURES4 + [f"log rate {b}" for b in BANDS]},
+        "coh_gap": product(S, to_2025, MEASURES4),
+        "coh_band": product(S, [2022, 2024, 2025], COHORT_BASELINES, BANDS),
+        "coh_rr": product(S, to_2025, COHORT_BASELINES, BANDS),
+        "bridge": product(S, range(2018, 2025), MEASURES7),
+        "sources": product(S, range(2015, 2025)),
+        "reg": product(S, ["30-49", "50-64", "65-79", "80-94"], range(2012, 2026)),
+        "fit": product(P, S, SPECS),
+        "cc": {(s, y0, y1, m, b, c) for s in S for y0, y1 in PERIODS for m in MEASURES4 for b in BANDS for c in CAUSE_GROUPS},
+        "cr": product(S, BANDS, CAUSE_YEARS, CAUSE_GROUPS),
+        "check": {(s, y0, y1, m) for s in S for y0, y1 in PERIODS for m in MEASURES4},
+        "rep": product(["JPN", "TWN"], after),
+        "ctx_ems": product(range(2015, 2026)),
+        "ctx_place": product(range(2019, 2026), S + ["Total"]),
+        "ctx_inq": product(range(2019, 2026)),
+        # deaths are coded to COVID-19 from 2020 on
+        "by_cause": {(y, s, a, c) for y in CAUSE_YEARS for s in S for a in AGES_BY_CAUSE for c in CAUSE_GROUPS if c != "covid19" or y >= 2020},
+        "condensed": {(y, s, c) for y in CAUSE_YEARS for s in S for c in CONDENSED if c != "covid" or y >= 2020},
+    }
+    # the tables that load() puts together
+    rows["gaps"] = product(P, S, SPECS, after, MEASURES7) | product(["TWN"], S, SPECS, [2025], MEASURES7)
+    rows["bands_all"] = rows["bands"] | {("TWN", s, "main", y, m, b) for s, y, m, b in rows["bands25"]}
+    rows["groups_all"] = rows["groups"] | {("TWN", s, "main", y, m, g) for s, y, m, g in rows["groups25"]}
+    return {name: frozenset(r) for name, r in rows.items()}
+
+
+def absent_by_design(d: dict[str, pd.DataFrame]) -> dict[str, list[tuple[list[str], pd.Series]]]:
+    """Columns that hold no value in part of the rows, with the rows in which they do hold one."""
     exp, bands, both, rr, reg, rep = (d[k] for k in ("exp", "bands", "bands_all", "rr", "reg", "rep"))
     east, four = [p for p, _ in FOCUS], ["e", "q25", "q50", "q75"]
     interval = ["low", "high", "low_mcse", "high_mcse"]
+    no_17_years = [p for p in POPULATIONS if HMD_FIRST_YEAR.get(p, 1974) + 16 > 2014]      # no window of 17 years ends by 2014
     return {
         # the HMD ends in 2024; the rows of 2025 hold the expected values only
         "exp": [(["observed", "predictive_median", "predictive_low", "predictive_high", "deficit", "deficit_low", "deficit_high",
                   "p_value", "deficit_low_mcse", "deficit_high_mcse", "p_value_mcse"], exp.year <= 2024),
                 (["pooled_rmse", "pooled_mean"], (exp.year <= 2024) & exp.measure.isin(four)),
-                (["placebo_n", "placebo_mean", "placebo_min", "placebo_max", "placebo_rmse"], None)],
+                # errors of the backtests of the same population with the fitting window of the specification
+                (["placebo_n", "placebo_mean", "placebo_min", "placebo_max", "placebo_rmse"],
+                 (exp.year <= 2024) & exp.measure.isin(four) & ~((exp.window == "17y") & exp.population.isin(no_17_years)))],
         # intervals of the contributions: the four populations of the article in 2022 and 2024, Taiwan in 2025
         "bands": [(interval, (bands.spec == "main") & (bands.measure == "e") & bands.population.isin(east) & bands.year.isin([2022, 2024]))],
         "bands_all": [(interval, (both.spec == "main") & (((both.measure == "e") & both.population.isin(east) & both.year.isin([2022, 2024]))
@@ -228,45 +321,130 @@ def absent_by_design(d: dict[str, pd.DataFrame]) -> dict[str, list[tuple[list[st
     }
 
 
+def cause_table_problems(d: dict[str, pd.DataFrame]) -> list[str]:
+    """The three tables with a row only where deaths were registered (broad classes, three-character codes and
+    four-character codes).  Their rows cannot be listed in advance, so a lost row is found through the totals:
+    by sex, age band and year the deaths of the broad classes and those of the three-character codes add up to
+    the deaths of deaths_by_cause.csv, whose rows are listed, and the four-character codes of each watched
+    three-character code add up to the deaths of that code."""
+    problems = []
+    cells = ["sex", "age_band", "year"]
+    adults = d["by_cause"][d["by_cause"].age_lower >= 30]
+    band = pd.cut(adults.age_lower, [30, 50, 65, 80, 200], right=False, labels=list(BANDS)).astype(str)
+    totals = adults.groupby([adults.sex, band.rename("age_band"), adults.year]).deaths.sum()
+
+    def differing(a: pd.Series, b: pd.Series) -> int:
+        """Cells in which two sums differ; a cell that only one of them has counts."""
+        both = pd.concat([a.rename("a"), b.rename("b")], axis=1)
+        return int((~(both.a == both.b)).sum())
+
+    for name in SPARSE:
+        frame = d[name]
+        if key_tuples(frame, cells) != product(SEX_NAMES, BANDS, CAUSE_YEARS):
+            problems.append(f"{name}: the combinations of sex, age band and year are not those of 2008 to 2025")
+        if not (frame.deaths > 0).all():
+            problems.append(f"{name}: a row without deaths")
+    for name in ("chap", "code3"):
+        wrong = differing(d[name].groupby(cells).deaths.sum(), totals)
+        if wrong:
+            problems.append(f"{name}: in {wrong} combinations of sex, age band and year the deaths do not add up to those of all causes")
+    chap, three, four = d["chap"], d["code3"], d["code4"]
+    if not set(chap.broad_class) <= set(BROAD_CLASSES) or ((chap.broad_class == "COVID-19") & (chap.year < 2020)).any():
+        problems.append("chap: a broad class that is not expected, or COVID-19 before 2020")
+    stem = four.ICD.astype(str).str[:3].rename("icd3")
+    if not set(stem) <= set(WATCHED):
+        problems.append("code4: a code that does not belong to the watched three-character codes")
+    wrong = differing(four.groupby([four.sex, four.age_band, four.year, stem]).deaths.sum(),
+                      three[three.icd3.isin(WATCHED)].groupby(cells + ["icd3"]).deaths.sum())
+    if wrong:
+        problems.append(f"code4: in {wrong} cells the four-character codes do not add up to their three-character code")
+    return problems
+
+
+def decompositions(d: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """One row per gap decomposed by age, from the four files of contributions: the gap as stored with the
+    contributions (total), the contributions added up again from the rows (summed) and their sum as stored."""
+    parts = []
+    for name in ("bands", "bands25", "groups", "groups25"):
+        x = d[name]
+        keys = [c for c in ("population", "sex", "spec", "year", "measure") if c in x.columns]
+        g = x.groupby(keys).agg(total=("total_deficit", "first"), totals=("total_deficit", "nunique"), summed=("contribution", "sum"),
+                                stored=("sum_of_contributions", "first"), stores=("sum_of_contributions", "nunique")).reset_index()
+        if "population" not in g.columns:                       # the files of 2025: Taiwan, main specification
+            g["population"], g["spec"] = "TWN", "main"
+        g.insert(0, "table", name)
+        parts.append(g)
+    return pd.concat(parts, ignore_index=True)
+
+
+def decomposition_problems(d: dict[str, pd.DataFrame]) -> list[str]:
+    """The files of age contributions repeat, in every row, the gap that is decomposed and the sum of the
+    contributions.  Both must be the same in all rows of a decomposition; the stored sum must be the sum of the
+    rows and the stored gap the gap of the table of gaps."""
+    dec, problems = decompositions(d), []
+    if not ((dec.totals == 1) & (dec.stores == 1)).all():
+        problems.append("age contributions: the gap or the stored sum differs between the rows of one decomposition")
+    if not ((dec.summed - dec.stored).abs() < 1e-9).all():
+        problems.append("age contributions: the stored sum of the contributions is not the sum of the rows")
+    keys = ["population", "sex", "spec", "year", "measure"]
+    gap = d["gaps"].groupby(keys).deficit.first().reindex(pd.MultiIndex.from_frame(dec[keys])).to_numpy()
+    if not (np.abs(dec.total.to_numpy() - gap) < 1e-9).all():
+        problems.append("age contributions: the gap stored with the contributions is not the gap of the table of gaps")
+    return problems
+
+
 def validate(d: dict[str, pd.DataFrame]) -> None:
-    """Stop if a table of results has a hole or a row too many.
+    """Stop if a table of results does not hold exactly the rows of the design, each once, or has a hole.
 
     pandas leaves missing values out of sums, means, smallest and largest values without a word, a comparison
-    with a missing value is simply false, and a row that is there twice is counted twice.  So every table must
-    have each combination of its key columns once, and every numeric cell must hold a finite number; the
-    exceptions are the cells that are empty by design (absent_by_design), which must be empty exactly there."""
+    with a missing value is simply false, a row that is there twice is counted twice, and a count over the rows
+    that happen to be there cannot show that others are gone.  So
+
+      - every table has each combination of its key columns once (KEYS), and these combinations are exactly
+        the rows of the design (designed_rows).  Three tables of causes hold a row only where deaths were
+        registered; their totals are compared with the tables that are listed (cause_table_problems);
+      - every cell outside the key columns holds a finite number (or true or false, or one of the words of
+        TEXT_COLUMNS), except the cells that are empty by design (absent_by_design): those must be empty,
+        not infinite, and no other cell may be;
+      - the age decompositions repeat the gaps they decompose and their own sums correctly
+        (decomposition_problems)."""
     problems = []
-    design = absent_by_design(d)
+    design, designed = absent_by_design(d), designed_rows()
     for name, frame in d.items():
         if name not in KEYS:
             problems.append(f"{name}: no key columns are declared for this table (KEYS)")
             continue
-        repeated = int(frame.duplicated(KEYS[name]).sum())
-        if repeated:
-            problems.append(f"{name}: {repeated} rows repeat a combination of {', '.join(KEYS[name])}")
+        found = key_tuples(frame, KEYS[name])
+        if len(found) != len(frame):
+            problems.append(f"{name}: {len(frame) - len(found)} rows repeat a combination of {', '.join(KEYS[name])}")
+        if name in designed:
+            missing, unexpected = designed[name] - found, found - designed[name]
+            if missing or unexpected:
+                problems.append(f"{name}: the rows are not those of the design: {len(missing)} missing, {len(unexpected)} not expected"
+                                f" (for example {sorted(missing, key=str)[:2] + sorted(unexpected, key=str)[:2]})")
+        elif name not in SPARSE:
+            problems.append(f"{name}: the rows of this table are not declared (designed_rows)")
         present = {c: rows for columns, rows in design.get(name, []) for c in columns}
         for c in frame.columns:
             column = frame[c]
             if c in present:
-                if present[c] is None:
-                    continue
-                wrong = int((np.isfinite(column.to_numpy(dtype=float)) != present[c].to_numpy(dtype=bool)).sum())
-                what = "cells are empty where a value belongs or hold a value where none belongs"
+                values, belongs = column.to_numpy(dtype=float), present[c].to_numpy(dtype=bool)
+                wrong = int((belongs & ~np.isfinite(values)).sum())
+                filled = int((~belongs & ~np.isnan(values)).sum())
+                if filled:
+                    problems.append(f"{name}.{c}: {filled} cells hold a value, or an infinite one, where none belongs")
+                what = "cells are missing or infinite where a value belongs"
             elif column.dtype.kind in "fiu":
                 wrong = int((~np.isfinite(column.to_numpy(dtype=float))).sum())
                 what = "cells are missing or infinite"
             else:
                 wrong = int(column.isna().sum())
                 what = "cells are empty"
+                if column.dtype.kind != "b" and c not in KEYS[name] and c not in TEXT_COLUMNS.get(name, ()):
+                    problems.append(f"{name}.{c}: the column was read as text where numbers belong")
             if wrong:
                 problems.append(f"{name}.{c}: {wrong} {what}")
-    for name, (within, keys) in GRIDS.items():
-        frame = d[name]
-        groups = [g for _, g in frame.groupby(within)] if within else [frame]
-        incomplete = sum(len(g) != int(np.prod([g[k].nunique() for k in keys])) for g in groups)
-        if incomplete:
-            problems.append(f"{name}: not every combination of {', '.join(keys)} is there"
-                            + (f" (in {incomplete} groups of {', '.join(within)})" if within else ""))
+    problems += cause_table_problems(d) + decomposition_problems(d)
     if not (d["coh_rr"].observed_over_expected_rate > 0).all():
         problems.append("coh_rr: a ratio of observed to expected death rates is not positive")
     if problems:
@@ -652,12 +830,9 @@ def build_numbers(d: dict[str, pd.DataFrame]) -> dict[str, str]:
     N["check.cause.residual.all"] = plain(chk.residual.abs().max(), 3)
     # central decompositions only (the simulated life tables behind the intervals are not stored): the contributions are
     # summed again from the rows and compared with the gap itself
-    age_residual = 0.0
-    for x in (d["bands"], d["bands25"], d["groups"], d["groups25"]):
-        e_rows = x[x.measure == "e"]
-        keys = [c for c in ("population", "sex", "spec", "year") if c in e_rows.columns]
-        again = e_rows.groupby(keys).agg(total=("total_deficit", "first"), summed=("contribution", "sum"), stored=("sum_of_contributions", "first"))
-        age_residual = max(age_residual, float((again.total - again.summed).abs().max()), float((again.summed - again.stored).abs().max()))
+    again = decompositions(d)
+    again = again[again.measure == "e"]
+    age_residual = finite(max(float((again.total - again.summed).abs().max()), float((again.summed - again.stored).abs().max())))
     if age_residual >= 1e-4:
         raise ValueError(f"the age decomposition of e30 leaves a residual of {age_residual} years; the text says less than 0.0001")
     N["check.age.residual.e"] = f"{age_residual:.6f}"
@@ -740,6 +915,18 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
             raise ValueError(f"a statement of the text rests on backtest errors that are not there: {key} {s} {b}, {h} years ahead")
         return 100.0 * g.error.to_numpy()
 
+    pool = d["bt"][d["bt"].origin.between(2005, 2014) & (d["bt"].jump == "corrected") & (d["bt"].horizon == 5)
+                   & ~d["bt"].population.isin(["EST", "LTU", "LVA"])]
+
+    def pooled(window, m):                               # (root mean squared error, mean error) before rounding
+        e = pool[(pool.window == window) & (pool.measure == m)].error.to_numpy()
+        if not len(e):
+            raise ValueError(f"a statement of the text rests on backtest errors that are not there: window {window}, {m}")
+        return number(np.sqrt((e ** 2).mean()), f"pooled error, {window} {m}"), number(e.mean(), f"pooled error, {window} {m}")
+
+    net = d["reg"].set_index(["sex", "age_band_at_start", "year"]).per_100_population
+    dec = decompositions(d)                              # the contributions by age, added up again from the rows
+    quantiles = dec[dec.measure != "e"]
     keys4 = ("lc", "lc10", "lc30", "apc")
     c4 = d["code4"]
     five_codes = ["R570", "R092", "I516", "I509", "I10"]
@@ -799,14 +986,15 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
             and all(gap("HKG", s, 2022)[0] < min(gap(pp, s, 2022)[0] for pp in ("TWN", "JPN", "KOR")) for s in "FM"),
         "pooled backtests without the Baltic states, five years ahead: root mean squared errors of the two windows within 0.05 of "
         "each other and the mean error nearer zero with the 17-year window, all four measures":
-            all(abs(v(f"bt.rmse.17y.corrected.pool.{m}.5") - v(f"bt.rmse.10y.corrected.pool.{m}.5")) <= 0.05
+            # the errors themselves, before rounding; the mean errors also as the table prints them
+            all(abs(pooled("17y", m)[0] - pooled("10y", m)[0]) <= 0.05 and abs(pooled("17y", m)[1]) < abs(pooled("10y", m)[1])
                 and v(f"bt.biasabs.17y.corrected.pool.{m}.5") < v(f"bt.biasabs.10y.corrected.pool.{m}.5") for m in ("e", "q25", "q50", "q75")),
-        "appendix: exposure ratios within 0.001 of one at ages 30-79, below one at 80-89 and 100+, above one at 90-99 in 2023 and 2024":
+        "appendix: exposure ratios averaged over the single ages of each age group, by sex and year 2015-2024: within 0.001 of one at "
+        "ages 30-79, below one at 80-89, above one at 90-99 in 2023 and 2024; the open group 100+ below one":
             bool(((src.exposure_ratio_30_79 - 1).abs() < 0.001).all()) and bool((src.exposure_ratio_80_89 < 1).all())
             and bool((src.exposure_ratio_100plus < 1).all()) and bool((src[src.year >= 2023].exposure_ratio_90_99 > 1).all()),
         "appendix: the contributions to the death-age percentiles add up to the gap within a hundredth, not within a thousandth, of a year":
-            0.001 < max(float((x[x.measure != "e"].total_deficit - x[x.measure != "e"].sum_of_contributions).abs().max())
-                        for x in (d["bands"], d["bands25"], d["groups"], d["groups25"])) < 0.01,
+            0.001 < number((quantiles.total - quantiles.summed).abs().max(), "largest residual of the decompositions of the percentiles") < 0.01,
         "the line of the cohort effects is fitted to 15 birth cohorts (main rule)":
             v("apc.rule.main.line1") - v("apc.rule.main.line0") + 1 == 15,
         "ages 80+ and 65-79 in 2025: rate ratios and band contributions inside their intervals":
@@ -881,6 +1069,9 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
         "and is below 2019 in 2025":
             v("ctx.ohca.2025") < v("ctx.ohca.2019") and v("ctx.inquest.pct") < v("ctx.deaths.pct")
             and v("ctx.home.T.2021") > v("ctx.home.T.2019") > v("ctx.home.T.2025"),
+        "registration: the net change of the year is negative in all four age bands in 2021 and positive in all four in 2023, both sexes":
+            all(number(net[(sx, b, 2021)], f"net registration change, {sx} {b}") < 0 < number(net[(sx, b, 2023)], f"net registration change, {sx} {b}")
+                for sx in ("Female", "Male") for b in ("30-49", "50-64", "65-79", "80-94")),
         "registration at ages 50-64: net change negative by 2022 and within 0.5 per cent of zero by 2025":
             all(v(f"reg.cum.{s}.50-64.2022") < 0 and abs(v(f"reg.cum.{s}.50-64.2025")) < 0.5 for s in "FM"),
         "replication of the published deficits for 2022-2024 within 0.05 years":
@@ -957,6 +1148,35 @@ class TableSource(str):
 
 def plain_text(v) -> str:
     return str(v).replace(r"\%", "%").replace(r"\&", "&").replace(r"\_", "_").strip()
+
+
+def paragraph_columns(align: str) -> list[bool]:
+    """For each column of a column specification, whether its text is set as a paragraph (p{width}) and can run
+    over several lines; a column l, c or r holds one line."""
+    def braced(i: int) -> int:                  # the position after the braced argument that starts at i
+        if align[i] != "{":
+            raise ValueError(f"column specification not understood: {align}")
+        depth = 0
+        for j in range(i, len(align)):
+            depth += {"{": 1, "}": -1}.get(align[j], 0)
+            if depth == 0:
+                return j + 1
+        raise ValueError(f"column specification not understood: {align}")
+
+    kinds, i = [], 0
+    while i < len(align):
+        c = align[i]
+        if c in "lcr":
+            kinds.append(False)
+            i += 1
+        elif c == "p":
+            kinds.append(True)
+            i = braced(i + 1)
+        elif c in ">@":
+            i = braced(i + 1)
+        else:
+            raise ValueError(f"column specification not understood: {align}")
+    return kinds
 
 
 def table(title: str, headers: list[str], rows: list[list], note: str = "", align: str | None = None, long: bool = False,
@@ -1061,6 +1281,9 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
     n_head = len(cells) - len([r for r in rows if r != "midrule"])
     out.panels = [n_head + k for k, r in enumerate([r for r in rows if r != "midrule"]) if isinstance(r, tuple) and r[0] == "panel"]
     out.heads = n_head - 1                      # rows of column heads after the title; a continuation page repeats them
+    out.wraps = paragraph_columns(align)        # the columns whose cells may run over several lines
+    if len(out.wraps) != len(headers):
+        raise ValueError(f"{len(headers)} column heads for a specification of {len(out.wraps)} columns: {align}")
     return out
 
 
@@ -1534,7 +1757,7 @@ def main() -> None:
     T = build_tables(d, N)
     (GEN / "numbers.json").write_text(json.dumps(N, ensure_ascii=False, indent=0, sort_keys=True))
     (GEN / "tables.json").write_text(json.dumps(T, ensure_ascii=False, indent=0))
-    (GEN / "table_cells.json").write_text(json.dumps({name: {"cells": t.cells, "note": t.note, "panels": t.panels, "heads": t.heads} for name, t in T.items()}, ensure_ascii=False, indent=0))
+    (GEN / "table_cells.json").write_text(json.dumps({name: {"cells": t.cells, "note": t.note, "panels": t.panels, "heads": t.heads, "wraps": t.wraps} for name, t in T.items()}, ensure_ascii=False, indent=0))
     style()
     figure1(d)
     figure2(d)
