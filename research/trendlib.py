@@ -67,6 +67,9 @@ def hmd_path(population: str, kind: str, root: Path = SNAPSHOT) -> Path:
     return root / population / "STATS" / f"{kind}_1x1.txt"
 
 
+HMD_TOP_AGE = 110           # the 1x1 files of the HMD end with the open age group 110+
+
+
 def age_year_matrix(
     table: pd.DataFrame,
     column: str,
@@ -79,6 +82,11 @@ def age_year_matrix(
     sub = table[(table["Year"] >= years[0]) & (table["Year"] <= years[-1]) & (table["Age"] >= age0)]
     piv = sub.pivot(index="Age", columns="Year", values=column)
     piv = piv.reindex(columns=list(years))
+    # Every single year of age up to the open group of the file must be there.  Without this test a file that
+    # lacks its highest ages would pass, the sum over the open group being taken over the rows that are left.
+    if list(piv.index) != list(range(age0, HMD_TOP_AGE + 1)):
+        raise ValueError(f"{column}: ages {age0} to {HMD_TOP_AGE}+ expected, found {len(piv.index)} ages"
+                         + (f" from {piv.index.min()} to {piv.index.max()}" if len(piv.index) else ""))
     if piv.isna().any().any():
         raise ValueError(f"missing cells in {column} for years {years[0]}-{years[-1]}")
     closed = piv.loc[age0 : open_age - 1].to_numpy(dtype=float)

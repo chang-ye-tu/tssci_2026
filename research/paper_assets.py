@@ -500,25 +500,35 @@ def build_numbers(d: dict[str, pd.DataFrame]) -> dict[str, str]:
         N[f"apc.rule.{key}.line0"], N[f"apc.rule.{key}.line1"] = (str(v) for v in w["line_fitted_to_cohorts"])
 
     # Monte Carlo error of the interval end points (Taiwan, main specification) ----------------
-    def largest(frame: pd.DataFrame, ends: list[str], errors: list[str], rows: int, what: str) -> float:
-        """Largest standard error of the interval end points.  A maximum does not show that rows are missing, so
-        the rows with an interval are counted first and each must carry both standard errors."""
-        have = frame[frame[ends].notna().all(axis=1)]
-        without = int(have[errors].isna().any(axis=1).sum())
-        if len(have) != rows or without:
-            raise ValueError(f"simulation error of {what}: {len(have)} rows with an interval where {rows} are expected, {without} of them without a standard error")
+    def largest(frame: pd.DataFrame, keys: list[str], expected: list[tuple], ends: list[str], errors: list[str], what: str) -> float:
+        """Largest standard error of the interval end points.  A maximum does not show that a row is missing or
+        belongs to another year, so the rows with an interval must be exactly the expected ones, each once, with
+        finite end points and finite standard errors that are not negative."""
+        have = frame[frame[ends].notna().any(axis=1)]
+        found = sorted(have[keys].itertuples(index=False, name=None))
+        if found != sorted(expected):
+            raise ValueError(f"simulation error of {what}: the rows with an interval are not the {len(expected)} expected ones "
+                             f"(found {len(found)}; not expected: {sorted(set(found) - set(expected))[:4]}; missing: {sorted(set(expected) - set(found))[:4]})")
+        values = have[ends + errors].to_numpy(dtype=float)
+        if not np.isfinite(values).all() or (have[errors].to_numpy(dtype=float) < 0).any():
+            raise ValueError(f"simulation error of {what}: an end point or a standard error is missing, infinite or negative")
         return float(have[errors].max().max())
 
-    # rows expected: 2 sexes x the years with an interval (x the age groups)
+    sexes, all_years = ("Female", "Male"), range(2020, 2026)
+    five_year_groups = [f"{a}-{a + 4}" for a in range(30, 95, 5)] + ["95+"]
     g = d["gaps"][(d["gaps"].population == "TWN") & (d["gaps"].spec == "main") & (d["gaps"].measure == "e")]
-    N["mcse.gap.TWN.max"] = plain(largest(g, ["deficit_low", "deficit_high"], ["deficit_low_mcse", "deficit_high_mcse"], 2 * 6, "the gap in e30, 2020-2025"), 3)
+    N["mcse.gap.TWN.max"] = plain(largest(g, ["sex", "year"], [(s, y) for s in sexes for y in all_years],
+                                          ["deficit_low", "deficit_high"], ["deficit_low_mcse", "deficit_high_mcse"], "the gap in e30"), 3)
     b = d["bands_all"][(d["bands_all"].population == "TWN") & (d["bands_all"].spec == "main") & (d["bands_all"].measure == "e")]
-    N["mcse.band.TWN.max"] = plain(largest(b, ["low", "high"], ["low_mcse", "high_mcse"], 2 * 3 * 4, "the contributions of the four age bands, 2022, 2024 and 2025"), 3)
-    r4 = d["rr"][(d["rr"].population == "TWN") & (d["rr"].grouping == "band") & d["rr"].ratio_to_trend.notna()]
-    N["mcse.rr.TWN.max"] = plain(100.0 * largest(r4, ["ratio_low", "ratio_high"], ["ratio_low_mcse", "ratio_high_mcse"], 2 * 6 * 4, "the rate ratios of the four age bands, 2020-2025"), 2)
+    N["mcse.band.TWN.max"] = plain(largest(b, ["sex", "year", "age_band"], [(s, y, a) for s in sexes for y in (2022, 2024, 2025) for a in BANDS],
+                                           ["low", "high"], ["low_mcse", "high_mcse"], "the contributions of the four age bands"), 3)
+    r4 = d["rr"][(d["rr"].population == "TWN") & (d["rr"].grouping == "band")]
+    N["mcse.rr.TWN.max"] = plain(100.0 * largest(r4, ["sex", "year", "age_group"], [(s, y, a) for s in sexes for y in all_years for a in BANDS],
+                                                 ["ratio_low", "ratio_high"], ["ratio_low_mcse", "ratio_high_mcse"], "the rate ratios of the four age bands"), 2)
     N["mcse.rrlow.TWN.max"] = plain(100.0 * float(r4["ratio_low_mcse"].max()), 2)
-    r5 = d["rr"][(d["rr"].population == "TWN") & (d["rr"].grouping == "five_year") & d["rr"].ratio_to_trend.notna()]
-    N["mcse.rr5.TWN.max"] = plain(100.0 * largest(r5, ["ratio_low", "ratio_high"], ["ratio_low_mcse", "ratio_high_mcse"], 2 * 6 * 14, "the rate ratios of the five-year age groups, 2020-2025"), 2)
+    r5 = d["rr"][(d["rr"].population == "TWN") & (d["rr"].grouping == "five_year")]
+    N["mcse.rr5.TWN.max"] = plain(100.0 * largest(r5, ["sex", "year", "age_group"], [(s, y, a) for s in sexes for y in all_years for a in five_year_groups],
+                                                  ["ratio_low", "ratio_high"], ["ratio_low_mcse", "ratio_high_mcse"], "the rate ratios of the five-year age groups"), 2)
     for r in d["rr"][(d["rr"].grouping == "band") & d["rr"].ratio_to_trend.notna()].itertuples():
         k = f"{r.population}.{sex_code[r.sex]}.{r.age_group}.{r.year}"
         N[f"rrp.{k}"] = pvalue(r.p_value)
@@ -645,12 +655,17 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
             band("F", "80+", 2022)[0] / gap("TWN", "F", 2022)[0] > 0.5,
         "R09.2, both sexes, ages 30+: more than 4,000 and fewer than 5,000 deaths in each year 2023-2025":
             all(4000 < v(f"natcode.R092.{y}") < 5000 for y in (2023, 2024, 2025)),
-        # research/taiwan_2025.py stops if an age is missing in either source, so each row stands for all 71 ages
-        # (30-99 and 100+); here every sex and year must be present once, with a finite difference below 0.1
+        # Each row stands for 71 ages (30-99 and 100+): the readers of both sources require every single age up to
+        # their open group (trendlib.age_year_matrix, taiwan_2025.read_ris).  Here every sex and year must be
+        # present once, with a finite difference that is not negative and below 0.1.
         "deaths by single year of age, 2015-2024: the two sources differ by less than 0.1 at every age, both sexes":
             sorted(zip(d["sources"].sex, d["sources"].year)) == [(s, y) for s in ("Female", "Male") for y in range(2015, 2025)]
             and bool(np.isfinite(d["sources"].max_abs_death_difference_by_age).all())
-            and bool((d["sources"].max_abs_death_difference_by_age < 0.1).all()),
+            and bool(((d["sources"].max_abs_death_difference_by_age >= 0) & (d["sources"].max_abs_death_difference_by_age < 0.1)).all()),
+        "ages 65-79, main baseline: the gap to expectation is largest in 2022 and smaller in each later year, both sexes":
+            all(ratio("TWN", s, "65-79", 2022)[0] == max(ratio("TWN", s, "65-79", y)[0] for y in range(2020, 2026))
+                and ratio("TWN", s, "65-79", 2022)[0] > ratio("TWN", s, "65-79", 2023)[0] > ratio("TWN", s, "65-79", 2024)[0] > ratio("TWN", s, "65-79", 2025)[0]
+                for s in "FM"),
         "the line of the cohort effects is fitted to 15 birth cohorts (main rule)":
             v("apc.rule.main.line1") - v("apc.rule.main.line0") + 1 == 15,
         "ages 80+ and 65-79 in 2025: rate ratios and band contributions inside their intervals":
@@ -857,12 +872,16 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
             if panel_rows:
                 panel_rows[-1].append(len(lines) - 1)
     if long:
-        # A panel of up to KEEP_PANEL rows is not split between two pages: a continuation page repeats the title
-        # and the column heads but not the name of the panel, so its rows would stand there without it.
+        # A panel is not split between two pages: a continuation page repeats the title and the column heads but
+        # not the name of the panel, so its rows would stand there without it.  This holds a panel of up to
+        # KEEP_PANEL rows together; a longer one needs its name repeated on the continuation page, which this
+        # function does not do.
+        too_long = [len(members) for members in panel_rows if len(members) > KEEP_PANEL]
+        if too_long:
+            raise ValueError(f"a long table has a panel of {max(too_long)} rows; at most {KEEP_PANEL} can be kept on one page")
         for members in panel_rows:
-            if len(members) <= KEEP_PANEL:
-                for k in members[:-1]:
-                    lines[k] += "*"
+            for k in members[:-1]:
+                lines[k] += "*"
     note_line = r"\par\smallskip{\footnotesize\raggedright " + note + r"\par}"
     if long and note:
         # In the PDF the note of a long table is the last row of the table, as wide as the text and held together
@@ -870,7 +889,7 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
         # panels): a page break can neither split the note nor part it from the end of the table.  The Word
         # version keeps the note as a paragraph after the table.  It drops the lines marked PDFONLY, and with
         # them the \iffalse ... \fi around the two parts that LaTeX skips.
-        last_panel = panel_rows[-1] if panel_rows and len(panel_rows[-1]) <= KEEP_PANEL else []
+        last_panel = panel_rows[-1] if panel_rows else []
         for k in (last_panel or data_lines[-3:]):                   # the whole last panel, or the last three rows
             if not lines[k].endswith("*"):
                 lines[k] += "*"
