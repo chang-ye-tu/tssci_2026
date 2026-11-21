@@ -14,7 +14,7 @@
     "data/moi/2026-11-17/downloads/population_single_age/y1s6-00000.xls": "9aa8a978ff57d74917eb63cedb8e8e6f720c7c68c5ea8ca57735006b46219e7c"
   },
   "code_sha256": {
-    "research/taiwan_2025.py": "e8b78caf2e15b1a93c893b1321ed5b97756855048f2258b37ae990fa9d4cd869",
+    "research/taiwan_2025.py": "a5c93c7ef1aaf09554550acfd49fd49c167d0f6c945b7ab4715ede82c52abe80",
     "research/trendlib.py": "12255a8139af2185c45c117d25094936518286483ab297df113625b4f6dee8cf"
   },
   "decomposition_precision": "contributions add up to the gap up to the finite-step residual (total_deficit against sum_of_contributions); negligible for life expectancy, up to a few thousandths of a year for the death-age quantiles",

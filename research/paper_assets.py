@@ -17,6 +17,7 @@ Run from the repository root:  python3 research/paper_assets.py
 from __future__ import annotations
 
 import json
+import math
 import re
 from pathlib import Path
 
@@ -84,15 +85,24 @@ BROAD_ROWS = [   # key, label, classes of results_cause/chapter_rates_by_band.cs
 # ----------------------------------------------------------------------------
 # formatting
 # ----------------------------------------------------------------------------
+def finite(x: float) -> float:
+    """A number that goes into the text or a table has to exist: a missing or infinite value stops the run here
+    instead of being printed as "nan"."""
+    x = float(x)
+    if not math.isfinite(x):
+        raise ValueError(f"a missing or infinite value ({x}) was about to be written as a number")
+    return x
+
+
 def signed(x: float, d: int = 2) -> str:
-    s = f"{x:+.{d}f}"
+    s = f"{finite(x):+.{d}f}"
     if float(s) == 0:
         s = f"{0:.{d}f}"
     return s.replace("-", MINUS)
 
 
 def plain(x: float, d: int = 2) -> str:
-    s = f"{x:.{d}f}"
+    s = f"{finite(x):.{d}f}"
     if float(s) == 0:
         s = f"{0:.{d}f}"
     return s.replace("-", MINUS)
@@ -104,11 +114,11 @@ def pct(ratio: float, d: int = 0) -> str:
 
 
 def count(x: float) -> str:
-    return f"{int(round(x)):,}"
+    return f"{int(round(finite(x))):,}"
 
 
 def pvalue(p: float) -> str:
-    return "小於 0.01" if p < 0.01 else f"{p:.2f}"
+    return "小於 0.01" if finite(p) < 0.01 else f"{p:.2f}"
 
 
 # ----------------------------------------------------------------------------
@@ -164,7 +174,107 @@ def load() -> dict[str, pd.DataFrame]:
     return d
 
 
+# One row per combination of these columns in every table of results (the names are those of load()).
+KEYS = {
+    "exp": ["population", "sex", "spec", "year", "measure"], "t25": ["sex", "spec", "year", "measure"],
+    "bands": ["population", "sex", "spec", "year", "measure", "age_band"], "bands25": ["sex", "year", "measure", "age_band"],
+    "groups": ["population", "sex", "spec", "year", "measure", "age_group"], "groups25": ["sex", "year", "measure", "age_group"],
+    "rr": ["population", "sex", "year", "grouping", "age_group"], "obs": ["population", "sex", "year", "measure"],
+    "bt": ["population", "sex", "window", "jump", "origin", "horizon", "measure"],
+    "bti": ["population", "sex", "window", "jump", "origin", "horizon", "measure"],
+    "coh_bt": ["sex", "model", "origin", "horizon", "measure"], "coh_gap": ["sex", "year", "measure"],
+    "coh_band": ["sex", "year", "baseline", "age_band"], "coh_rr": ["sex", "year", "baseline", "age_band"],
+    "bridge": ["sex", "year", "measure"], "sources": ["sex", "year"], "reg": ["sex", "age_band_at_start", "year"],
+    "fit": ["population", "sex", "spec"], "cc": ["sex", "from_year", "to_year", "measure", "age_band", "cause_group"],
+    "cr": ["sex", "age_band", "year", "cause_group"], "chap": ["sex", "age_band", "year", "broad_class"],
+    "code3": ["sex", "age_band", "year", "icd3"], "code4": ["sex", "age_band", "year", "ICD"],
+    "check": ["sex", "from_year", "to_year", "measure"], "rep": ["population", "year"], "ctx_ems": ["year"],
+    "ctx_place": ["year", "sex"], "ctx_inq": ["year"], "by_cause": ["year", "sex", "age_lower", "cause_group"],
+    "condensed": ["year", "sex", "cat"], "gaps": ["population", "sex", "spec", "year", "measure"],
+    "bands_all": ["population", "sex", "spec", "year", "measure", "age_band"],
+    "groups_all": ["population", "sex", "spec", "year", "measure", "age_group"],
+}
+# Tables over which the text counts cases or takes a smallest or largest value.  Within each group of the first
+# columns, every combination of the values of the other columns is there.
+GRIDS = {
+    "coh_rr": ([], ["baseline", "sex", "age_band", "year"]), "coh_band": ([], ["baseline", "sex", "age_band", "year"]),
+    "coh_gap": ([], ["sex", "year", "measure"]), "coh_bt": (["horizon"], ["sex", "model", "measure", "origin"]),
+    "rr": (["population"], ["sex", "year", "age_group"]), "gaps": (["population", "spec"], ["sex", "year", "measure"]),
+}
+
+
+def absent_by_design(d: dict[str, pd.DataFrame]) -> dict[str, list[tuple[list[str], pd.Series | None]]]:
+    """Columns that hold no value in part of the rows, with the rows in which they do hold one (None: columns the
+    text does not use; they are not looked at)."""
+    exp, bands, both, rr, reg, rep = (d[k] for k in ("exp", "bands", "bands_all", "rr", "reg", "rep"))
+    east, four = [p for p, _ in FOCUS], ["e", "q25", "q50", "q75"]
+    interval = ["low", "high", "low_mcse", "high_mcse"]
+    return {
+        # the HMD ends in 2024; the rows of 2025 hold the expected values only
+        "exp": [(["observed", "predictive_median", "predictive_low", "predictive_high", "deficit", "deficit_low", "deficit_high",
+                  "p_value", "deficit_low_mcse", "deficit_high_mcse", "p_value_mcse"], exp.year <= 2024),
+                (["pooled_rmse", "pooled_mean"], (exp.year <= 2024) & exp.measure.isin(four)),
+                (["placebo_n", "placebo_mean", "placebo_min", "placebo_max", "placebo_rmse"], None)],
+        # intervals of the contributions: the four populations of the article in 2022 and 2024, Taiwan in 2025
+        "bands": [(interval, (bands.spec == "main") & (bands.measure == "e") & bands.population.isin(east) & bands.year.isin([2022, 2024]))],
+        "bands_all": [(interval, (both.spec == "main") & (((both.measure == "e") & both.population.isin(east) & both.year.isin([2022, 2024]))
+                                                          | ((both.population == "TWN") & (both.year == 2025))))],
+        # no comparison with a trend in the years to which the trend is fitted
+        "rr": [(["expected_rate_per_100k", "ratio_to_trend", "ratio_low", "ratio_high", "p_value", "ratio_low_mcse", "ratio_high_mcse",
+                 "p_value_mcse"], rr.year >= 2020)],
+        "reg": [(["cumulative_since_end_2019_per_100"], reg.year >= 2020)],
+        # the published estimates for Japan start in 2022
+        "rep": [(["deficit_dowd_et_al", "difference"], ~((rep.population == "JPN") & (rep.year <= 2021)))],
+    }
+
+
+def validate(d: dict[str, pd.DataFrame]) -> None:
+    """Stop if a table of results has a hole or a row too many.
+
+    pandas leaves missing values out of sums, means, smallest and largest values without a word, a comparison
+    with a missing value is simply false, and a row that is there twice is counted twice.  So every table must
+    have each combination of its key columns once, and every numeric cell must hold a finite number; the
+    exceptions are the cells that are empty by design (absent_by_design), which must be empty exactly there."""
+    problems = []
+    design = absent_by_design(d)
+    for name, frame in d.items():
+        if name not in KEYS:
+            problems.append(f"{name}: no key columns are declared for this table (KEYS)")
+            continue
+        repeated = int(frame.duplicated(KEYS[name]).sum())
+        if repeated:
+            problems.append(f"{name}: {repeated} rows repeat a combination of {', '.join(KEYS[name])}")
+        present = {c: rows for columns, rows in design.get(name, []) for c in columns}
+        for c in frame.columns:
+            column = frame[c]
+            if c in present:
+                if present[c] is None:
+                    continue
+                wrong = int((np.isfinite(column.to_numpy(dtype=float)) != present[c].to_numpy(dtype=bool)).sum())
+                what = "cells are empty where a value belongs or hold a value where none belongs"
+            elif column.dtype.kind in "fiu":
+                wrong = int((~np.isfinite(column.to_numpy(dtype=float))).sum())
+                what = "cells are missing or infinite"
+            else:
+                wrong = int(column.isna().sum())
+                what = "cells are empty"
+            if wrong:
+                problems.append(f"{name}.{c}: {wrong} {what}")
+    for name, (within, keys) in GRIDS.items():
+        frame = d[name]
+        groups = [g for _, g in frame.groupby(within)] if within else [frame]
+        incomplete = sum(len(g) != int(np.prod([g[k].nunique() for k in keys])) for g in groups)
+        if incomplete:
+            problems.append(f"{name}: not every combination of {', '.join(keys)} is there"
+                            + (f" (in {incomplete} groups of {', '.join(within)})" if within else ""))
+    if not (d["coh_rr"].observed_over_expected_rate > 0).all():
+        problems.append("coh_rr: a ratio of observed to expected death rates is not positive")
+    if problems:
+        raise ValueError("the tables of results are not complete:\n  " + "\n  ".join(problems))
+
+
 def build_numbers(d: dict[str, pd.DataFrame]) -> dict[str, str]:
+    validate(d)
     N: dict[str, str] = {}
     sex_code = {s[0]: s[1] for s in SEXES}
 
@@ -582,8 +692,18 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
     is a consistency check between results and wording.  It cannot tell whether an interpretation is
     warranted, and it does not read the sentences themselves.
     """
+    validate(d)
+
+    def number(x, what: str) -> float:
+        """A condition must not rest on a missing value: a comparison with one is simply false, and the smallest
+        or largest of several values can leave one out without a word."""
+        x = float(x)
+        if not np.isfinite(x):
+            raise ValueError(f"a statement of the text rests on a value that is missing or infinite: {what}")
+        return x
+
     def v(key: str) -> float:
-        return float(N[key].replace(MINUS, "-").replace(",", ""))
+        return number(N[key].replace(MINUS, "-").replace(",", ""), key)
 
     sex_of = {"F": "Female", "M": "Male"}
     rr = d["rr"][d["rr"].grouping == "band"].set_index(["population", "sex", "age_group", "year"]).sort_index()
@@ -597,7 +717,7 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
 
     def ratio(pop, s, band, year):                       # (point, low, high) of observed / expected
         r = rr.loc[(pop, sex_of[s], band, year)]
-        return float(r.ratio_to_trend), float(r.ratio_low), float(r.ratio_high)
+        return tuple(number(x, f"rate ratio, {pop} {s} {band} {year}") for x in (r.ratio_to_trend, r.ratio_low, r.ratio_high))
 
     def inside(pop, s, band, year) -> bool:
         _, lo, hi = ratio(pop, s, band, year)
@@ -608,14 +728,16 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
 
     def gap(pop, s, year):                               # (gap, low, high) of e30
         r = gaps.loc[(pop, sex_of[s], year)]
-        return float(r.deficit), float(r.deficit_low), float(r.deficit_high)
+        return tuple(number(x, f"gap in e30, {pop} {s} {year}") for x in (r.deficit, r.deficit_low, r.deficit_high))
 
     def band(s, b, year):                                # (contribution, low, high), Taiwan
         r = bands.loc[("TWN", sex_of[s], b, year)]
-        return float(r.contribution), float(r.low), float(r.high)
+        return tuple(number(x, f"contribution of ages {b}, {s} {year}") for x in (r.contribution, r.low, r.high))
 
     def errors(key, s, b, h):                            # backtest errors (100 x log ratio) of one baseline
         g = cb[(cb.horizon == h) & (cb.sex == sex_of[s]) & (cb.model == model[key]) & (cb.measure == f"log rate {b}")]
+        if g.empty:
+            raise ValueError(f"a statement of the text rests on backtest errors that are not there: {key} {s} {b}, {h} years ahead")
         return 100.0 * g.error.to_numpy()
 
     keys4 = ("lc", "lc10", "lc30", "apc")
@@ -631,6 +753,7 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
     five = d["rr"][(d["rr"].grouping == "five_year") & (d["rr"].population == "TWN")].set_index(["sex", "age_group", "year"]).sort_index()
     r19 = rr["ratio_to_2019"]
     cond = d["condensed"]
+    src = d["sources"]
     claims = {
         "the 2022 gap is about 1.2 years and the 2025 gap about 0.6 years, both sexes":
             all(round(abs(gap("TWN", s, 2022)[0]), 1) == 1.2 and round(abs(gap("TWN", s, 2025)[0]), 1) == 0.6 for s in "FM"),
@@ -656,16 +779,34 @@ def check_claims(N: dict[str, str], d: dict[str, pd.DataFrame]) -> None:
         "R09.2, both sexes, ages 30+: more than 4,000 and fewer than 5,000 deaths in each year 2023-2025":
             all(4000 < v(f"natcode.R092.{y}") < 5000 for y in (2023, 2024, 2025)),
         # Each row stands for 71 ages (30-99 and 100+): the readers of both sources require every single age up to
-        # their open group (trendlib.age_year_matrix, taiwan_2025.read_ris).  Here every sex and year must be
-        # present once, with a finite difference that is not negative and below 0.1.
+        # their open group (trendlib.age_year_matrix; taiwan_2025.read_ris compares the heads of all 101 age
+        # columns of the workbook).  Here every sex and year must be present once, with a finite difference that
+        # is not negative and below 0.1.
         "deaths by single year of age, 2015-2024: the two sources differ by less than 0.1 at every age, both sexes":
             sorted(zip(d["sources"].sex, d["sources"].year)) == [(s, y) for s in ("Female", "Male") for y in range(2015, 2025)]
             and bool(np.isfinite(d["sources"].max_abs_death_difference_by_age).all())
             and bool(((d["sources"].max_abs_death_difference_by_age >= 0) & (d["sources"].max_abs_death_difference_by_age < 0.1)).all()),
+        # ratio() refuses a missing value, so the largest of the six years is taken over six numbers
         "ages 65-79, main baseline: the gap to expectation is largest in 2022 and smaller in each later year, both sexes":
             all(ratio("TWN", s, "65-79", 2022)[0] == max(ratio("TWN", s, "65-79", y)[0] for y in range(2020, 2026))
                 and ratio("TWN", s, "65-79", 2022)[0] > ratio("TWN", s, "65-79", 2023)[0] > ratio("TWN", s, "65-79", 2024)[0] > ratio("TWN", s, "65-79", 2025)[0]
                 for s in "FM"),
+        "ages 50-64: death rates above expectation under all four baselines, both sexes, in each year 2022-2025 (32 ratios)":
+            all(pct[(k, sx, "50-64", y)] > 0 for k in keys4 for sx in ("Female", "Male") for y in (2022, 2023, 2024, 2025)),
+        "e30: Korea's gap is largest in 2022 and about one year in 2023 and 2024; Hong Kong's 2022 gap is the largest of the four":
+            all(gap("KOR", s, 2022)[0] == min(gap("KOR", s, y)[0] for y in range(2020, 2025)) for s in "FM")
+            and all(0.8 <= -gap("KOR", s, y)[0] <= 1.2 for s in "FM" for y in (2023, 2024))
+            and all(gap("HKG", s, 2022)[0] < min(gap(pp, s, 2022)[0] for pp in ("TWN", "JPN", "KOR")) for s in "FM"),
+        "pooled backtests without the Baltic states, five years ahead: root mean squared errors of the two windows within 0.05 of "
+        "each other and the mean error nearer zero with the 17-year window, all four measures":
+            all(abs(v(f"bt.rmse.17y.corrected.pool.{m}.5") - v(f"bt.rmse.10y.corrected.pool.{m}.5")) <= 0.05
+                and v(f"bt.biasabs.17y.corrected.pool.{m}.5") < v(f"bt.biasabs.10y.corrected.pool.{m}.5") for m in ("e", "q25", "q50", "q75")),
+        "appendix: exposure ratios within 0.001 of one at ages 30-79, below one at 80-89 and 100+, above one at 90-99 in 2023 and 2024":
+            bool(((src.exposure_ratio_30_79 - 1).abs() < 0.001).all()) and bool((src.exposure_ratio_80_89 < 1).all())
+            and bool((src.exposure_ratio_100plus < 1).all()) and bool((src[src.year >= 2023].exposure_ratio_90_99 > 1).all()),
+        "appendix: the contributions to the death-age percentiles add up to the gap within a hundredth, not within a thousandth, of a year":
+            0.001 < max(float((x[x.measure != "e"].total_deficit - x[x.measure != "e"].sum_of_contributions).abs().max())
+                        for x in (d["bands"], d["bands25"], d["groups"], d["groups25"])) < 0.01,
         "the line of the cohort effects is fitted to 15 birth cohorts (main rule)":
             v("apc.rule.main.line1") - v("apc.rule.main.line0") + 1 == 15,
         "ages 80+ and 65-79 in 2025: rate ratios and band contributions inside their intervals":
@@ -802,7 +943,7 @@ def tex_escape(v) -> str:
     return re.sub(r"(?<!\\)([%&_])", r"\\\1", str(v))
 
 
-KEEP_PANEL = 12             # a panel of a long table with at most this many rows stays on one page
+KEEP_PANEL = 12             # a panel of a long table holds at most this many rows, ordinary ones only, and stays on one page
 
 
 class TableSource(str):
@@ -810,6 +951,8 @@ class TableSource(str):
     checked against the intended content and not against the LaTeX (research/check_outputs.py)."""
     cells: list
     note: str
+    panels: list
+    heads: int
 
 
 def plain_text(v) -> str:
@@ -865,6 +1008,9 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
             lines.append(r"\multicolumn{" + str(len(headers)) + r"}{l}{" + row[1] + r"} \\" + ("*" if long else ""))
             panel_rows.append([])
         elif isinstance(row, tuple) and row[0] == "raw":
+            if long and panel_rows:
+                raise ValueError("a long table has a line of its own LaTeX inside a panel; such a line is neither counted among "
+                                 "the rows of the panel nor kept on its page, so it is not accepted there")
             lines.append(row[1])
         else:
             lines.append(" & ".join(tex_escape(v) for v in row) + r" \\")
@@ -914,6 +1060,7 @@ def table(title: str, headers: list[str], rows: list[list], note: str = "", alig
     # rows of `cells` that are names of panels (the title, the spanning heads and the column heads come first)
     n_head = len(cells) - len([r for r in rows if r != "midrule"])
     out.panels = [n_head + k for k, r in enumerate([r for r in rows if r != "midrule"]) if isinstance(r, tuple) and r[0] == "panel"]
+    out.heads = n_head - 1                      # rows of column heads after the title; a continuation page repeats them
     return out
 
 
@@ -1387,7 +1534,7 @@ def main() -> None:
     T = build_tables(d, N)
     (GEN / "numbers.json").write_text(json.dumps(N, ensure_ascii=False, indent=0, sort_keys=True))
     (GEN / "tables.json").write_text(json.dumps(T, ensure_ascii=False, indent=0))
-    (GEN / "table_cells.json").write_text(json.dumps({name: {"cells": t.cells, "note": t.note, "panels": t.panels} for name, t in T.items()}, ensure_ascii=False, indent=0))
+    (GEN / "table_cells.json").write_text(json.dumps({name: {"cells": t.cells, "note": t.note, "panels": t.panels, "heads": t.heads} for name, t in T.items()}, ensure_ascii=False, indent=0))
     style()
     figure1(d)
     figure2(d)

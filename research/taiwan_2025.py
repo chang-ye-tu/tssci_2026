@@ -62,8 +62,10 @@ def read_ris(path: Path, sheet: str) -> pd.DataFrame:
     the male row.  Columns 4.. are ages 0-99 and the open group 100+."""
     ws = xlrd.open_workbook(str(path)).sheet_by_name(sheet)
     header = ws.row_values(2)
-    if ws.ncols != 105 or str(header[4]) not in ("0.0", "0"):
-        raise ValueError(f"unexpected layout in {path.name}/{sheet}")
+    # the age of a column is taken from its position, so the heads of all 101 age columns are compared: 0 to 99, then 100+
+    ages = [str(int(x)) if isinstance(x, float) and x.is_integer() else str(x).strip() for x in header[4:]]
+    if ws.ncols != 105 or ages != [str(a) for a in range(100)] + ["100+"]:
+        raise ValueError(f"unexpected layout in {path.name}/{sheet}: the columns are not ages 0 to 99 followed by 100+")
     records = []
     r = 3
     while r + 2 < ws.nrows:
